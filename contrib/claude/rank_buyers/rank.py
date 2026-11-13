@@ -847,6 +847,13 @@ if os.path.exists(ROOT + "/data/incoming/claude/overture/cb_sites.csv"):
     for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/overture/cb_sites.csv", encoding="utf-8", newline="")):
         if _r.get("site"):
             CB_SITES[_r["key"]] = _r
+# 2026-11-13: a buyer under contract with no website on file whose very name is the label of one Wikidata item giving an official website (P856):
+# 72 Québec cégeps, agencies, museums and Ontario hospitals (data/incoming/claude/cb_sites_wd.csv); the mailbox reader then reads that site, and
+# the mailbox must still fit the buyer's name there (same_org)
+if os.path.exists(ROOT + "/data/incoming/claude/cb_sites_wd.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/cb_sites_wd.csv", encoding="utf-8", newline="")):
+        if _r.get("site") and _r["key"] not in CB_SITES:
+            CB_SITES[_r["key"]] = dict(_r, _src="wikidata")
 n_cbsite = collections.Counter()
 _AP_LOCAL = re.compile(r"invoic|factur|payables?|acctpay|accountspayable|accounts[._-]?pay|comptes?[._-]?(?:payables?|a[._-]?payer|fournisseurs?)|comptesapayer|(?:^|[._-])a\.?p(?:$|[._-])|^ap[a-z]{0,3}invoice", re.I)
 _WEBMAIL = re.compile(r"^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|aol|protonmail|proton|gmx|videotron|sympatico|bell|rogers|shaw|telus|eastlink|cogeco)\.(?:com|ca|net|fr|co\.uk)$", re.I)
@@ -966,7 +973,7 @@ for p, o in orgs.items():
         _cbs = next((CB_SITES[k_] for k_ in sorted(k for k in o["keys"] if k) if k_ in CB_SITES), None)
         if _cbs:
             be = dict(be, official_website=_cbs["site"], _site_basis=_cbs.get("tied_by") or "")
-            o["be"] = be; n_cbsite["buyer under contract: website from an Overture Maps place, tied on its own home page"] += 1
+            o["be"] = be; n_cbsite["buyer under contract: website from %s" % ("its Wikidata item (P856, the item's label is its name)" if _cbs.get("_src") == "wikidata" else "an Overture Maps place, tied on its own home page")] += 1
     em, et, es, eu, eq, g, acc = emailcols(o["keys"], be, gj, o["name"], be.get("official_website") or "")
     tier = tier_of(r)
     if not (em and acc) and tier in ("A", "B", "L") and not (be.get("official_website") or "").strip() and any(o["keys"]):
@@ -1250,6 +1257,11 @@ def apply_details(x, k):
         _tv = tidy_vendor_address(d["vendor_address"])
         if _tv != d["vendor_address"]:
             d = dict(d, vendor_address=_tv); n_lf["vendor_address_cut_out_of_its_quote"] += 1
+    if str(d.get("value_field") or "").lower() == "amount" and re.search(r"data\.wa\.gov/resource/(?:9ncw-tqjn|t9je-9qwa)", json.dumps(d, ensure_ascii=False)[:3000] + " " + (x.get("contract_link") or "")):
+        # 2026-11-13: Washington L&I's "amount" is the PRIME contract's estimated amount ("Estimated Contract Amount" — Sound Transit's $228 million
+        # light-rail contract on the affidavit of Pro-Bel, whose own "contractamount" was $82,557.60); the filer's own amount is another field, which
+        # tools/lead_scanner.py now prefers. The prime's amount is never this vendor's value.
+        d = dict(d, value="", value_field=""); n_lf["Washington L&I: the prime contract's amount not taken for the filer's value"] += 1
     for col, key in (("contract_value", "value"), ("currency", "currency"), ("contract_reference", "reference"), ("start_date", "start"),
                      ("end_date", "end"), ("vendor_address", "vendor_address"), ("contract_title", "title")):
         if not x.get(col) and d.get(key):
@@ -2689,6 +2701,9 @@ def _bps_cells(x):
     if g_["n_small"] and g_.get("small_rate"):
         parts.append("the %d using under %s kWh a month at %s's own small-business rates in the Ontario Energy Board's file of current rates (fixed charges $%.2f + %.2f ¢ a kWh; %s)"
                      % (g_["n_small"], format(M["small_kwh"], ","), g_["distributor"], g_["small_rate"][0], g_["small_rate"][1], M["oeb_file"]))
+    if g_.get("n_small_hq"):
+        parts.append("the %d using under %s kWh a month at %s at its smallest business level (10,000 kWh a month; %s's own small-business rates are not in the "
+                     "Ontario Energy Board's file as read)" % (g_["n_small_hq"], format(M["small_kwh"], ","), cityw, g_["distributor"]))
     if g_["n_large"]:
         parts.append("the %d larger at %s at the consumption levels of its table on either side of each one's use "
                      "(%s; ¢ a kWh at 1,000 / 10,000 / 100,000 / 400,000 / 1,170,000 / 3,060,000 / 30,600,000 kWh a month, excluding taxes: %s; %s)" % (g_["n_large"], cityw, M["hq_title"], hq, M["hq_pdf"]))
@@ -4373,6 +4388,15 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_bulk.csv"):  # t
                 # 2026-11-09 made the REQ row primary for "Dassault Systèmes (Canada)" and 64 rows lost their BN9. Keep the BN with its own source.
                 CBR[_r["kind"]][_k]["_bn9_other"] = _r["bn9"].strip(); CBR[_r["kind"]][_k]["_bn9_other_src"] = "%s, %s, %s" % (_r.get("registry_source") or "registry open data", _r.get("juri_id") or "", _r.get("retrieved_date") or "")
 print("registry bulk rows added (no API row for the key):", n_bulk, "| registry rows left out, the registered name is only legal-form and place words:", n_reg_generic)
+# 2026-11-13 (billers first, tools/vendor_numbers.py): a vendor the lanes name by its brand or by a bilingual pair, looked up under the legal name its
+# own site prints or under each half of its name — the register entry of exactly that name, active; used where no other register record was found
+n_alias = 0
+if os.path.exists(ROOT + "/data/incoming/claude/claude_registry_alias.csv"):
+    for _r in csv.DictReader(open(ROOT + "/data/incoming/claude/claude_registry_alias.csv", encoding="utf-8", errors="replace")):
+        if _r.get("status") == "found" and _r.get("juri_id") and not reg_name_is_generic(_r.get("matched_name"), _r.get("name")) and norm(_r["key"]) not in CBR["vendor"]:
+            _r["_label"] = "Canada's Business Registries, %s %s" % (_r.get("registry_source") or "", _r.get("juri_id") or "")
+            CBR["vendor"][norm(_r["key"])] = _r; n_alias += 1
+print("registry rows of vendors found under the legal name their own site prints or a half of their name (tools/vendor_numbers.py):", n_alias)
 # 2026-11-10 (row audit, round 3): a buyer's registry record is kept under the row's key, and the row's name changes — a lead first named
 # "Ville de Québec" (a name read off a page of ymcaquebec.org) is "LES YMCA DU QUÉBEC" today, and still carried the City's registered name and
 # NEQ; "UNIVERSITÉ DU QUÉBEC" sat on calculquebec.ca the same way (14 rows with those two names alone). A record is left out when the name it
@@ -5766,8 +5790,11 @@ def bill_profile(x, ld, cls):
             out["bill_amount_indicative"], out["bill_amount_basis"] = cur.get("amount") or "", cur.get("amount_basis") or ""
             b = cur.get("bill") or {}
             for col, k in (("bill_items_as_published", "items"), ("bill_currency_as_published", "currency"), ("bill_delivery_as_published", "delivery"),
-                           ("bill_payment_method_as_published", "payment"), ("bill_tax_rule_as_published", "tax"), ("bill_identifier_format", "identifier"), ("service_stops_if_unpaid", "unpaid")):
+                           ("bill_payment_method_as_published", "payment"), ("bill_tax_rule_as_published", "tax"), ("bill_identifier_format", "identifier"), ("service_stops_if_unpaid", "unpaid"),
+                           ("bill_due_terms_as_published", "terms")):  # 2026-11-13: "terms" — the hand-read bills of Vianet and Hosted in Canada carried it, no row took it
                 out[col] = b.get(k) or ""
+        if not out.get("bill_due_terms_as_published") and vd in getattr(_TR, "DUE_TERMS_BY_DOMAIN", {}):
+            out["bill_due_terms_as_published"] = _TR.DUE_TERMS_BY_DOMAIN[vd]  # when the bill is due, in the host's own terms (tools/tech_relationships.py)
         if rec and not (credit and not hosted and not cur):
             _svc = ("mail" if re.search(r"\b(?:MX|SPF|spf1|DKIM|DMARC)\b|v=spf1|authorises|send its mail|mail is handled", (ld.get("dns_record") or "") + " " + cs, re.I) else "dns") if dns else ""
             low = _VB.lowest(rec, _svc)
@@ -5785,7 +5812,8 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_basis"] = ("not taken: the prices read on the vendor's site (%s) are for another of its products than the one seen in the organisation's DNS records "
                                             "(a mailbox price for a zone on its name servers, or a telephone, television or Internet-access price)" % vd)
             for col, k in (("bill_currency_as_published", "currency"), ("bill_payment_method_as_published", "paymethod"), ("service_stops_if_unpaid", "unpaid"),
-                           ("bill_delivery_as_published", "delivery"), ("bill_tax_rule_as_published", "tax")):  # the last two: reader version 4 (2026-11-11)
+                           ("bill_delivery_as_published", "delivery"), ("bill_tax_rule_as_published", "tax"),  # the last two: reader version 4 (2026-11-11)
+                           ("bill_due_terms_as_published", "terms")):  # reader version 7 (2026-11-13): when the bill is due
                 st_ = _VB.extra_of(rec, k)
                 if st_ and not out.get(col):
                     out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], rec.get("date"))
@@ -5928,7 +5956,7 @@ def bill_profile(x, ld, cls):
         _rec9 = VBILL.get(vd) if vd else None
         if _rec9:
             for col, k in (("bill_payment_method_as_published", "paymethod"), ("bill_delivery_as_published", "delivery"), ("service_stops_if_unpaid", "unpaid"),
-                           ("bill_currency_as_published", "currency"), ("bill_tax_rule_as_published", "tax")):
+                           ("bill_currency_as_published", "currency"), ("bill_tax_rule_as_published", "tax"), ("bill_due_terms_as_published", "terms")):
                 st_ = _VB.extra_of(_rec9, k)
                 if st_ and not out.get(col) and not str(x.get(col) or "").strip():
                     out[col] = "“%s” (%s, read %s)" % (st_["q"][:280], st_["u"], _rec9.get("date"))
@@ -6321,6 +6349,12 @@ for _ri, x in enumerate(rows):
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
         # 2026-11-12 (billers first): a vendor's number in its home register as the global LEI register records it (tools/data/vendor_registers.json,
         # exact legal names only: Smart & Biggar, KPMG, Gowling WLG), when nothing else gave the row a number
+        # 2026-11-13 (owner 13:23 EST, every field): the agent of record as the Office's register names it, with its legal form ("SMART & BIGGAR LP",
+        # "MOFFAT & CO.", "RIEL PROFESSIONAL CORPORATION"), is the firm's legal name: 5,139 agent rows had none
+        if not str(x.get("vendor_legal_name") or "").strip() and (x.get("contract_status") or "").startswith(("client of a Canadian trademark agent", "client of a Canadian patent agent")) \
+                and re.search(r"\b(?:LLP|L\.L\.P\.|LP|L\.P\.|S\.?E\.?N\.?C\.?R\.?L\.?|S\.E\.C\.|INC\.?|INCORPORATED|LTD\.?|LIMITED|LT[ÉE]E|CORP(?:ORATION)?\.?|PROFESSIONAL CORPORATION|& CO\.?|AND COMPANY)\b", x.get("vendor") or "", re.I):
+            x["vendor_legal_name"] = "%s (as the Canadian Intellectual Property Office's register names the agent of record, with its legal form)" % re.sub(r"\s+", " ", x["vendor"]).strip()
+            npk["vendor legal name: the agent of record as the Office's register names it"] += 1
         if VREG and not any(str(x.get(c_) or "").strip() for c_ in ("vendor_bn9", "vendor_neq", "vendor_registry_id")):
             _vr = VREG.get(_vreg_key(x.get("vendor") or ""))
             if _vr:
@@ -6701,6 +6735,13 @@ for _ri, x in enumerate(rows):
         npk["ap_mailbox_ready_yes"] += x["ap_mailbox_ready"] == "yes"
         if (x.get("relationship_fact_basis") or "").startswith("by where it is"):
             x["vendor"] = re.sub(r"^inferred:\s*", "", x.get("vendor") or "")  # the distributor of the address is certain: only the account holder is not published
+        if (x.get("source") or "").lower().startswith("auditor of record") and str(x.get("contract_value") or "").strip() \
+                and not re.search(r"audit|v[ée]rification|honoraires|remuneration of (?:the )?auditor", str(x.get("contract_value") or ""), re.I):
+            # 2026-11-13 (owner 13:23 EST: "everything accurate no errors"): an auditor of record's row had taken a figure of the statements or of the
+            # Financial Information Return for the contract's value (City of Kamloops 17,265,535; Township of Brudenell 25,751,298 — a total, not the
+            # audit fee): only a value whose quote names the audit fee is kept
+            x["contract_value"] = ""; x["contract_value_from_pair"] = ""
+            n_x2["auditor of record: a figure of the statements not taken for the audit fee"] += 1
         _k9, _r9, _o9 = _RR.owner_test(x)
         n_ship[(_k9, x["payment_route"], "yes" if not _o9 else "no")] += 1
         if not _o9:

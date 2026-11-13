@@ -204,7 +204,7 @@ def build(a):
             n["facilities left out: " + k] += v
         groups = {}
         for f, b in keep:
-            g = groups.setdefault(b["key"], {"distributor": b["name"], "n": 0, "kwh": 0.0, "month": 0.0, "n_small": 0, "n_large": 0, "small_rate": None, "city": "",
+            g = groups.setdefault(b["key"], {"distributor": b["name"], "n": 0, "kwh": 0.0, "month": 0.0, "n_small": 0, "n_small_hq": 0, "n_large": 0, "small_rate": None, "city": "",
                                              "pcs": [], "places": []})
             m = f["kwh"] / 12.0
             city = "Toronto" if b["key"] == "toronto_hydro" else "Ottawa" if b["key"] == "hydro_ottawa" else ""
@@ -216,7 +216,10 @@ def build(a):
             else:
                 p, _lv = price_large(m, cp)
                 bill = m * p / 100.0
-                g["n_large"] += 1
+                if m < SMALL:
+                    g["n_small_hq"] += 1  # a small facility of a distributor whose small-business rates are not in the Board's file as read: the small-power price
+                else:
+                    g["n_large"] += 1
             g["city"] = city or "Ottawa and Toronto"
             g["n"] += 1; g["kwh"] += f["kwh"]; g["month"] += bill
             if f["pc"] not in g["pcs"]:
@@ -325,9 +328,13 @@ def index(orgs):
                 ix["muni"][mk[:2]].append((o, mk[2]))
             continue
         t = _toks(o)
+        t0 = list(t)
         if k == "hosp" and len(t) > 2 and t[0] in {w for p in places for w in p.split()}:
             t = t[1:]  # "Toronto University Health Network": the city in front
         core = frozenset(w for w in t if w not in (_HOSP if k == "hosp" else _INST if k == "inst" else ()))
+        if not core and t0 != t:
+            t = t0  # "Hamilton Health Sciences Corporation": the city is the name — kept, and then the whole name must be the same
+            core = frozenset(w for w in t if w not in (_HOSP if k == "hosp" else _INST if k == "inst" else ()))
         if core:
             # a core of place names only ("The Ottawa Hospital": ottawa) is not distinctive: there the whole name must be the same
             only_places = core <= {w for p in places for w in p.split()} | {"toronto", "ottawa", "ontario"}
@@ -347,11 +354,16 @@ def _dom(url_or_mail):
     return (registrable(h) or h) if h else ""
 
 
+_NOT_BODY = re.compile(r"\b(?:foundation|fondation|auxiliary|auxiliaire|volunteers?|b[ée]n[ée]voles|alumni|anciens|students?|[ée]tudiants?|association|union|syndicat|"
+                       r"federation|f[ée]d[ée]ration|society|soci[ée]t[ée]|club|guild|research institute)\b", re.I)
+
+
 def match(ix, name, address, jur, email=""):
     """the organisation of the reports this row is, or None — (organisation, how). A row without a postal code: a municipality by name in a
     row of Ontario; any body whose mailbox is on the domain of the website its province's directory gives it (City of Ottawa, ottawa.ca)"""
     if not ix or not name:
         return None
+    name = re.sub(r"\s*\([^()]{1,40}\)\s*", " ", name).strip() or name  # "(DSB1)", "(HGMH)": an abbreviation in brackets is no word of the name
     pcs = re.findall(r"(?<![A-Za-z0-9])([KLMNP]\d[A-Z])\s?\d[A-Z]\d(?![A-Za-z0-9])", (address or "").upper())
     if re.search(r"(?<![A-Za-z0-9])[ABCEGHJRSTVXY]\d[A-Z]\s?\d[A-Z]\d(?![A-Za-z0-9])", (address or "").upper()) and not pcs:
         return None  # a postal code of another province
@@ -385,6 +397,8 @@ def match(ix, name, address, jur, email=""):
                                  "name, in a row of Ontario without a postal code")
         return None
     best = None
+    if _NOT_BODY.search(name):
+        return None  # a foundation, an auxiliary, an alumni or student body: an organisation of its own beside the body
     kinds = {k for k, rx in _KW.items() if rx.search(name)}
     if not kinds:
         return None
@@ -398,6 +412,13 @@ def match(ix, name, address, jur, email=""):
             ok = frozenset(t) == full
         else:
             ok = rcore == core or (core <= rcore and len(core) >= 2 and rcore - core <= (_HOSP | _INST | {w for p in ix["orgs"][o]["_places"] for w in p.split()}))
+        if not ok and md:
+            # the row's mailbox is on the website Ontario's directory gives the body ("apinvoice@uwo.ca" — the University of Western Ontario's
+            # uwo.ca, a row named "Western University"), the two names share a word that is not a generic one, and the row's name says nothing
+            # the body's own name does not ("University of Waterloo SAF", "University Health Network - Toronto Rehab": a unit, not the body)
+            dr = ix["orgs"][o].get("directory") or {}
+            extra = {w for w in t if w not in _HOSP and w not in _INST} - full
+            ok = bool(dr.get("site_ok") and _dom(dr.get("website")) == md and (set(t) & (core - {"ontario", "toronto", "canada"})) and not extra)
         if not ok:
             continue
         a = agrees(ix["orgs"][o])

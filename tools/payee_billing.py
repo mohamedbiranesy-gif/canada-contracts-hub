@@ -30,7 +30,10 @@ PAYEES = [
          payment=("through a financial institution's online banking, or by cheque / postal money order: “Vous pouvez effectuer le paiement de votre licence de deux façons : en ligne : pour ce faire, "
                   "consultez la page Paiement en ligne ou sur le site Internet des institutions financières suivantes : Caisses Desjardins, Banque Nationale et Banque Laurentienne.” … "
                   "“par la poste : en envoyant un chèque ou un mandat-poste à notre bureau de”"),
-         unpaid="“Si vous n’avez pas acquitté les droits et frais de maintien de votre licence à son échéance, elle cessera d’avoir effet.”"),
+         unpaid="“Si vous n’avez pas acquitté les droits et frais de maintien de votre licence à son échéance, elle cessera d’avoir effet.”",
+         # 2026-11-13: when it is due, in the same sentences of the Régie's page (the licence's yearly échéance; the notice comes 60 days before it)
+         terms=("by the licence's yearly due date (its échéance), the notice of assessment mailed 60 days before: “Un avis de cotisation vous sera envoyé par la poste 60 jours "
+                "avant l’échéance de votre licence.” … “Si vous n’avez pas acquitté les droits et frais de maintien de votre licence à son échéance, elle cessera d’avoir effet.”")),
     dict(names=["The City of Calgary", "City of Calgary"], hosts=["calgary.ca"], read="2026-11-11",
          url="https://www.calgary.ca/buy-sell/buy-from-city/invoices.html",
          delivery="an invoice of the City (its page on paying one): “For any inquiries about the invoice you’ve received, please refer to the contact details listed on the top of your invoice.”",
@@ -51,7 +54,9 @@ PAYEES = [
          remit_to=("“Urban Planning and Economy City of Edmonton PO Box 2670 Edmonton, Alberta T5J 2G4” — “Include the top portion of your renewal notice, and write your account number on your "
                    "cheque or money order.”"),
          remit_to_url="https://www.edmonton.ca/business_economy/licences_permits/renew-your-business-licence",
-         unpaid="“Permits/Licences are not issued until all fees have been paid.”"),
+         unpaid="“Permits/Licences are not issued until all fees have been paid.”",
+         terms=("before the licence expires, the renewal notice mailed about 45 days ahead: “A renewal notice will be sent to the mailing address on file approximately 45 days "
+                "before your licence expires.” … “Permits/Licences are not issued until all fees have been paid.”")),
     # the City of Toronto: every kind of licence has its own page with the same four sentences (the page read here is the one for building renovators);
     # the City also publishes, every night, its list of outstanding licence invoices (tools/payee_fees.py reads it and the fee of each kind of licence)
     dict(names=["City of Toronto", "The City of Toronto"], hosts=["toronto.ca"], read="2026-11-11",
@@ -62,7 +67,9 @@ PAYEES = [
          payment=("in person, online (by credit card, with the invoice number) or by cheque: “Licence renewal fees can be made in-person, paid online or by sending a cheque.” … "
                   "“Once you have your invoice number, you can pay online using a credit card.” (the second sentence is on the City's list of outstanding invoices, "
                   "https://www.toronto.ca/data/mls/invoices/index.html)"),
-         unpaid="“If you fail to renew your licence according to the bylaw, your licence will be cancelled and you will have to reapply.”"),
+         unpaid="“If you fail to renew your licence according to the bylaw, your licence will be cancelled and you will have to reapply.”",
+         terms=("by the licence's yearly anniversary, when it expires: “Your licence will expire annually on the anniversary of the date that the licence was first issued.” … "
+                "“If you fail to renew your licence according to the bylaw, your licence will be cancelled and you will have to reapply.”")),
     # the Canadian Intellectual Property Office: how its fees can be paid. Its page does not say that it sends an invoice or a notice for a fee,
     # so nothing is written about how the bill arrives, and the owner's test says so on the rows it bills directly.
     dict(names=["Canadian Intellectual Property Office", "Canadian Intellectual Property Office (CIPO)", "CIPO"], hosts=["opic-cipo.gc.ca", "cipo.ic.gc.ca"], read="2026-11-11",
@@ -89,6 +96,7 @@ PAYEES = [
                   "fournisseur sélectionné, le numéro de référence de 11 chiffres se trouvant en haut à droite de la facture doit être utilisé.”"),
          unpaid=("“Le défaut d’avoir payé une facture à la date d’échéance qui y est indiquée pourrait entraîner un refus de la délivrance de permis et de licences et autorisations ou leur "
                  "révocation sans autre avis ni délai.”"),
+         terms="by the due date printed on the invoice: “Le montant indiqué sur toute facture doit être acquitté avant la date d’échéance qui y est indiquée.”",
          # the yearly fee by kind of permit, from the Régie's fee table (the second amount of each line is the column “Droits annuels exigés”)
          amounts_url="https://www.racj.gouv.qc.ca/alcool/boite-a-outils/frais-et-droits-payables-se-rattachant-au-secteur-de-lalcool",
          amounts=[(r"\brestaurant\b", "688 $ a year", "“Permis de restaurant Frais d'étude et droits à payer au moment de la transmission de la demande Droits annuels exigés* Nouvel établissement (où aucun permis n'est en vigueur) ou nouvelle demande 289 $** 688 $”"),

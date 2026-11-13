@@ -2149,3 +2149,21 @@ Asked at 15:16Z and 16:44Z, answered "no" and "no":
 - A utility abroad held by several Canadian pension funds together (Puget Sound Energy, Minnesota Power) does not count.
 Nothing had been built on either: no lane, lead or row changes. data/incoming/claude/canadian_owned/subsidiaries_abroad.csv.gz (the LEI register's
 Canadian parents) stays on file as data only — it confirmed the parents of rule 18's utilities.
+
+## 2026-11-13 19:14Z — lane claude: an Ontario public body's own energy report is a record of its distributor's bill (owner 13:20 / 13:23 EST: "estimate as precise and specific to relationship as possible … add as much over 5000 as possible … go through every row populate as much as can be max")
+- Source: the Ministry of Energy and Mines' open data of the broader public sector's energy reports under O. Reg. 25/23 (2024; 2023 for the 72
+  school boards, absent from 2024): one row per facility with its address and the kWh of electricity bought from the grid. s. 6 (1) of the
+  regulation asks for a facility's report only where "the public agency is issued the invoices and is responsible for making the payments for the
+  building or facility's energy consumption". So the account holder is published (the body itself), and the biller is the distributor licensed
+  for each facility's postal code (by_location.biller_for). The dataset's page adds that some bodies also report facilities voluntarily: said on the row.
+- New kind "utility account by own report" (relationship_rows): same fields as a location row, ranked as a record (priority_sort 5).
+- The bill: each facility's monthly use priced — under 12,000 kWh a month at its distributor's own small-business rates (OEB file, as the
+  distributor's record carries them); larger at the lower of Hydro-Québec's 2025 average prices for Toronto / Ottawa at the levels on either side
+  of its use (the lowest of the four outside Toronto Hydro's and Hydro Ottawa's areas). Labelled "estimated —" with every figure's source.
+  Left out and counted: use implausible for the floor area (> 1,500 kWh/m² a year for a building), a duplicate kWh figure, a parent and its
+  children counted twice, a postal code with no single distributor. 573 bodies; 478 with a bill of $5,000 a month or more from one distributor.
+- Which row: one per buyer. A body's row by where it is takes the record (the distributor of its largest bill). A row on anything else gives way
+  to it only when it carries no published $5,000+ amount, no other row of the body does, and the report's bill is $5,000 a month or more
+  (rule 15's order); the relationship it stood on stays in other_relationship_sources.
+- Bodies not in the table: their website and address from Ontario's school board contact list and directory of institutions (FIPPA / MFIPPA);
+  23 new leads, 142 addresses in org_places.csv.gz. Their e-mail column is never read.

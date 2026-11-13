@@ -122,7 +122,9 @@ _CARD = re.compile(r"credit card|carte de cr[ée]dit|\bvisa\b|mastercard|\bamex\
 _BANK = re.compile(r"bank transfer|wire transfer|\bwire\b|virement|e-?transfer|interac|\beft\b|electronic funds|direct deposit|d[ée]p[oô]t direct|\bcheques?\b|\bchecks?\b|ch[èe]ques?|pre-?authori[sz]ed (?:debit|payment)|"
                    # 2026-11-12: a debit of the customer's bank account, as a biller's terms say it ("bill your credit card/bank account … or issue an invoice")
                    r"(?:bill|charge|debit)s?\s+(?:to\s+)?your\s+(?:credit card\s*/\s*)?bank account|"
-                   r"pr[ée]l[èe]vement|\bACH\b|bill payment|money order|mandats?[- ]postes?|at (?:a|your) (?:bank|financial institution)|institution financi|"
+                   # 2026-11-13: a bank's own bill-payment service ("online banking bill payment", "Bank Bill Pay", "Bill Payment Service"), not a biller's own
+                   # "online bill payment page" for cards (Secure by Design: “Our online bill payment page is available to pay your bill with your Visa or Master Card.”)
+                   r"pr[ée]l[èe]vement|\bACH\b|(?:online|telephone|internet)\s+banking\s+bill\s+pay(?:ments?)?\b|bank\s+bill\s+pay(?:ments?)?\b|bill\s+payments?\s+(?:services?|through|via|at|from)\b|money order|mandats?[- ]postes?|at (?:a|your) (?:bank|financial institution)|institution financi|"
                    # 2026-11-11: the words of a bank's own bill-payment service, as utilities and public bodies print them ("Add NB Power as a payee",
                    # "through your bank", "automatic payments from your bank account") — NB Power's page read as card only without them
                    r"through (?:a|your|the|most) (?:banks?|financial institutions?|credit unions?)|from (?:a|your) bank account|online banking|telephone banking|as a payee|"
@@ -432,6 +434,19 @@ def estimated_amount(x):
     return _f(m.group(1)) if m else None
 
 
+# 2026-11-13 (owner 13:23 EST: "everything accurate no errors"): the value of a framework agreement, a multiple-award vehicle, a master blanket, a
+# contrat-cadre or a roster is the ceiling under which the buyer MAY order — shared among its suppliers (the UK's G-Cloud lot of £14 billion was
+# spread as £292 million a month to one small vendor). It is not a bill: what the vendor bills under it is not published. An order placed under it
+# (a call-up, a delivery or task order, a contract against a standing offer) is a contract of its own and keeps its value.
+_CEILING = re.compile(r"framework agreement|multi-?supplier|multiple award|indefinite delivery|\bIDV\b|master blanket|contrat-cadre|prequalification|\broster\b", re.I)
+_ORDER = re.compile(r"call-?up|delivery order|task order|contract against|contrat (?:subséquent|à commande)", re.I)
+
+
+def is_ceiling(x):
+    it = " ".join(str(x.get(c) or "") for c in ("instrument_type", "instrument_type_normalized", "instrument_type_from_pair", "contract_title"))
+    return bool(_CEILING.search(it)) and not _ORDER.search(it)
+
+
 _A_MONTH = re.compile(r"about \$?(" + _NUM + r") a month")
 def contract_bill(x):
     """(the amount of one bill of a contract, how it is had: "calculated" | "estimated" | "whole", words) — or (None, "", "") for a row with no contract value.
@@ -456,6 +471,9 @@ def amount_mark(x):
     """the class of the row's amount (see FLOOR), with the figure it rests on"""
     amt, col = published_amount(x)
     est = estimated_amount(x)
+    if col == "contract_value" and is_ceiling(x):
+        return ("5 no amount (the published value, %s, is the ceiling of a framework, a multiple-award vehicle or a roster the buyer may order under; "
+                "what this vendor bills under it is not published)" % format(amt, ",.0f"))
     if col == "contract_value":
         bill, how, words = contract_bill(x)
         n0 = lambda v: format(v, ",.0f")
@@ -507,8 +525,11 @@ def estimate_missing_amount(x, kind):
     if kind == "public contract":
         t = str(x.get("typical_contract_value_p50") or "").replace(",", "")
         p50 = _f(t) if re.match(r"^\d", t) else None
-        if p50 and p50 > 0:
-            n = re.match(r"\d+", str(x.get("contracts_with_canadian_suppliers") or ""))
+        n0 = re.match(r"\d+", str(x.get("contracts_with_canadian_suppliers") or ""))
+        # 2026-11-13: a median of one contract, or a median above $2 million, is no estimate of a typical bill (Carling Township's one record gave KPMG
+        # $3.8 million; a parse error gave the WSIB a median of $785 million) — no estimate then
+        if p50 and p50 > 0 and n0 and int(n0.group(0)) >= 5 and p50 <= 2_000_000:
+            n = n0
             d = str(x.get("average_contract_duration_days") or "")
             dur = int(d) if d.isdigit() else 0
             per = ("; spread over this buyer's average term of %d days, about $%s a month" % (dur, format(p50 / max(1.0, dur / 30.44), ",.0f"))) if dur >= 28 else ""
@@ -675,7 +696,10 @@ def po_or_reference(x, kind):
 def owner_test(x):
     """payment route, fields of the kind, ship ready — on any row of the table (a buyer's row or a pair row)"""
     kind = kind_of(x)
-    if kind == "public contract" and not _has(x, "bill_amount_calculated"):
+    if kind == "public contract" and is_ceiling(x) and published_amount(x)[1] == "contract_value":
+        x["bill_amount_calculated"] = ("not a bill: the published value is the ceiling of a framework, a multiple-award vehicle or a roster under which the buyer may "
+                                       "order; what this vendor bills under it is not published")
+    elif kind == "public contract" and not _has(x, "bill_amount_calculated"):
         vy = value_by_year(x) or value_by_buyer_term(x)
         if vy:
             x["bill_amount_calculated"] = vy
