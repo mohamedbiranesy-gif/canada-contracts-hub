@@ -8,10 +8,10 @@
  },
  "data/incoming/claude/claude_ap_terms_pages.csv.gz": {
   "tag": "harvest-state",
-  "asset": "claude_ap_terms_pages.215f640648a7.csv.gz",
-  "bytes": 10382363,
-  "sha256": "215f640648a74d4d9dc4daed793455c9e0136679bff0a12eb2e3fd63605e0b1f",
-  "updated": "2026-11-13T13:06:43Z"
+  "asset": "claude_ap_terms_pages.3e78eb11bf6c.csv.gz",
+  "bytes": 10479726,
+  "sha256": "3e78eb11bf6cdf1c3a894585c68280e9d56cf5e7c89860a70bd82fe89971a443",
+  "updated": "2026-11-13T13:38:46Z"
  },
  "data/incoming/claude/claude_org_contacts.jsonl.gz": {
   "tag": "harvest-state",
