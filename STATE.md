@@ -11,6 +11,21 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox) as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~30k rows.
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 03:00Z — milestone (sites found tonight, all tied by the lanes' own tests; leads written by the workflows):**
+- Trademark owners abroad 13,853 -> 16,886 sites; patent owners abroad 3,069 -> 7,736 (by address 2,245; by legal page 3,863: the site's
+  own terms / privacy / legal notice printing the owner's full legal name with its legal form — "This website is maintained by Merck Sharp &
+  Dohme LLC" — for a site an Overture place lists under the owner's name or at its own street address). Patent leads: 8,302 sites.
+- Owners IN CANADA: Overture places at the register's full postal code -> 22,279 trademark / 3,092 patent owners with candidates; tm-sites
+  and pt-sites (abroad=false, overture=true) dispatched 03:00Z (test 5 of 58 tied).
+- Health Canada companies 2,002 -> 2,167 sites (+165 leads); Form 5500 sponsors 1,578 -> 1,883 (+305 leads); Colombian importers 78 -> 214.
+- A rule learned the hard way: at an ADDRESS, a printed postal code / ZIP ties nothing (every tenant prints it) — 188 such ties (Novartis
+  -> a fitness club at the same postal code) were removed before they became leads; now it counts only when the place bears the
+  organisation's name (tm_register.place_fits).
+- Leaks fixed: credit-scan and dns-services merges recomputed 7-12 minutes of work before every push and lost whole cycles (697,172 sites
+  read on 2026-11-12 15:04Z) -> computed once, main merged on a refused push; credit-scan-salvage.yml merged the lost cycle's artifacts.
+- rank-buyers 01:18Z died ("runner lost communication", 78 min, no publish); re-dispatched 02:38Z. If it dies again: rank-buyers-parts.yml
+  (3 parts, same concurrency group) is the fallback; the container (7 GB) cannot run the full rank.
+
 **2026-11-13 02:15Z — where things stand and the next task (read this first after a reset):**
 - DONE 01:40Z: owners' sites abroad by the owner's OWN STREET ADDRESS (`tools/overture_names.py addr --lanes tm,pt`): the Overture places at
   the register's street number + street + ZIP code (UK: full postcode) that list a website, office buildings with >3 sites kept only under a
