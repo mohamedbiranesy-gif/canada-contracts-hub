@@ -1,5 +1,5 @@
 name: credit-scan-salvage
-# A scan cycle whose merge could not be pushed (credit-scan.yml before 2026-11-13: the merge was recomputed before each push and main had
+# A scan cycle (credit-scan.yml, or dns-services.yml with pattern dns-*) whose merge could not be pushed (credit-scan.yml before 2026-11-13: the merge was recomputed before each push and main had
 # always moved on) leaves its scan shards as artifacts for three days. This merges the shards of the run given, once, with the same command
 # as credit-scan.yml's merge_scan, and pushes with a merge of main on a refused push. Nothing else is read or fetched.
 on:
@@ -9,7 +9,7 @@ on:
         description: "the credit-scan run whose cs-scan-* artifacts to merge"
         required: true
       pattern:
-        description: "artifact name pattern (cs-scan-* for the home-page scan, cs-vendors-* for the vendor proofs)"
+        description: "artifact name pattern (cs-scan-* for the home-page scan, cs-vendors-* for the vendor proofs, dns-* for dns-services)"
         default: "cs-scan-*"
 permissions:
   contents: write
@@ -39,12 +39,13 @@ jobs:
           SFX=$([ "$PATTERN" = "cs-vendors-*" ] && echo v || echo s)
           STAMP="$(date -u +%Y%m%dT%H%M%S)r${RUN_ID}${SFX}"
           git config user.name "credit-scan"; git config user.email "credit-scan@users.noreply.github.com"
-          python3 tools/credit_scan.py merge shards --stamp "$STAMP" --lead-shards | tee /tmp/m.txt
+          if [ "$PATTERN" = "dns-*" ]; then python3 tools/dns_services.py merge shards --stamp "$STAMP" | tee /tmp/m.txt
+          else python3 tools/credit_scan.py merge shards --stamp "$STAMP" --lead-shards | tee /tmp/m.txt; fi
           python3 tools/secret_guard.py || true
           git add data/incoming/claude/credit_scan data/incoming/claude/lead_shards 2>/dev/null || true
           for f in claude_buyer_leads_cc.csv claude_lead_details_cc.jsonl.gz claude_tenant_candidates.csv.gz; do [ -e "data/incoming/claude/$f" ] && git add "data/incoming/claude/$f"; done
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
-          git commit -q -m "credit-scan (salvaged run $RUN_ID): $(grep -m1 '^credit scan:' /tmp/m.txt | cut -c14-120) [skip ci]"
+          git commit -q -m "salvaged run $RUN_ID ($PATTERN): $( (grep -m1 '^credit scan:' /tmp/m.txt || tail -1 /tmp/m.txt) | cut -c1-120) [skip ci]"
           for i in $(seq 1 25); do
             git push -q origin HEAD:main && break
             sleep $((RANDOM % 8 + 2))
