@@ -12,7 +12,7 @@ on:
         description: "minutes per runner"
         default: "330"
   schedule:
-    - cron: "17 5 * * 1"   # weekly: products listed since
+    - cron: "17 17 * * *"   # daily: products listed since, then the agents, the producers' sites and the leads
 permissions:
   contents: write
   actions: write
@@ -52,6 +52,7 @@ jobs:
     needs: pull
     if: ${{ always() && needs.pull.result != 'skipped' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -62,8 +63,13 @@ jobs:
         run: |
           git config user.name "saq-agents"; git config user.email "saq-agents@users.noreply.github.com"
           python3 tools/saq_agents.py merge shards | tee /tmp/m.txt
+          # the agents' own sites and addresses, the producers' own sites (Foursquare places, then the name autocomplete for 60 minutes), the leads
+          pip install -q duckdb
+          python3 tools/saq_agents.py agents | tee -a /tmp/m.txt || true
+          python3 tools/saq_agents.py sites --clearbit --minutes 60 | tee -a /tmp/m.txt || true
+          python3 tools/saq_agents.py leads | tee -a /tmp/m.txt || true
           python3 tools/secret_guard.py || true
-          git add data/incoming/claude/saq 2>/dev/null || true
+          git add data/incoming/claude/saq data/incoming/claude/lead_shards/leads_saq_* data/incoming/claude/lead_shards/details_saq_* 2>/dev/null || true
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
           git commit -q -m "saq-agents: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
           for i in $(seq 1 20); do

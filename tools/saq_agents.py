@@ -256,6 +256,27 @@ def cmd_sites(a):
         for r in ex.map(check, list(cands.items())):
             if r:
                 found.append(r)
+    # the producers no Foursquare place gave: the company-name autocomplete's domains (one request a second), each kept by the same test
+    if getattr(a, "clearbit", False):
+        import hc_registers as HR
+        got = {(r["producer"], r["country"]) for r in found}
+        nprod = {(p["producer"], p["country"]): int(p.get("products") or 1) for p in prods}
+        rest = sorted((k for k in want if k not in got), key=lambda k: -nprod.get(k, 1))
+        deadline = time.time() + a.minutes * 60
+        n_cb = 0
+        for k in rest:
+            if time.time() > deadline:
+                break
+            q = re.sub(r"(?i)\b(sa|sas|sarl|srl|spa|s\.p\.a\.|gmbh|ag|ltd|limited|inc|llc|bv|nv|sl|slu|pty)\b\.?", "", k[0]).strip(" ,.")
+            sug = [c for c in (HR.suggest(q) or [])[:3] if c.get("domain")]
+            n_cb += 1
+            if sug:
+                r = check((k, {C.registrable(c["domain"].lower()): (c.get("name") or "", "") for c in sug}))
+                if r:
+                    r["tied_by"] = r["tied_by"].replace("a Foursquare place (Foursquare Open Source Places, release %s) lists this website under the producer's very name in %s" % (rel, k[1]),
+                                                        "the company-name autocomplete (Clearbit) gives this domain for the producer's name")
+                    found.append(r)
+        print("SAQ producers: %d asked of the name autocomplete" % n_cb, flush=True)
     allr = list(have.values()) + found
     with open(SITES, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=SITE_COLS)
@@ -396,6 +417,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["pull", "merge", "producers", "left", "sites", "agents", "leads"])
     ap.add_argument("--workers", type=int, default=16)
+    ap.add_argument("--clearbit", action="store_true", help="sites: also the company-name autocomplete for the producers no Foursquare place gives (one request a second)")
     ap.add_argument("dir", nargs="?", default="shards")
     ap.add_argument("--shard", default="0/1")
     ap.add_argument("--minutes", type=float, default=330)
