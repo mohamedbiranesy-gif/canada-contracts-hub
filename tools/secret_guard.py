@@ -20,7 +20,8 @@ TOKEN = re.compile(r"(?<![A-Za-z0-9])(?:A[KS]IA[0-9A-Z]{16}|AIza[0-9A-Za-z_\-]{3
                    r"github_pat_[0-9A-Za-z_]{40,}|-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----|"
                    # 2026-11-13: a mailbox-crawl merge refused for a Mapbox secret token printed in a page's source (claude_buyer_ap_results_cccrawl11.csv);
                    # the other providers whose tokens GitHub's push protection reads, with the same rule
-                   r"sk\.eyJ[0-9A-Za-z_\-]{20,}\.[0-9A-Za-z_\-]{10,}|sk_test_[0-9A-Za-z]{20,}|rk_test_[0-9A-Za-z]{20,}|whsec_[0-9A-Za-z]{24,}|"
+                   # (Mapbox's public "pk." tokens too: GitHub refused the 09:55Z merge for one, as a "Mapbox Secret Access Token")
+                   r"(?:pk|sk|tk)\.eyJ[0-9A-Za-z_\-]{20,}\.[0-9A-Za-z_\-]{10,}|sk_test_[0-9A-Za-z]{20,}|rk_test_[0-9A-Za-z]{20,}|whsec_[0-9A-Za-z]{24,}|"
                    r"SG\.[0-9A-Za-z_\-]{20,24}\.[0-9A-Za-z_\-]{40,46}|SK[0-9a-f]{32}(?![0-9a-f])|shp(?:at|ca|pa|ss)_[0-9a-fA-F]{32}|"
                    r"sq0(?:atp|csp)-[0-9A-Za-z_\-]{22,43}|GOCSPX-[0-9A-Za-z_\-]{20,}|npm_[0-9A-Za-z]{36}|sk-ant-[0-9A-Za-z_\-]{20,}|sk-proj-[0-9A-Za-z_\-]{20,}|"
                    r"sk-[0-9A-Za-z]{20}T3BlbkFJ[0-9A-Za-z]{20}|glpat-[0-9A-Za-z_\-]{20}|dop_v1_[0-9a-f]{64}|xapp-[0-9A-Za-z\-]{20,}|"
