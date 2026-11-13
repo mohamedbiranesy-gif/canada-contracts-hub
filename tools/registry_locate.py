@@ -26,6 +26,9 @@ TODAY = time.strftime("%Y-%m-%d")
 AC = {"QC": "418 438 450 514 579 581 819 873 367 354 263 468", "ON": "226 249 289 343 365 416 437 519 548 613 647 683 705 742 753 807 905 382",
       "BC": "236 250 257 604 672 778", "AB": "368 403 587 780 825", "MB": "204 431 584", "SK": "306 474 639", "NS": "782 902", "NB": "428 506", "NL": "709 879"}
 PROV_OF_AC = {a: p for p, L in AC.items() for a in L.split()}
+# the matching rules' version, written on every done line: an organisation the registers did not locate is tried again when the rules change
+# (v1 2026-11-13 12Z: very same name as ONE current body; v2 2026-11-13 14Z: and, in Québec, a current OTHER name declared by one body only)
+RULES = "v2"
 
 
 def cmd_targets(a):
@@ -39,9 +42,13 @@ def cmd_targets(a):
     for p in (os.path.join(INC, "overture", "phone_places.csv"), os.path.join(INC, "fsq", "phone_places.csv")):
         if os.path.exists(p):
             unl -= {r["key"] for r in csv.DictReader(open(p, encoding="utf-8", newline=""))}
-    done = set()
+    done = {}
     if os.path.exists(DONE):
-        done = {l.split("\t", 1)[0] for l in open(DONE, encoding="utf-8") if l.strip()}
+        for l in open(DONE, encoding="utf-8"):
+            q = l.rstrip("\n").split("\t")
+            if len(q) >= 2 and q[0]:
+                done[q[0]] = (q[1], q[3] if len(q) >= 4 else "v1")  # the latest line of a key counts
+    done = {k for k, (st, ver) in done.items() if st == "found" or ver == RULES}
     unl -= done
     ph = {}
     if os.path.exists(os.path.join(FACTS, "phones.tsv")):
@@ -88,7 +95,7 @@ def cmd_match(a):
     orgs = [("buyer", t["key"], t["name"], t["prov"], t["site"], "") for t in tg]
     done, rows = set(), []
     if a.req:
-        rows += BRM.match_req([o for o in orgs if o[3] == "QC"], a.req, done)
+        rows += BRM.match_req([o for o in orgs if o[3] == "QC"], a.req, done, other_unique=True)
     cc = [p for pat in a.cc for p in sorted(glob.glob(pat))]
     if cc:
         rows += BRM.match_cc([o for o in orgs if o[3]], cc, done)
@@ -121,7 +128,7 @@ def cmd_match(a):
     with open(DONE, "a", encoding="utf-8") as f:
         got = {o["key"] for o in out}
         for t in tg:
-            f.write("%s\t%s\t%s\n" % (t["key"], "found" if t["key"] in got else "registry_nothing", TODAY))
+            f.write("%s\t%s\t%s\t%s\n" % (t["key"], "found" if t["key"] in got else "registry_nothing", TODAY, RULES))
     print("registry-locate: %d targets, %d located by the head office declared to a register; %s" % (len(tg), len(out), dict(n)), flush=True)
 
 

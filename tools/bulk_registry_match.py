@@ -83,7 +83,25 @@ def wanted_orgs(ranked):
     return out
 
 
-def match_req(orgs, zpath, done):
+_GENERIC_OTHER = {"restaurant", "resto", "bar", "cafe", "garage", "salon", "clinique", "boutique", "atelier", "studio", "services", "service", "construction",
+                  "renovation", "renovations", "transport", "excavation", "entretien", "nettoyage", "toiture", "plomberie", "electricite", "paysagement", "coiffure",
+                  "esthetique", "dentaire", "auto", "autos", "immobilier", "consultants", "consultation", "gestion", "groupe", "solutions", "design", "photo", "traiteur",
+                  "pizzeria", "boulangerie", "epicerie", "depanneur", "pharmacie", "bistro", "location", "centre", "the", "le", "la", "les", "de", "du", "des", "et"}
+
+
+def distinctive(name):
+    """a name that one business would declare as its own: at least two words and eight letters, at least one word of four letters or more that
+    is neither a place nor a trade word ("Restaurant Le Café" is not; "Toitures Bel-Horizon" is). The test is only a floor: the match also needs
+    the name to be declared by one registered body and by no other"""
+    toks = norm(name).split()
+    return len(toks) >= 2 and len("".join(toks)) >= 8 and any(len(t) >= 4 and t not in _GENERIC_OTHER and t not in _PLACE for t in toks)
+
+
+def match_req(orgs, zpath, done, other_unique=False):
+    """other_unique (2026-11-13, tools/registry_locate.py only): an organisation whose name is a current OTHER name (TYP_NOM_ASSUJ A, the name a
+    business declares it operates under) of ONE registered body and of no other — no legal name equal to it, no second body — and whose name is
+    distinctive (distinctive()) is matched to that body even when no city or postal code of its own is known to agree: the caller has put it in
+    Québec by its own telephone number (a business operating in Québec under another name must declare that name)."""
     z = zipfile.ZipFile(zpath)
     wanted = collections.defaultdict(list)  # normalised name -> orgs
     for o in orgs:
@@ -151,6 +169,12 @@ def match_req(orgs, zpath, done):
             if not pool:
                 pool = [(q, t) for q, t in cands if t == "other" and agrees(q)]
                 basis = "a current other name in the registry equals the organisation's name and the city / postal code agrees (REQ open data)"
+            if not pool and other_unique and distinctive(name) and not [1 for q, t in cands if t == "legal"]:
+                _act = sorted({q for q, t in cands if t == "other" and ent[q].get("COD_STAT_IMMAT") in ("IM", "NI")})
+                if len(_act) == 1:
+                    pool = [(_act[0], "other")]
+                    basis = ("a current other name in the registry, declared by one registered body only, equals the organisation's name; the organisation's own "
+                             "telephone number is in Québec (REQ open data)")
             if not pool:
                 rows.append(dict(kind=kind, key=key, name=name, status="ambiguous" if cands else "not_found", candidates="; ".join("%s %s" % (name_of.get(q, ""), q) for q, _ in cands[:5])[:400], registry_source="Registraire des entreprises du Québec (open data)", api_url=REQ_URL, retrieved_date=TODAY, match_basis="other name without city / postal agreement, or legal form differs"))
                 done.add((kind, key)); continue
