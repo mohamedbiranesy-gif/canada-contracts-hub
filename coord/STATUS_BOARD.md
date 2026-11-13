@@ -1,4 +1,4 @@
-# STATUS BOARD (auto-generated 2026-11-13 12:34 UTC — do not edit by hand)
+# STATUS BOARD (auto-generated 2026-11-13 12:57 UTC — do not edit by hand)
 
 ## Dataset (release `dataset-latest`, reference date 2026-11-12)
 | metric | value |
@@ -65,7 +65,7 @@
 | claude | claude_buyer_ap_results_cccrawl08.csv | 44781 | 44781 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl09.csv | 44518 | 44518 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_cccrawl10.csv | 44976 | 44976 | 0 | 0 | 0 |
-| claude | claude_buyer_ap_results_cccrawl11.csv | 42325 | 42325 | 0 | 0 | 0 |
+| claude | claude_buyer_ap_results_cccrawl11.csv | 42327 | 42327 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_ccmine01.csv | 770 | 770 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_crawl01.csv | 77857 | 77857 | 0 | 0 | 0 |
 | claude | claude_buyer_ap_results_deep01.csv | 473 | 473 | 0 | 0 | 0 |
