@@ -11,6 +11,23 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+
+**2026-11-13 19:29Z — OWNER 13:20 / 13:23 EST: "plug is pulled on the 18th … go max … estimates as precise and specific to relationship as possible … add as much over
+5000 as possible … go through every row populate as much as can be max". What was done since 17:00Z (all pushed; measured in the next build):**
+- **Ontario public bodies' own electricity (tools/bps_energy.py, new kind "utility account by own report").** The Ministry of Energy and Mines' open data
+  of the broader public sector's energy reports (O. Reg. 25/23; 2024, and 2023 for the 72 school boards): each facility's address and grid kWh. s. 6 (1)
+  reports a facility only where the body "is issued the invoices and is responsible for making the payments" — the account holder is published. The bill
+  is calculated per facility (small: the distributor's own OEB small-business rates; large: the lower of Hydro-Québec's 2025 average prices for Toronto /
+  Ottawa at the levels around its use) and summed per distributor. 573 bodies, 478 with a $5,000+ monthly bill (City of Toronto ↔ Toronto Hydro ~$14.3M,
+  TDSB ~$3.4M, Hamilton ↔ Alectra ~$2.1M). In the table: a body's location row takes the record; a row with no published $5,000+ gives way to it.
+  Matched to rows by name + address, or by a mailbox on a .ca domain spelling the municipality (City of Toronto / Ottawa rows had no address; the
+  directory's address is put on them). 23 new leads + 142 directory addresses (Ontario's school board list and FIPPA/MFIPPA directory).
+- **Field fill, billers first:** due terms in the billers' own words (Web Hosting Canada 19,386 rows, doteasy, Aplus, CWH, LinkNow, Astral, Webware …;
+  RBQ 5,018, RACJ, Toronto, Edmonton licences); patent agents' rows take CIPO's 2026 yearly maintenance fee (3,962 rows had no amount); chambers named
+  without "of commerce" take the dues estimate; register numbers of 17 vendors under the names they go by (tools/vendor_numbers.py, ~3,000 rows).
+- **Buyers under contract without a website:** 72 get the official website of their Wikidata item (exact label) -> the mailbox reader (each a published contract).
+- In flight: rank 43486392654 (a8d92c1: BPS pass + the give-way fix for rule-18 rows — the 18:26Z table still shows 74 Tampa/Tucson rows with "CA"); the
+  next build takes the directory/mailbox matching, the field fills and the websites. Crawl 43481288933 (30k point leads); addr-reread abroad.
 **2026-11-13 14:40Z — safety-net turn (scheduled; health only, the section above being under 2 hours old):** row-factory, claude-engines, rebuild
 green; verify-and-merge green (cancelled runs = superseded); rank-buyers: the build of 13:29Z running, one failure at 05:34Z ("the ranker's commit
 does not apply on main", a one-off; three builds green since). Growth file (measured 11-13): 330,668 rows; pay on sight yes 1,274 / reference-less
