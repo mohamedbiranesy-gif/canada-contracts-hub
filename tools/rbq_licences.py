@@ -417,6 +417,123 @@ def sites(a):
     os._exit(0)
 
 
+ADDR = os.path.join(INC, "overture", "rbq_addr_candidates.csv")  # tools/overture_names.py addr --lanes rbq
+ADONE = os.path.join(DIR, "addr_done.tsv")
+
+
+def addr_sites(a):
+    """2026-11-13: holders whose register entry gives no domain of their own (31,674 of 50,110): the websites an Overture Maps place at the
+    holder's own postal code lists (tools/overture_names.py addr --lanes rbq). A site is kept by the same proofs as a register domain — the
+    licence number or the telephone number as the register has them, or the site's own name agreeing with the holder's — except the postal
+    code, which every business of the building prints: it counts only when the place itself bears the holder's name.
+    -> out/rbq_sites.jsonl (the same records as `sites`, with "via"), out/rbq_addr_done.tsv"""
+    import ap_crawler as C
+    import biz_licences as BL
+    import lead_crawl as LC
+    import tech_relationships as T
+    import tm_register as TM
+    os.makedirs("out", exist_ok=True)
+    os.makedirs(C.STATE, exist_ok=True)
+    C.HOST_INTERVAL = 0.6
+    if not os.path.exists(ADDR):
+        print("no candidates (tools/overture_names.py addr --lanes rbq)", flush=True)
+        return
+    H = {h["licence"]: h for h in holders()}
+    cand = collections.defaultdict(list)
+    for r in csv.DictReader(open(ADDR, encoding="utf-8", newline="")):
+        if r["key"] in H:
+            cand[r["key"]].append(r)
+    done = {l.split("\t")[0] for l in open(ADONE, encoding="utf-8")} if os.path.exists(ADONE) else set()
+    todo = [k for k in sorted(cand) if k not in done]
+    if a.limit:
+        todo = todo[:a.limit]
+    print("holders with a place at their own postal code that lists a website: %d; asked before: %d; to read now: %d" % (len(cand), len(done), len(todo)), flush=True)
+    deadline = time.time() + a.minutes * 60
+    lock, stats = threading.Lock(), collections.Counter()
+    fo = open("out/rbq_sites.jsonl", "a", encoding="utf-8")
+    fd = open("out/rbq_addr_done.tsv", "a", encoding="utf-8")
+
+    def page(url):
+        if not C.allowed(url):
+            return "robots", "", url
+        st, ct, data, final = C.fetch(url, 1_500_000)
+        if st == 0:
+            return "unreachable", "", final
+        head = data[:20000].decode("utf-8", "replace") if data else ""
+        if st in (401, 403, 429) or (C.BLOCK_RX.search(head) and len(data) < 30000):
+            return "blocked", "", final
+        if st != 200 or not data:
+            return "http_%s" % st, "", final
+        return "ok", data.decode("utf-8", "replace"), final
+
+    def one(lic):
+        if time.time() > deadline:
+            return
+        h = H[lic]
+        got = ""
+        for c in cand[lic]:
+            dom = c["site"]
+            rec = {"dom": dom, "date": TODAY, "st": "", "hits": [], "via": "an Overture Maps place at the holder's own postal code (%s; “%s”, place %s, release %s)" % (
+                c["place_postcode"], c["place_name"], c["place_id"], c["release"])}
+            try:
+                res, raw, final = page("https://%s/" % dom)
+                rec["st"], rec["final"] = res, final
+                if res != "ok":
+                    continue
+                fhost = (urllib.parse.urlparse(final).hostname or dom).lower()
+                title, meta = T.page_meta(raw)
+                name = LC.site_name_for(fhost, meta.get("og:site_name"), title, T)
+                rec["name"] = name or ""
+                pages = [(final, raw)]
+                for link, label in C.links(raw, final):
+                    p_ = urllib.parse.urlparse(link)
+                    if (p_.scheme in ("http", "https") and C.registrable((p_.hostname or "").lower()) == C.registrable(fhost) and not C.SKIP_EXT.search(p_.path)
+                            and CONTACT.search(p_.path + " " + label) and len(pages) < 3 and link.split("#")[0].rstrip("/") != final.rstrip("/")):
+                        r2, raw2, f2 = page(link.split("#")[0])
+                        if r2 == "ok":
+                            pages.append((f2, raw2))
+                pr = [(w, rx) for w, rx in proofs(h) if w != "postal code" or TM.place_fits(h["name"] + " " + (h.get("other_names") or ""), c.get("place_name") or "")]
+                hit = None
+                for url, rw in pages:
+                    text = C.visible(rw)
+                    for what, rx in pr:
+                        m = rx.search(text)
+                        if m:
+                            hit = dict(licence=lic, by=what, url=url, quote=re.sub(r"\s+", " ", text[max(0, m.start() - 110):m.end() + 110]).strip()[:300])
+                            break
+                    if hit:
+                        break
+                if not hit and name and (BL.names_agree(name, h["name"]) or any(BL.names_agree(name, o) for o in re.split(r"\s*[;|]\s*", h.get("other_names") or "") if o.strip())):
+                    hit = dict(licence=lic, by="name", url=final, quote="site name “%s” — holder “%s”%s" % (name[:90], h["name"][:90], (" / “%s”" % h["other_names"][:80]) if h.get("other_names") else ""))
+                if hit:
+                    hit["register_email_on_page"] = any(h.get("email") and h["email"] in rw.lower() for _, rw in pages if rw)
+                    rec["hits"].append(hit)
+                rec["st"] = "confirmed" if rec["hits"] else "not_confirmed"
+            except Exception as e:
+                rec["st"] = "error:" + type(e).__name__
+            finally:
+                with lock:
+                    stats[rec["st"].split(":")[0]] += 1
+                    for x in rec["hits"]:
+                        stats["by " + x["by"]] += 1
+                    if rec["st"] in ("confirmed", "not_confirmed"):
+                        fo.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            if rec["hits"]:
+                got = dom
+                break
+        with lock:
+            fd.write("%s\t%s\n" % (lic, got))
+            stats["holders asked"] += 1
+            stats["holders tied"] += bool(got)
+            if stats["holders asked"] % 300 == 0:
+                fo.flush(); fd.flush()
+                print(time.strftime("%H:%M:%S"), dict(stats), flush=True)
+    with ThreadPoolExecutor(a.workers) as ex:
+        list(ex.map(one, todo))
+    fo.close(); fd.close()
+    print("addr finished", dict(stats), flush=True)
+
+
 LEAD_COLS = ["buyer_key", "buyer_name", "website", "canadian_vendor_rows", "example_vendor", "canada_field_value", "evidence_dataset", "latest_record_date"]
 
 
@@ -460,6 +577,15 @@ def merge(a):
             fo.write(fi.read())
     H = {h["licence"]: h for h in holders(HOLDERS)}
     msg.append("licence holders on the active list (legal persons): %d" % len(H))
+    _ad = os.path.join(a.dir, "rbq_addr_done.tsv")
+    if os.path.exists(_ad):  # 2026-11-13: holders asked with the places at their own postal code
+        _old = open(ADONE, encoding="utf-8").read().splitlines() if os.path.exists(ADONE) else []
+        _seen = set(_old)
+        _new = [l for l in open(_ad, encoding="utf-8").read().splitlines() if l and l not in _seen]
+        with open(ADONE, "a", encoding="utf-8") as _f:
+            for l in _new:
+                _f.write(l + "\n")
+        msg.append("holders asked with the places at their own postal code: %d more" % len(_new))
     recs = []
     for f in sorted(glob.glob(os.path.join(a.dir, "rbq_sites*.jsonl"))):
         for l in open(f, encoding="utf-8"):
@@ -658,7 +784,7 @@ def merge(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["pull", "sites", "merge"])
+    ap.add_argument("cmd", choices=["pull", "sites", "merge", "addr-sites"])
     ap.add_argument("dir", nargs="?", default="out")
     ap.add_argument("--csv", default="")
     ap.add_argument("--minutes", type=float, default=60)
@@ -666,7 +792,7 @@ def main():
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--stamp", default="")
     a = ap.parse_args()
-    {"pull": pull, "sites": sites, "merge": merge}[a.cmd](a)
+    {"pull": pull, "sites": sites, "merge": merge, "addr-sites": addr_sites}[a.cmd](a)
 
 
 if __name__ == "__main__":

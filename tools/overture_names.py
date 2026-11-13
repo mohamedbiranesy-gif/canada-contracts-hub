@@ -350,7 +350,8 @@ def addr(a):
              "hc": (None, None, None, None, None, None, os.path.join(OUT, "hc_addr_candidates.csv")),
              # 2026-11-13: owners IN CANADA of the two registers (the full postal code: a block face or one building)
              "tmca": (TM.DIR, TM.OWN_CA, TM.MATCHES, TM.FOUND, TM.SDONE, None, os.path.join(TM.DIR, "tm_overture_addr_ca_sites.csv")),
-             "ptca": (PT.DIR, PT.OWN_CA, PT.MATCHES, PT.FOUND, PT.SDONE, None, os.path.join(PT.DIR, "pt_overture_addr_ca_sites.csv"))}
+             "ptca": (PT.DIR, PT.OWN_CA, PT.MATCHES, PT.FOUND, PT.SDONE, None, os.path.join(PT.DIR, "pt_overture_addr_ca_sites.csv")),
+             "rbq": (None, None, None, None, None, None, os.path.join(OUT, "rbq_addr_candidates.csv"))}
     want, words_of = {}, {}
     if "f55" in a.lanes.split(","):
         # 2026-11-13: US employers of the Form 5500 lane (tools/f5500_benefits.py) without a site: the sponsor's own street address and ZIP code
@@ -395,7 +396,23 @@ def addr(a):
                         n_["US"] += 1
                         words_of[("hc", r["key"])] = {t for t in TM.nkey_x(r["name"]).split() if len(t) >= 4 and t not in TM.GENERIC}
         print("hc: companies without a site, with an address to look at: %s" % dict(n_), flush=True)
-    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc")]:
+    if "rbq" in a.lanes.split(","):
+        # 2026-11-13: Québec construction licence holders (tools/rbq_licences.py) whose register entry gives no domain of their own, or whose
+        # domain did not confirm: the full postal code
+        import rbq_licences as RB
+        rec = RB.checked()
+        conf = {h["licence"] for o in rec.values() for h in (o.get("hits") or [])}
+        n_ = collections.Counter()
+        for h in RB.holders(RB.HOLDERS):
+            if h["licence"] in conf:
+                continue
+            pc = TM.pc6(h.get("postal") or "")
+            if pc:
+                want[("rbq", h["licence"])] = ("CA", pc, "", "")
+                words_of[("rbq", h["licence"])] = {t for t in TM.nkey((h.get("name") or "") + " " + (h.get("other_names") or "")).split() if len(t) >= 4 and t not in TM.GENERIC}
+                n_["CA"] += 1
+        print("rbq: holders without a confirmed site, with a postal code: %s" % dict(n_), flush=True)
+    for lane in [x for x in a.lanes.split(",") if x in files and x not in ("f55", "hc", "rbq")]:
         d_, own, matches, found, sdone, ovt, _ = files[lane]
         skip = set()
         for p_ in (matches, found, ovt):
@@ -511,7 +528,7 @@ def addr(a):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["key" if lane in ("f55", "hc") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
+            w.writerow(["key" if lane in ("f55", "hc", "rbq") else "owner_key", "site", "how", "place_name", "place_postcode", "place_id", "release"])
             for k, d, (name, z, pid, street) in sorted(out[lane]):
                 cc = want[(lane, k)][0]
                 w.writerow([k, d, "the owner's own street address (%s, %s %s)" % (street[:60], "ZIP code" if cc == "US" else "postcode", z) if cc == "US" else

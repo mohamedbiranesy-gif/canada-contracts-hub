@@ -16,6 +16,9 @@ on:
       limit:
         description: "at most this many domains (0 = no limit)"
         default: "0"
+      addr_minutes:
+        description: "minutes of reading the sites an Overture place at a holder's own postal code lists (holders with no domain of their own)"
+        default: "90"
 permissions:
   contents: write
   actions: write
@@ -25,7 +28,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 200
+    timeout-minutes: 260
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -37,7 +40,16 @@ jobs:
           rm -f out/rbq_raw.csv out/rbq_raw.json
           cp out/rbq_holders.csv.gz keep/
           python3 tools/rbq_licences.py sites --minutes "$MINUTES" --limit "$LIMIT" --workers 60 2>&1 | tail -40 | tee -a /tmp/r.txt
+          # 2026-11-13: holders whose register entry gives no domain of their own: the websites an Overture place at their own postal code lists,
+          # kept on the licence number, the telephone, the site's name (the postal code only when the place bears the holder's name); the
+          # candidate list is made again when Overture publishes a newer release
+          newest=$(curl -sS --retry 3 "https://overturemaps-us-west-2.s3.amazonaws.com/?list-type=2&prefix=release/&delimiter=/" | grep -o 'release/[0-9-]*\.[0-9]*/' | sort | tail -1 | cut -d/ -f2)
+          made=$(tail -1 data/incoming/claude/overture/rbq_addr_candidates.csv 2>/dev/null | awk -F, '{print $NF}' | tr -d '\r')
+          if [ -n "$newest" ] && [ "$made" != "$newest" ]; then pip install -q duckdb && python3 tools/overture_names.py addr --lanes rbq 2>&1 | tail -3 | tee -a /tmp/r.txt || true; fi
+          python3 tools/rbq_licences.py addr-sites --minutes "${{ inputs.addr_minutes || '90' }}" --workers 40 2>&1 | tail -5 | tee -a /tmp/r.txt || true
           cp out/rbq_sites.jsonl keep/ 2>/dev/null || true
+          cp out/rbq_addr_done.tsv keep/ 2>/dev/null || true
+          mkdir -p keep/ovt && cp data/incoming/claude/overture/rbq_addr_candidates.csv keep/ovt/ 2>/dev/null || true
       - name: Commit
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
@@ -46,9 +58,10 @@ jobs:
           git config user.name "rbq-licences"; git config user.email "rbq-licences@users.noreply.github.com"
           for i in $(seq 1 12); do
             git fetch -q origin main && git reset -q --hard origin/main && git clean -q -fd data/incoming/claude/rbq data/incoming/claude/lead_shards
+            mkdir -p data/incoming/claude/overture && cp keep/ovt/rbq_addr_candidates.csv data/incoming/claude/overture/ 2>/dev/null || true
             python3 tools/rbq_licences.py merge keep --stamp "$STAMP" | tee /tmp/m.txt
             python3 tools/secret_guard.py || true   # no pre-signed storage address, no key-shaped token in what is committed
-            git add data/incoming/claude/rbq data/incoming/claude/lead_shards 2>/dev/null || true
+            git add data/incoming/claude/rbq data/incoming/claude/lead_shards data/incoming/claude/overture/rbq_addr_candidates.csv 2>/dev/null || true
             git diff --cached --quiet && { echo "nothing new"; break; }
             git commit -q -m "rbq-licences: $(tail -1 /tmp/m.txt | cut -c22-170) [skip ci]"
             git push -q origin HEAD:main && break
