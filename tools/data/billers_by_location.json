@@ -438,5 +438,113 @@
   "legal_name": "City of Medicine Hat",
   "legal_name_basis": "as its own payment page names the payee: “*Cheques payable to City of Medicine Hat.” (https://www.medicinehat.ca/home-property-utilities/utilities/paying-your-utility-bill/, read 2026-11-13)",
   "estimate": "calculated — at least $26.55 a month before tax: the daily service charge ($0.7750) and administration charge ($0.0984) of its small commercial rate, effective January 1, 2026, over 30.4 days — the rate brochure prints its columns side by side: “3.1 SMALL COMMERCIAL Demand Charge $6.23 per kVA Service Charge $0.7750 per day Capacity Charge $0.02859 per kWh Administration Charge $0.0984 per day” (https://www.medicinehat.ca/media/vhua0uvl/2026-utility-rate-brochure.pdf, read 2026-11-13); electricity by the kilowatt-hour (facilities usage, capacity, an energy charge set each month) and the municipal consent and access fee come on top — this organisation's own consumption is not published"
+ },
+ {
+  "key": "hydro_westmount",
+  "name": "Hydro Westmount (Ville de Westmount)",
+  "site": "https://westmount.org/",
+  "read": "2026-11-13",
+  "address": "995, chemin Glen, Westmount (Québec) H3Z 2L8",
+  "address_url": "https://westmount.org/fr/services/hydro-westmount/facturation-paiement-et-tarifs",
+  "address_quote": "Hydro Westmount 995, chemin Glen Westmount (Québec) H3Z 2L8",
+  "address_read": "2026-11-13",
+  "prefixes": [],
+  "except_fsas": [],
+  "pocket_of": {
+   "H3Y": [
+    "westmount"
+   ],
+   "H3Z": [
+    "westmount"
+   ]
+  },
+  "territory": "the City of Westmount's own electric utility distributes electricity to every home and business of the city (Hydro-Québec's exclusive right stops at the municipal networks): “Hydro Westmount est responsable de la gestion et de l’entretien du réseau de distribution d’électricité de la Ville de Westmount.” … “Ce réseau distribue l’électricité à toutes les résidences et à tous les commerces de la municipalité.” (https://westmount.org/fr/services/hydro-westmount/informations-generales); a postal code of H3Y / H3Z is taken when its place is Westmount (the GeoNames postal-code dump)",
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly or every two months",
+  "period_basis": "the utility's own words: “Nous lisons le compteur de la plupart de nos clients résidentiels six fois par année et leur envoyons une facture six fois par année.” (https://westmount.org/fr/services/hydro-westmount/facturation-paiement-et-tarifs); how often a business is billed is not published",
+  "delivery": "a bill by post, or in the customer's online space: “Les client qui n'ont pas activé leur Espace client recevront leur facture par la poste.” (https://westmount.org/fr/services/hydro-westmount/facturation-paiement-et-tarifs)",
+  "payment": "through a financial institution, by pre-authorized debit or by cheque: “Sélectionnez Hydro Westmount dans la liste des fournisseurs et entrez votre numéro pour paiements bancaires qui est indiqué en haut à droite sur votre facture.” … “Grâce à ce mode de paiement, dès que le montant à payer sur votre facture devient exigible, le montant exact est prélevé automatiquement de votre compte bancaire.” (https://westmount.org/fr/services/hydro-westmount/facturation-paiement-et-tarifs)",
+  "terms": "“Vous devez régler votre facture d’électricité dans les 21 jours suivant la date de facturation en utilisant l’une des méthodes suivantes :” (https://westmount.org/fr/services/hydro-westmount/facturation-paiement-et-tarifs)",
+  "remit_to": "by post, the payment with the stub in the return envelope that comes with the bill: “Par la poste Insérez votre paiement, par chèque ou mandat-poste, et la partie détachable de votre facture dans l’enveloppe de retour qui accompagne votre facture (ceci permettra d’associer le paiement au bon compte).” (https://westmount.org/fr/services/hydro-westmount/facturation-paiement-et-tarifs)",
+  "legal_name": "Ville de Westmount",
+  "legal_name_basis": "the utility is a service of the City (“Ville de Westmount”), as its own site names it (https://westmount.org/fr/services/hydro-westmount/informations-generales, read 2026-11-13)"
+ },
+ {
+  "key": "new_westminster_electric",
+  "name": "New Westminster Electric Utility (City of New Westminster)",
+  "site": "https://www.newwestcity.ca/",
+  "read": "2026-11-13",
+  "address": "511 Royal Avenue, New Westminster, BC V3L 1H9",
+  "address_url": "https://www.newwestcity.ca/node/3741/pay-electrical-bills",
+  "address_quote": "511 Royal Avenue New Westminster, BC V3L 1H9",
+  "prefixes": [],
+  "except_fsas": [],
+  "pocket_of": {
+   "V3L": [
+    "new westminster"
+   ],
+   "V3M": [
+    "new westminster"
+   ]
+  },
+  "territory": "the City of New Westminster runs its own electric utility, the distributor of the whole city (BC Hydro's territory around it): “the utility serves approximately 40,000 customers” … “comprehensive grid infrastructure spanning the entire municipality” (https://www.newwestcity.ca/media/file/electric-utility-strategic-plan); a postal code of V3L / V3M is taken when its place is New Westminster (the GeoNames postal-code dump), not Annacis Island (Delta)",
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly",
+  "period_basis": "the City's own words: “Commercial accounts: Billed every month” (https://www.newwestcity.ca/node/3741/pay-electrical-bills)",
+  "delivery": "a bill, on paper or as an eBill: “Your bill includes a 21-day due date from the time of printing.” (https://www.newwestcity.ca/node/3741/pay-electrical-bills)",
+  "payment": "through a bank, by pre-authorized payment, or by mail or in person: “Pay online: Through your online bank (contact your bank or financial institution with your account number)” (https://www.newwestcity.ca/node/3741/pay-electrical-bills)",
+  "terms": "“Your bill includes a 21-day due date from the time of printing.” (https://www.newwestcity.ca/node/3741/pay-electrical-bills)",
+  "legal_name": "City of New Westminster",
+  "legal_name_basis": "the utility is the City's, as its own payment page names it (https://www.newwestcity.ca/node/3741/pay-electrical-bills, read 2026-11-13)",
+  "address_read": "2026-11-13"
+ },
+ {
+  "key": "penticton_electric",
+  "name": "City of Penticton Electric Utility",
+  "site": "https://www.penticton.ca/",
+  "read": "2026-11-13",
+  "address": "171 Main Street, Penticton, BC V2A 5A9",
+  "address_url": "https://www.penticton.ca/payment-options",
+  "address_quote": "City of Penticton c/o Revenue & Collections 171 Main Street Penticton, BC V2A 5A9",
+  "address_read": "2026-11-13",
+  "prefixes": [],
+  "except_fsas": [],
+  "pocket_of": {
+   "V2A": [
+    "penticton"
+   ]
+  },
+  "territory": "the City of Penticton owns and runs the electric utility of the community, buying power from FortisBC at wholesale: “Penticton's Electric Utility is owned and operated by the City of Penticton, providing electrical service to the community's 20,000+ residential, commercial and industrial customers.” (https://www.penticton.ca/city-services/utility-electrical-services/electrical-services); a postal code of V2A is taken when its place is Penticton (the GeoNames postal-code dump)",
+  "what": "electricity for the premises at the organisation's address (on the City's utility bill, with water and sewer)",
+  "period": "1 monthly",
+  "period_basis": "the City's own words: “City Utility bills are mailed monthly with electric and water accounts read or estimated each month.” (https://www.penticton.ca/city-services/utility-electrical-services/electric-water-accounts)",
+  "delivery": "a bill by mail, or e-billing: “City Utility bills are mailed monthly with electric and water accounts read or estimated each month.” (https://www.penticton.ca/city-services/utility-electrical-services/electric-water-accounts)",
+  "payment": "through a bank (telephone or internet banking, pre-authorized payment, electronic bank transfer) or by cheque: “Telephone or internet banking (sign up with your financial institution).” … “The City accepts cash, cheques, debit cards, money orders, bank drafts, travellers' cheques and electronic bank transfers.” (https://www.penticton.ca/city-services/utility-electrical-services/electric-water-accounts)",
+  "terms": "“The due date shown on your bill is the date when Current Charges are due.” (https://www.penticton.ca/city-services/utility-electrical-services/electric-water-accounts)",
+  "remit_to": "“City of Penticton c/o Revenue & Collections 171 Main Street Penticton, BC V2A 5A9” (https://www.penticton.ca/payment-options)",
+  "legal_name": "City of Penticton",
+  "legal_name_basis": "as its own page names the utility's owner (https://www.penticton.ca/city-services/utility-electrical-services/electrical-services, read 2026-11-13)"
+ },
+ {
+  "key": "on_cornwall_electric",
+  "table_key": "Cornwall Street Railway Light and Power Company Limited",
+  "name": "Cornwall Electric",
+  "site": "https://www.cornwallelectric.com/",
+  "read": "2026-11-13",
+  "address": "101 Sydney Street, P.O. Box 1179, Cornwall, Ontario K6H 5V3",
+  "address_url": "https://www.cornwallelectric.com/commercial/payment-options",
+  "address_quote": "Send your cheque or money order to: 101 Sydney Street P.O. Box 1179 Cornwall, Ontario K6H 5V3",
+  "address_read": "2026-11-13",
+  "prefixes": [],
+  "except_fsas": [],
+  "territory": "Cornwall Street Railway Light & Power Company Ltd. (“Cornwall Electric”) distributes electricity in the City of Cornwall, South Glengarry, South Stormont and the Ontario portion of Akwesasne: “CE has approximately 26,200 customers in the City of Cornwall, South Glengarry, South Stormont, and the Ontario portion of the Mohawk Territory of Akwesasne.” (https://www.cornwallelectric.com/about-us); the Ontario Energy Board's map of the service areas gives the postal code to it",
+  "what": "electricity for the premises at the organisation's address",
+  "period": "1 monthly",
+  "period_basis": "the distributor's own words: “Learn how to read and understand your utility bill, including electricity usage, pricing, delivery charges, taxes, rebates, and other key components that make up your monthly bill.” (https://www.cornwallelectric.com/customer-service/billing-payments)",
+  "delivery": "a bill, on paper or paperless: “Please return the top portion of your bill, with your payment.” (https://www.cornwallelectric.com/commercial/payment-options)",
+  "payment": "through a financial institution, by pre-authorized debit or by cheque: “As well, most financial institutions have online banking where you can set up Cornwall Electric as a payee.” … “Pre-Authorized Debit Plan By having your bill payments automatically deducted from your bank account each due date with the pre-authorized payment plan, you save time and never have to worry your bill not being paid on time.” (https://www.cornwallelectric.com/commercial/payment-options)",
+  "remit_to": "“Send your cheque or money order to: 101 Sydney Street P.O. Box 1179 Cornwall, Ontario K6H 5V3” (https://www.cornwallelectric.com/commercial/payment-options)",
+  "legal_name": "Cornwall Street Railway Light & Power Company Ltd.",
+  "legal_name_basis": "as its own page names it: “Cornwall Street Railway Light & Power Company Ltd. (“Cornwall Electric” or “CE”) is a wholly-owned subsidiary of FortisOntario Inc. (\"FortisOntario\").” (https://www.cornwallelectric.com/about-us, read 2026-11-13)"
  }
 ]

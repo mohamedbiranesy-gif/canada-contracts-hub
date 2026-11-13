@@ -139,7 +139,7 @@ def _load():
         elif not (set(b["prefixes"]) & taken):
             out.append(b)
             taken |= set(b["prefixes"])
-    out = [b for b in out if all(b.get(k) for k in NEED if k != "prefixes") and (b.get("prefixes") or b.get("table_key")) and PC.search((b["address"] + " " + b["address_quote"]).upper())]
+    out = [b for b in out if all(b.get(k) for k in NEED if k != "prefixes") and (b.get("prefixes") or b.get("table_key") or b.get("pocket_of")) and PC.search((b["address"] + " " + b["address_quote"]).upper())]
     for b in out:
         b.setdefault("prefixes", [])
     for b in out:
@@ -272,6 +272,18 @@ def biller_for(text):
     for b in BILLERS:
         if b["prefixes"] and fsa not in b["except_fsas"] and any(fsa.startswith(p) for p in sorted(b["prefixes"], key=len, reverse=True)):
             return b
+    # 2026-11-13 — a town that runs its own electric utility over the WHOLE of its territory, in its own words ("Ce réseau distribue l'électricité
+    # à toutes les résidences et à tous les commerces de la municipalité": Hydro Westmount; New Westminster's grid "spanning the entire
+    # municipality"): a postal code of a postal area the main distributor leaves out is that utility's when the code's own place (the GeoNames
+    # postal-code dump, tools/data/pocket_places.tsv.gz) is the town — pocket_of = {postal area: [towns]}. A town whose utility serves only part
+    # of it (Joliette: "Hydro-Joliette ne dessert qu'une partie du territoire de la Ville de Joliette") is not given one.
+    place_ = None
+    for b in BILLERS:
+        po = b.get("pocket_of") or {}
+        if fsa in po:
+            place_ = _pocket_place(pc) if place_ is None else place_
+            if place_ and place_ in po[fsa]:
+                return b
     for b in BILLERS:  # a postal area left out whole: the postal code's own place decides
         if fsa in b["except_fsas"] and b["key"] in POCKET_TOWNS and fsa not in POCKET_KEEP_OUT and any(fsa.startswith(p) for p in b["prefixes"]):
             place = _pocket_place(pc)
