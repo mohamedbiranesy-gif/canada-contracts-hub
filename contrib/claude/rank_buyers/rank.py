@@ -1092,6 +1092,11 @@ for _p in sorted(_g0.glob(ROOT + "/data/incoming/claude/tenant_state/details_*.g
     for _d in jl(_p):
         LDET.setdefault(_d.get("key"), _d)
 LFACTS = {}  # 2026-11-10: what the cloud mailbox crawl read on the buyer's OWN pages (tools/lead_crawl.py): its name and its postal address, quoted
+# 2026-11-13: tools/addr_reread.py reads an address the organisation states in its page's source rather than its text — the schema.org PostalAddress
+# of its own JSON-LD, or the place of the Google map its own page embeds — and the cell says which (address_how)
+_LF_HOW = {"jsonld": "as its own page states it in its structured data (schema.org PostalAddress)", "map": "the place of the Google map its own page embeds"}
+def lf_cell(f, url=""):
+    return "%s (%s on %s, read %s)" % (f["address"], _LF_HOW.get(f.get("address_how") or "", "as printed"), f.get("address_url") or url or "", f.get("date") or "")
 LFACTS_DOM = {}  # the same facts by website domain: a row made under another key of the same site (a registry lead, a credit lead) uses them too
 from ap_crawler import address_from as _addr_from
 import lead_crawl as _LCF  # the facts: the single file of before 2026-11-10 plus the append-only shards (site_facts/)
@@ -1129,14 +1134,14 @@ for _d in _LCF.facts_records():
             # rule of the day they were read did not know initials: "Comox Valley Animal Hospital" on cvah.ca, "Ordre des Géologues du Québec" on ogq.qc.ca)
             _d["site_name"] = _LCF.site_name_for(host_of(_d.get("site") or ""), None, _d["title"], _TR)
             n_name_again += bool(_d["site_name"])
-        if _d.get("address_quote"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
+        if _d.get("address_quote") and _d.get("address_how") not in ("jsonld", "map"):  # the address is cut out of the quote again with today's rule (a telephone number or a year in front of it was taken for the street number)
             _d["address"] = _addr_from(_d["address_quote"]) or _d.get("address") or ""
         if "?" in (_d.get("address_url") or ""):
             # a visitor or campaign identifier a site adds to its own links (?shpxid=…, utm_…, fbclid) is not part of the page's address
             _d["address_url"] = re.sub(r"[?&]$", "", re.sub(r"(?<=[?&])(?:shpxid|utm_[a-z]+|fbclid|gclid|srsltid|_gl|mc_[a-z]+|ref)=[^&#]*&?", "", _d["address_url"]))
         # only what the rows use is kept (the title and the address quote have been read above): the table grows with the sites, 1.2 KB a site
         # twice over when every field of the record was kept in both tables
-        _d = {k_: _d[k_] for k_ in ("key", "site", "date", "site_name", "address", "address_url", "address_country") if _d.get(k_)}
+        _d = {k_: _d[k_] for k_ in ("key", "site", "date", "site_name", "address", "address_url", "address_country", "address_how") if _d.get(k_)}
         LFACTS[_d["key"]] = _d
         _fd = registrable(host_of(_d.get("site") or ""))
         if _fd and _fd not in LFACTS_DOM:
@@ -1176,7 +1181,7 @@ def apply_details(x, k):
             # wrote next to a link ("Product categories that we currently provide"): the organisation's own home page names it
             x["buyer"] = f["site_name"]; n_lf["buyer_name_from_own_home_page"] += 1
         if f.get("address") and not x.get("buyer_address"):
-            x["buyer_address"] = "%s (as printed on %s, read %s)" % (f["address"], f.get("address_url") or x.get("buyer_website") or "", f.get("date") or ""); n_lf["buyer_address_from_own_page"] += 1
+            x["buyer_address"] = lf_cell(f, x.get("buyer_website") or ""); n_lf["buyer_address_from_own_page"] += 1
     d = LDET.get(k)
     if not d:
         return
@@ -2362,7 +2367,7 @@ for x in rows:
         n_gw["… no distributor can be named for where it is (no postal code read, Alberta, or an area another utility serves)"] += 1; continue
     if registrable(host_of(loc["site"])) in (registrable(md), registrable(host_of(site))):
         continue
-    b_addr = x.get("buyer_address") or (("%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")) if _lf.get("address") else "") or _sa
+    b_addr = x.get("buyer_address") or (lf_cell(_lf, site or "") if _lf.get("address") else "") or _sa
     if not _BYLOC.fsa_of(b_addr):
         b_addr = (b_addr + "; " if b_addr else "") + (_sa or _cityaddr or _ovtaddr or "")
     if b_addr.startswith("postal code "):
@@ -2496,7 +2501,7 @@ for sc, g, k, e, name, site, dom, prov, how, vid, conf, what, why, m in cands:
     b_addr = addr_text((BUY.get(k) or {}).get("address")) or (VEN.get(k) or {}).get("address") or place_cell(k)
     _lf = LFACTS.get(k) or {}
     if not b_addr and _lf.get("address"):
-        b_addr = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or site or "", _lf.get("date") or "")
+        b_addr = lf_cell(_lf, site or "")
     if vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and SPC13.get(k):
         b_addr = (b_addr + "; " if b_addr else "") + SPC13[k]  # no postal code in what was read of its address: the one its home page prints
     elif vid.startswith("LOC:") and not _BYLOC.fsa_of(b_addr) and PLC13.get(k):
@@ -6055,7 +6060,7 @@ for _ri, x in enumerate(rows):
         x.setdefault("buyer_trade_name_as_published", "")
         if _lf:
             if _lf.get("address") and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():
-                x["buyer_address"] = "%s (as printed on %s, read %s)" % (_lf["address"], _lf.get("address_url") or "", _lf.get("date") or ""); npk["buyer_address_from_own_page"] += 1
+                x["buyer_address"] = lf_cell(_lf); npk["buyer_address_from_own_page"] += 1
             if _lf.get("site_name") and not x["buyer_trade_name_as_published"]:
                 x["buyer_trade_name_as_published"] = "%s (the name on the organisation's own home page, %s, read %s)" % (_lf["site_name"], _lf.get("site") or "", _lf.get("date") or ""); npk["buyer_trade_name_as_published"] += 1
         # 2026-11-12 (billers first): a vendor's number in its home register as the global LEI register records it (tools/data/vendor_registers.json,

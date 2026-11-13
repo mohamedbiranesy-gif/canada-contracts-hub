@@ -144,6 +144,16 @@ def install_hooks():
                     m = shop_rx.search(raw)
                     if m:
                         st["shopify"] = re.sub(r"\s+", " ", raw[max(0, m.start() - 30):m.end() + 50])[:160]
+                # 2026-11-13: an address the organisation states in its page's source, not its text (tools/addr_reread.py): the schema.org PostalAddress
+                # of its own JSON-LD, or the place of the Google map the page embeds — kept for note2, which knows the page's address
+                if "addr" not in st and "addr_src" not in st and ("ld+json" in raw or "maps" in raw):
+                    import addr_reread as _AR
+                    got = None
+                    for how_, fn_ in (("jsonld", _AR.jsonld_address), ("map", _AR.map_address)):
+                        got = fn_(raw)
+                        if got:
+                            st["_src_cand"] = (how_, got[0], got[1])
+                            break
             except Exception:
                 pass
         return orig_visible(raw)
@@ -168,6 +178,9 @@ def install_hooks():
                         if _BL.biller_for_city(mc.group(0)) is not None or (_BL._PROV_CODE.get((mc.group(2) or mc.group(3) or "").lower()), _BL.norm_city(mc.group(1).split()[-1])) in _BL._cities():
                             st["city"] = (re.sub(r"\s+", " ", text[max(0, mc.start() - 80):mc.end() + 10]).strip()[:200], final)
                             break
+                if not m and st.get("_src_cand") and "addr_src" not in st:
+                    st["addr_src"] = st["_src_cand"] + (final,)
+                st.pop("_src_cand", None)
                 if st.get("shopify") and "shopify_url" not in st:
                     st["shopify_url"] = final
             except Exception:
@@ -256,6 +269,8 @@ def facts_line(key, site, st):
         o.update(site="%s://%s/" % (pf.scheme, pf.netloc), asked=site, moved=st["moved"])
     if st.get("addr"):
         o.update(address_country=st["addr"][0], address_quote=st["addr"][1], address_url=st["addr"][2], address=CCL.address_from(st["addr"][1]))
+    elif st.get("addr_src"):  # 2026-11-13: (how, address, quote, page) — the organisation's JSON-LD or the map its page embeds (tools/addr_reread.py)
+        o.update(address_country="CA", address=st["addr_src"][1], address_quote=st["addr_src"][2], address_url=st["addr_src"][3], address_how=st["addr_src"][0])
     elif st.get("city"):
         o.update(city_quote=st["city"][0], city_url=st["city"][1])
     if st.get("rbq"):

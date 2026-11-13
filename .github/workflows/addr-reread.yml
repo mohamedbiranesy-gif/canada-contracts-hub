@@ -1,0 +1,98 @@
+name: addr-reread
+# Where an organisation is, read again on its own pages (tools/addr_reread.py): the organisations with a confirmed role mailbox whose address names no
+# electricity distributor (rank build 2026-11-13 04:08Z: 185,837 left out for that reason alone). Their home page and up to three contact / about /
+# location pages are read again for an address the mailbox reader did not look at: the schema.org PostalAddress of the organisation's own JSON-LD,
+# the place of the Google map its own page embeds, or a postal address in the text. Measured on 60 such sites: 8 located (13 %).
+# The addresses go to data/incoming/claude/site_facts/ (facts_<stamp>a.gz), which the rank build reads (tools/by_location.py names the distributor).
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel runners (1-8)"
+        default: "6"
+      minutes:
+        description: "minutes per runner"
+        default: "150"
+      workers:
+        description: "sites read at a time per runner"
+        default: "48"
+      limit:
+        description: "at most this many sites per runner (0 = no limit)"
+        default: "0"
+  schedule:
+    - cron: "41 9 * * 0"   # weekly: the sites whose mailbox was confirmed since
+permissions:
+  contents: write
+concurrency:
+  group: addr-reread
+  cancel-in-progress: false
+env:
+  SHARDS: ${{ inputs.shards || '6' }}
+  MINUTES: ${{ inputs.minutes || '150' }}
+  WORKERS: ${{ inputs.workers || '48' }}
+  LIMIT: ${{ inputs.limit || '0' }}
+jobs:
+  pick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: The organisations to read again
+        run: |
+          python3 tools/addr_reread.py pick --out out/addr_targets.csv | tee /tmp/pick.txt
+          cat /tmp/pick.txt >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with: { name: addr-targets, path: out/addr_targets.csv, retention-days: 3 }
+      - id: m
+        run: python3 -c "import os; n=max(1,min(8,int(os.environ['SHARDS']))); print('matrix=' + str(list(range(n))))" >> "$GITHUB_OUTPUT"
+
+  read:
+    needs: pick
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        k: ${{ fromJson(needs.pick.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { name: addr-targets, path: out }
+      - name: Read the sites of this shard
+        run: |
+          M=$(( MINUTES > 175 ? 175 : MINUTES ))
+          python3 tools/addr_reread.py read --targets out/addr_targets.csv --shard ${{ matrix.k }}/$SHARDS --minutes $M --workers "$WORKERS" --limit "$LIMIT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "addr-read-${{ matrix.k }}", path: "out/addr_reread_*.jsonl", retention-days: 3 }
+
+  merge:
+    needs: read
+    if: ${{ always() && needs.read.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "addr-read-*", path: shards, merge-multiple: true }
+      - name: Addresses -> site facts (computed once; main merged in on a refused push)
+        run: |
+          ls -la shards | head -20 || true
+          git config user.name "addr-reread"; git config user.email "addr-reread@users.noreply.github.com"
+          python3 tools/addr_reread.py merge shards --stamp "$(date -u +%Y%m%dT%H%M%S)" | tee /tmp/m.txt
+          python3 tools/secret_guard.py || true
+          git add data/incoming/claude/site_facts 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "addr-reread: $(tail -1 /tmp/m.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed: its work was not saved"; exit 1; }
+          cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
