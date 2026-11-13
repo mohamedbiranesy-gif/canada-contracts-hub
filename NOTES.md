@@ -57,3 +57,18 @@ OCP pharmacies, CVO accredited facilities, RECO brokerages, FSRA mortgage broker
 | credit-scan cycle 2026-11-12 15:04Z read 697,172 sites (55,115 with a credit) and lost the merge to 12 refused pushes (12-minute merge recomputed per push) -> merge now computed once; salvage workflow dispatched on its artifacts | run 43243749246 log | — | 2026-11-13 | log | primary |
 Hypothesis update: the lead supply, not the mailbox reader, is the limit now (mailbox-crawl runs end in 4-17 minutes); a lost scan merge
 was the largest single leak found tonight.
+
+## Mapping pass 4 (2026-11-13 05:20Z) — where the ready rows are held (published table of 04:08Z, streamed) and what moves them
+| claim | source | URL | accessed | quote | independent |
+|---|---|---|---|---|---|
+| 34,575 rows with a mailbox held only as "payment: not published" (3,407 vendors; Hawk Host 3,504, easyDNS 3,190, Aplus 2,166, Jane 2,150, doteasy 1,875) | ranked_buyers.csv.gz 04:08Z | release ranked-latest | 2026-11-13 | counted | primary |
+| doteasy: “We accept payment by most major credit and debit cards, direct debit, PayPal, bank transfer and cheque.” / “Invoices will be sent in advance of payment due.” | doteasy terms | https://terms.doteasy.com/ | 2026-11-13 | quoted | primary |
+| Jane: “No, we’re not able to accept payment by cheque or EFT.” (card only) | Jane's guide | https://jane.app/guide/managing-your-jane-subscription | 2026-11-13 | quoted (WebFetch) | primary |
+| Hawk Host's billing articles name cards, PayPal, crypto, wallets — no bank payment | Hawk Host KB | https://www.hawkhost.com/kb/billing/ | 2026-11-13 | titles (WebFetch) | primary |
+| 185,837 organisations with a confirmed mailbox left out because no distributor can be named for where they are | rank build log (SUMMARY.md, "P13 skipped") | coord/results/ranked/SUMMARY.md | 2026-11-13 | counted | primary |
+| 60 unlocated .ca mailbox owners read again: 8 state their address only in the page source (JSON-LD PostalAddress, an embedded Google map) | tools/addr_reread.py sample | — | 2026-11-13 | counted | primary |
+| Alberta: 27,946 mailbox owners print an Alberta postal code; 6,310 ready rows have one (BC 31,607) — no electricity row in Alberta | table + crawl results | — | 2026-11-13 | counted | primary |
+| GrowthZone directories (business.edmontonchamber.com, *.growthzoneapp.com) answer 403 to the project's reader | project reader | https://business.edmontonchamber.com/memberdirectory/FindStartsWith?term=E | 2026-11-13 | HTTP 403 | blocked |
+| Postal-code ties at an address with two shared words: 20-50 % wrong in the radio / OMVIC / RBQ / F5500 lanes (a tenant or a business named after the place; "X Auto Sales" vs "Y Auto Sales") → withdrawn (309 / 79 / 50 / 49 / 5) | lane files re-tested with tm_register.place_fits (third look) | — | 2026-11-13 | counted | primary |
+Hypothesis update: H1 (Canada alone) is bounded by addresses as much as by mailboxes — 136k .ca mailbox owners print no postal code; the address
+re-read moves part of it. H2 (abroad) still needs new ways to a site; the cross-register transfer (cross_sites.py) is small (+325).

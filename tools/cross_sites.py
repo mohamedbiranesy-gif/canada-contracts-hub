@@ -97,5 +97,105 @@ def main():
         print("cross-sites: %d %s owners tied to the site the %s lane tied to the same legal person" % (len(add), LANES[tgt][0], LANES[src][0]))
 
 
+# ---------------------------------------------------------------------------------------------------- sites already read -> owners abroad
+# 2026-11-13: the mailbox reader has read some 56,000 sites that print an address abroad (U.S., U.K., Australia). A trademark or patent owner abroad
+# with no site in its lane whose register ZIP / postcode is printed in an address on such a site, under the owner's own name (the site's own name
+# states the owner's name, legal form aside, or is two words or more of it), is tied by the lane's own test ("the same name and the same ZIP code
+# printed in an address on the site"). Only one owner a site and one site an owner; a site another owner of the lane holds is left.
+def _zipk(c, text):
+    text = text or ""
+    if c == "US":
+        m = re.findall(r"\b(\d{5})(?:-\d{4})?\b", text)
+        return m[-1] if m else ""
+    if c == "GB":
+        m = re.findall(r"\b([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})\b", text.upper())
+        return re.sub(r"\s", "", m[-1]) if m else ""
+    if c == "AU":
+        m = re.findall(r"\b(\d{4})\b", text)
+        return m[-1] if m else ""
+    return ""
+
+
+def read_sites():
+    import glob, json
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import biz_licences as BL
+    import tm_register as T
+    found = set()
+    for p in sorted(glob.glob(os.path.join(INC, "claude_buyer_ap_results_cccrawl*.csv"))):
+        with open(p, encoding="utf-8", errors="replace", newline="") as f:
+            for r in csv.DictReader(f):
+                if r.get("status") == "found" and r.get("ap_email"):
+                    found.add(r["buyer_key"])
+    facts = {}
+    for p in glob.glob(os.path.join(INC, "site_facts", "facts_*.gz")):
+        with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
+            for l in f:
+                try:
+                    d = json.loads(l)
+                except ValueError:
+                    continue
+                k = d.get("key")
+                if k in found:
+                    o = facts.setdefault(k, {})
+                    for c_, v_ in d.items():
+                        if v_ and not o.get(c_):
+                            o[c_] = v_
+    toks = lambda s: set(T.nkey_x(s or "").split()) - {"a", "an", "the", "and", "of", "dba", "d", "b"}
+    for lane, (word, paths, fpath) in LANES.items():
+        cols, rows = read_found(fpath)
+        held_site, held_owner = {r["site"] for r in rows}, {r["owner_key"] for r in rows}
+        own = collections.defaultdict(list)
+        for p in paths:
+            if not os.path.exists(p):
+                continue
+            with gzip.open(p, "rt", encoding="utf-8", errors="replace") as f:
+                for r in csv.DictReader(f):
+                    c = r.get("country") or ""
+                    z = _zipk(c, (r.get("postal_code") or "") + " " + (r.get("address") or "")) if c in ("US", "GB", "AU") else ""
+                    if z and r["owner_key"] not in held_owner:
+                        own[(c, z)].append(r)
+        cand = collections.defaultdict(set)
+        info = {}
+        for k, o in facts.items():
+            c = o.get("address_country") or ""
+            if c not in ("US", "GB", "AU"):
+                continue
+            z = _zipk(c, o.get("address") or o.get("address_quote"))
+            nm = o.get("site_name") or ""
+            if not z or not nm:
+                continue
+            dom = re.sub(r"^https?://(www\.)?", "", o.get("site") or "").split("/")[0].lower()
+            if not dom or dom in held_site:
+                continue
+            ts = toks(nm)
+            for r in own.get((c, z), []):
+                to = toks(r["owner_name"])
+                if to and ts and BL.names_agree(nm, r["owner_name"]) and (to <= ts or (len(ts) >= 2 and ts <= to)):
+                    cand[("s", dom)].add(r["owner_key"]); cand[("o", r["owner_key"])].add(dom)
+                    info[(r["owner_key"], dom)] = (r, o, nm)
+        add = []
+        for (ok, dom), (r, o, nm) in sorted(info.items()):
+            if len(cand[("s", dom)]) != 1 or len(cand[("o", ok)]) != 1 or dom in held_site or ok in held_owner:
+                continue
+            zw = "ZIP code" if r.get("country") == "US" else "postcode"
+            line = {c: "" for c in cols}
+            line.update(site=dom, owner_key=ok, owner_name=r["owner_name"], postal_code=r.get("postal_code") or "",
+                        tied_by=("the same name (the site's own name “%s”) and the owner's %s printed in an address on the site's own page (%s: “%s”) — a site the mailbox "
+                                 "reader had read for its role mailbox; one owner of the register at that %s with that name" % (nm, zw, o.get("address_url") or o.get("site") or "",
+                                 (o.get("address_quote") or o.get("address") or "")[:200], zw))[:700],
+                        site_facts_from="its own pages (%s), read by the mailbox reader (tools/lead_crawl.py)" % (o.get("site") or dom),
+                        site_states="site name: %s" % nm, read=o.get("date") or TODAY)
+            add.append(line); held_site.add(dom); held_owner.add(ok)
+        if add:
+            with open(fpath, "a", encoding="utf-8", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=cols)
+                for line in add:
+                    w.writerow(line)
+        print("cross-sites: %d %s owners abroad tied to a site the mailbox reader had read (same name + the register's ZIP / postcode printed)" % (len(add), word))
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
+    if "--no-read" not in sys.argv:
+        read_sites()
