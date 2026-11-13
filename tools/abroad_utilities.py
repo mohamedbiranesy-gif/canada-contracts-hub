@@ -164,10 +164,10 @@ def cmd_territories(a):
     print("territories: %d target features, %d other retail territories touching them -> %s" % (len(tg), len(others), TERR), flush=True)
 
 
-def cmd_zips(a):
-    import shapefile
+def geometry():
+    """(target polygons by key, [(polygon, label)] of the other retail territories, {key: indexes of the others set aside for it}) — the rules
+    of the ZIP table (state maps, the utilities' own town lists, PRECISE targets, non-retail neighbours), shared by the ZIP step and the point test"""
     from shapely.geometry import shape
-    from shapely.strtree import STRtree
     from shapely.ops import unary_union
     with gzip.open(TERR, "rt", encoding="utf-8") as fh:
         fc = json.load(fh)
@@ -179,16 +179,15 @@ def cmd_zips(a):
         g = shape(f["geometry"]).buffer(0)
         if f["properties"].get("_target"):
             tgt[f["properties"]["_target"]].append(g)
-            if f["properties"].get("_town_list"):
-                town_tg.add(f["properties"]["_target"])
             if f["properties"].get("_state_layer"):
                 state_tg.add(f["properties"]["_target"])
+            if f["properties"].get("_town_list"):
+                town_tg.add(f["properties"]["_target"])
         else:
             if f["properties"].get("_state_layer"):
                 state_oth[f["properties"]["_state_layer"]].add(len(oth))
             oth.append((g, "%s (%s, %s)" % (f["properties"].get("name"), f["properties"].get("type"), f["properties"].get("state"))))
     tgt = {k: unary_union(v) for k, v in tgt.items()}
-    # a neighbour that is a county fill for a target is no exclusion for that target (see PRECISE above); counted per target
     fills = collections.defaultdict(set)
     for i, (g, nm) in enumerate(oth):
         for k, t in tgt.items():
@@ -206,6 +205,15 @@ def cmd_zips(a):
             # (2026-11-13 16:15Z: an investor-owned neighbour over half of a target NOT drawn from its own maps is no longer set aside. Liberty's
             # Granite State polygon is itself a county fill — it covers Nashua, Manchester and Keene, which Eversource's PSNH serves — and
             # setting PSNH aside gave Liberty 54 ZIP areas it does not serve. A coarse target keeps every neighbour as an exclusion.)
+    return tgt, oth, fills, town_tg
+
+
+def cmd_zips(a):
+    import shapefile
+    from shapely.geometry import shape
+    from shapely.strtree import STRtree
+    from shapely.ops import unary_union
+    tgt, oth, fills, town_tg = geometry()
     for k in sorted(tgt):
         print("%-26s neighbours set aside as county fills or non-retail: %s" % (k, sorted({oth[i][1] for i in fills[k]})[:8]), flush=True)
     tree = STRtree([g for g, _ in oth])
@@ -262,6 +270,12 @@ def cmd_zips(a):
 
 
 OVERTURE_BUCKET = "https://overturemaps-us-west-2.s3.amazonaws.com"
+# 2026-11-13 17:00Z: a place in a ZIP code area that is NOT wholly one utility's (at a territory's edge, or shared) still counts when its own point
+# (the place dataset's coordinates of the listing) lies inside one target's territory by MARGIN degrees (~200 m) and no other retail territory
+# (those set aside for that target excepted) comes within MARGIN of it. The row then needs the organisation's own page to print that same ZIP code
+# (tools/by_location.py abroad_point): its printed address and the listing of its website agree on the area, the point decides the utility.
+MARGIN = 0.002
+POINTS = os.path.join(ROOT, "tools", "data", "abroad_place_points.csv.gz")
 # the Caribbean utilities serve whole islands; a place's country (Overture's address) and, where one country has two utilities, its island
 #   KY Grand Cayman only (Cayman Brac and Little Cayman: Cayman Brac Power & Light) — Caribbean Utilities Company (Fortis)
 #   TC the Turks and Caicos Islands served by FortisTCI (Providenciales, the Caicos islands, Grand Turk, Salt Cay)
@@ -278,10 +292,29 @@ BOXES = [(-83.5, 24.4, -79.8, 31.0), (-114.9, 31.3, -109.0, 37.0), (-79.8, 40.5,
 def cmd_places(a):
     import duckdb
     import ap_crawler as C
-    zips = {}
+    zips, partial = {}, {}
     for r in csv.DictReader(open(ZIPS, encoding="utf-8", newline="")):
         if r["kept"] == "yes":
             zips[r["zip"]] = r["biller"]
+        else:
+            partial[r["zip"]] = r["biller"]  # the target with the largest share of the area: a place there is tested by its own point
+    from shapely.geometry import Point
+    from shapely.strtree import STRtree
+    tgt, oth, fills, _town = geometry()
+    inner = {k: g.buffer(-MARGIN) for k, g in tgt.items()}
+    otree = STRtree([g for g, _ in oth])
+    def by_point(b, x, y):
+        """the target b, when the point lies inside it by MARGIN and no other territory (those set aside for b excepted) comes within MARGIN"""
+        if b not in inner or x is None or y is None:
+            return False
+        pt = Point(float(x), float(y))
+        if not inner[b].contains(pt):
+            return False
+        near = pt.buffer(MARGIN)
+        for i in otree.query(near):
+            if int(i) not in fills[b] and oth[int(i)][0].intersects(near):
+                return False
+        return not any(k != b and g.intersects(near) for k, g in tgt.items())
     ls = lambda prefix: urllib.request.urlopen(urllib.request.Request("%s/?list-type=2&prefix=%s&delimiter=/" % (OVERTURE_BUCKET, urllib.parse.quote(prefix, safe="/=")),
                                                                       headers={"User-Agent": UA}), timeout=120).read().decode("utf-8", "replace")
     rel = sorted(re.findall(r"<Prefix>(release/[0-9]{4}-[0-9]{2}-[0-9]{2}\.[0-9]+/)</Prefix>", ls("release/")))
@@ -297,9 +330,9 @@ def cmd_places(a):
             files.append(f)
     print("Overture %s: %d place files, %d touch the territories' boxes" % (release, len(keys), len(files)), flush=True)
     con.execute("CREATE TEMP TABLE z(zip VARCHAR)")
-    con.executemany("INSERT INTO z VALUES (?)", [(z_,) for z_ in zips])
+    con.executemany("INSERT INTO z VALUES (?)", [(z_,) for z_ in list(zips) + list(partial)])
     rows = con.execute("""SELECT names."primary", websites[1], addresses[1].country, left(coalesce(addresses[1].postcode, ''), 5), coalesce(addresses[1].locality, ''),
-                                 coalesce(addresses[1].freeform, ''), coalesce(operating_status, '')
+                                 coalesce(addresses[1].freeform, ''), coalesce(operating_status, ''), bbox.xmin, bbox.ymin, 'Overture Maps'
                           FROM read_parquet([%s]) WHERE (%s) AND websites IS NOT NULL AND len(websites) > 0
                             AND ((addresses[1].country = 'US' AND left(coalesce(addresses[1].postcode, ''), 5) IN (SELECT zip FROM z))
                                  OR addresses[1].country IN ('KY', 'TC', 'BB', 'BM', 'BS'))""" % (", ".join("'%s'" % f for f in files), box)).fetchall()
@@ -312,8 +345,9 @@ def cmd_places(a):
             frel, ffiles = FSQ.release_files("")
             fcon = FSQ._con()
             fcon.execute("CREATE TEMP TABLE z(zip VARCHAR)")
-            fcon.executemany("INSERT INTO z VALUES (?)", [(z_,) for z_ in zips])
-            frows = fcon.execute("""SELECT name, website, country, left(coalesce(postcode, ''), 5), coalesce(locality, ''), coalesce(address, '') || ' ' || coalesce(region, ''), ''
+            fcon.executemany("INSERT INTO z VALUES (?)", [(z_,) for z_ in list(zips) + list(partial)])
+            frows = fcon.execute("""SELECT name, website, country, left(coalesce(postcode, ''), 5), coalesce(locality, ''), coalesce(address, '') || ' ' || coalesce(region, ''), '',
+                                           longitude, latitude, 'Foursquare Open Source Places'
                                     FROM read_parquet([%s]) WHERE website IS NOT NULL AND website <> '' AND date_closed IS NULL
                                       AND ((country = 'US' AND left(coalesce(postcode, ''), 5) IN (SELECT zip FROM z)) OR country IN ('KY', 'TC', 'BB', 'BM', 'BS'))"""
                                  % ", ".join("'%s'" % f for f in ffiles)).fetchall()
@@ -321,12 +355,20 @@ def cmd_places(a):
             rows = list(rows) + list(frows)
         except Exception as e:
             print("Foursquare places not read: %s" % e, flush=True)
-    for name, site, cc, z_, loc, free, st in rows:
+    pts = []
+    for name, site, cc, z_, loc, free, st, px, py, src in rows:
         if st and st != "open":
             n["closed"] += 1
             continue
+        how = "zip"
         if cc == "US":
             b = zips.get(z_)
+            if not b:
+                b = partial.get(z_)
+                if not b or not by_point(b, px, py):
+                    n["a ZIP area at a territory's edge: the place's point not clear inside (%s)" % (b or "?")] += 1
+                    continue
+                how = "point"
         else:
             if (CARIB_NOT.get(cc) and CARIB_NOT[cc].search(loc + " " + free)) or (CARIB_ONLY.get(cc) and not CARIB_ONLY[cc].search(loc + " " + free)):
                 n["island of another utility (%s)" % cc] += 1
@@ -337,20 +379,35 @@ def cmd_places(a):
         if not h or "." not in h:
             continue
         d = C.registrable(h)
-        o = best.setdefault(d, {"dom": d, "name": name or "", "zip": z_ if cc == "US" else cc, "biller": b, "objects": 0, "billers": set()})
+        o = best.setdefault(d, {"dom": d, "name": name or "", "zip": z_ if cc == "US" else cc, "biller": b, "objects": 0, "billers": set(), "how": how, "lon": "", "lat": ""})
         o["objects"] += 1
         o["billers"].add(b)
-        n[b] += 1
+        if how == "zip":
+            o["how"] = "zip"
+        elif o["how"] == "point" and not o["lon"]:
+            o["lon"], o["lat"], o["zip"] = round(float(px), 6), round(float(py), 6), z_
+        if how == "point":
+            pts.append((d, z_, b, round(float(px), 6), round(float(py), 6), src))
+        n[b if how == "zip" else "%s (by the place's point)" % b] += 1
     os.makedirs(DIR, exist_ok=True)
     kept = 0
     with gzip.open(SITES, "wt", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["dom", "name", "zip", "biller", "objects"])
+        w.writerow(["dom", "name", "zip", "biller", "objects", "how", "lon", "lat"])
         for d, o in sorted(best.items()):
             if len(o["billers"]) > 1 or o["objects"] > 50:
                 continue  # a chain across territories, or a brand's site listed by many places: no one place is the organisation
-            w.writerow([d, o["name"], o["zip"], o["biller"], o["objects"]])
+            w.writerow([d, o["name"], o["zip"], o["biller"], o["objects"], o["how"], o["lon"], o["lat"]])
             kept += 1
+    # the points the ranker reads (tools/by_location.py abroad_point): every place by its point, of a domain kept above
+    keep = {d for d, o in best.items() if len(o["billers"]) == 1 and o["objects"] <= 50}
+    with gzip.open(POINTS, "wt", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["dom", "zip", "biller", "lon", "lat", "source"])
+        for x in sorted(set(pts)):
+            if x[0] in keep:
+                w.writerow(x)
+    print("places by their own point (ZIP areas at a territory's edge): %d -> %s" % (sum(1 for x in set(pts) if x[0] in keep), POINTS), flush=True)
     print("places with a website in the territories: %d rows -> %d registrable domains, %d kept (single territory, at most 50 places) -> %s; %s"
           % (len(rows), len(best), kept, SITES, dict(n)), flush=True)
 
@@ -390,7 +447,9 @@ def cmd_leads(a):
             k = "lead:" + hashlib.sha1(("%s|place:abroad" % d).encode()).hexdigest()[:16]
             new_leads[k] = {"buyer_key": k, "buyer_name": r["name"] or d, "website": "https://%s/" % d, "canadian_vendor_rows": "1", "example_vendor": "",
                             "canada_field_value": "", "evidence_dataset": "Overture Maps places (%s)" % (r.get("zip") or ""), "latest_record_date": TODAY}
-            new_det[k] = {"key": k, "platform": "places_abroad", "biller": b, "zip": r.get("zip") or "", "places": r.get("objects") or ""}
+            new_det[k] = {"key": k, "platform": "places_abroad", "biller": b, "zip": r.get("zip") or "", "places": r.get("objects") or "", "how": r.get("how") or "zip"}
+            if r.get("how") == "point":
+                new_det[k].update(lon=r.get("lon") or "", lat=r.get("lat") or "")
             n["lead (%s)" % b] += 1
     leads.update(new_leads)
     nu, nd, ng = LS.save("usb", a.stamp, leads, new_det, snap)

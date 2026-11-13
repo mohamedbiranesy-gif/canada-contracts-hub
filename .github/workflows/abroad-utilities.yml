@@ -41,7 +41,7 @@ jobs:
           fi
           git config user.name "abroad-utilities"; git config user.email "abroad-utilities@users.noreply.github.com"
           python3 tools/secret_guard.py || true
-          git add data/incoming/claude/abroad tools/data/us_zip_billers.csv data/incoming/claude/lead_shards 2>/dev/null || true
+          git add data/incoming/claude/abroad tools/data/us_zip_billers.csv tools/data/abroad_place_points.csv.gz data/incoming/claude/lead_shards 2>/dev/null || true
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
           git commit -q -m "abroad-utilities: $(grep -h 'abroad leads' /tmp/a.txt | cut -c1-150) [skip ci]"
           for i in $(seq 1 20); do

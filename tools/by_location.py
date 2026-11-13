@@ -256,6 +256,42 @@ def abroad_where(text):
     return None, ""
 
 
+# 2026-11-13 17:00Z (rule 18): a place at a territory's edge, located by its own point (tools/abroad_utilities.py places, MARGIN ~200 m inside one
+# target and clear of every other retail territory): {registrable domain: [(zip, biller key, lon, lat, dataset)]}. The row needs the organisation's
+# own page to print that same ZIP code — its printed address and the listing of its website agree on the area; the point names the utility.
+def _load_points():
+    out = {}
+    try:
+        with gzip.open(os.path.join(ROOT, "tools/data/abroad_place_points.csv.gz"), "rt", encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if r.get("biller") in BY_KEY and BY_KEY[r["biller"]].get("abroad"):
+                    out.setdefault(r["dom"], []).append((r["zip"], r["biller"], r.get("lon") or "", r.get("lat") or "", r.get("source") or ""))
+    except OSError:
+        pass
+    return out
+
+
+POINTS = _load_points()
+
+
+def abroad_point(dom, text):
+    """(utility abroad, how it is named) by the point of the organisation's own place listing, or (None, ""): the text prints one U.S. ZIP code of
+    the utilities' states and no Canadian postal code; a place of the same registrable domain, in that ZIP code area, lies inside one territory"""
+    text = text or ""
+    if not POINTS or not dom or dom not in POINTS or next(iter(codes(text)), None) is not None:
+        return None, ""
+    zs = set(US_ZIP_RX.findall(text))
+    if len(zs) != 1:
+        return None, ""
+    z = zs.pop()
+    got = {(b, x, y, src) for (zz, b, x, y, src) in POINTS[dom] if zz == z}
+    if len({g[0] for g in got}) != 1:
+        return None, ""
+    b, x, y, src = sorted(got)[0]
+    return BY_KEY[b], ("ZIP code %s, and the listing of its website in %s lies inside the territory at %s, %s — 200 m or more from its edge and from any "
+                       "other utility's" % (z, src, y, x))
+
+
 def ownership_sentence(b):
     """a utility abroad: the Canadian parent's own sentence on owning it, and the parent's printed address in Canada (rule 18)"""
     if not b or not b.get("abroad"):
