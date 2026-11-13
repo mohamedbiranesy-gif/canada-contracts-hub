@@ -1,0 +1,20 @@
+{
+ "names": [
+  "Canadian Nuclear Safety Commission",
+  "Commission canadienne de sûreté nucléaire"
+ ],
+ "hosts": [
+  "cnsc-ccsn.gc.ca",
+  "nuclearsafety.gc.ca"
+ ],
+ "url": "https://api.cnsc-ccsn.gc.ca/dms/digital-medias/Cost-Recovery-Program-Paying-your-Fees.pdf/object",
+ "read": "2026-11-13",
+ "payment": "by cheque to the Receiver General, direct deposit or wire transfer to the Receiver General's account, or card: “Clients may remit their fee payment by cheque, credit card or electronically” … “Your invoice or statement remittance stub should be enclosed with your payment.”",
+ "period": "a yearly fee invoiced before each licence anniversary: “Every year before the licence anniversary date, the Commission shall issue to the licensee an invoice for the annual fee payable.”",
+ "period_url": "https://laws-lois.justice.gc.ca/eng/regulations/sor-2003-212/FullText.html",
+ "delivery": "an invoice every year: “Every year before the licence anniversary date, the Commission shall issue to the licensee an invoice for the annual fee payable.”",
+ "delivery_url": "https://laws-lois.justice.gc.ca/eng/regulations/sor-2003-212/FullText.html",
+ "terms": "“The licensee shall pay the fee to the Commission by the later of 30 days after the date of the invoice and the licence anniversary date.”",
+ "terms_url": "https://laws-lois.justice.gc.ca/eng/regulations/sor-2003-212/FullText.html",
+ "remit_to": "“Canadian Nuclear Safety Commission 280 Slater Street P.O. Box 1046, STN B Ottawa ON K1P 5S9 Canada”"
+}
