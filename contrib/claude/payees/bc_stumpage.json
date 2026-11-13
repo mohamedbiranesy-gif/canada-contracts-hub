@@ -1,0 +1,19 @@
+{
+ "names": [
+  "Province of British Columbia — Ministry of Forests (stumpage)",
+  "Ministry of Forests (stumpage)"
+ ],
+ "hosts": [],
+ "url": "https://www2.gov.bc.ca/gov/content/taxes/natural-resource-taxes/forestry/stumpage/pay",
+ "read": "2026-11-13",
+ "period": "an invoice for each scale return and a Statement of Account every month: “Statements of Account are issued on the 23rd of each month and mailed to your main location address.”",
+ "period_url": "https://www2.gov.bc.ca/gov/content/taxes/natural-resource-taxes/forestry/stumpage",
+ "delivery": "an invoice, then a Billing Notice by mail: “Billing Notices are issued one day after invoices are sent and show details about the items on your invoices. Notices are mailed to your main location address.”",
+ "delivery_url": "https://www2.gov.bc.ca/gov/content/taxes/natural-resource-taxes/forestry/stumpage",
+ "payment": "through a bank or financial institution (EFT, wire), online with eTaxBC, or by cheque to the Minister of Finance; no card: “Through your bank or financial institution” … “EFTs and wire transfers can take up to three days to get from your bank to us.” … “Credit card payments are not accepted.”",
+ "terms": "“Your stumpage and export fees are due upon receipt of your invoice.”",
+ "terms_url": "https://www2.gov.bc.ca/gov/content/taxes/natural-resource-taxes/forestry/stumpage/pay/overdue",
+ "unpaid": "“Interest applies to all overdue accounts at a rate of prime plus 3%.”",
+ "unpaid_url": "https://www2.gov.bc.ca/gov/content/taxes/natural-resource-taxes/forestry/stumpage/pay/overdue",
+ "remit_to": "“Collection Loan Management Group Ministry of Finance PO Box 9990 Stn Prov Govt Victoria BC V8W 9R7”"
+}

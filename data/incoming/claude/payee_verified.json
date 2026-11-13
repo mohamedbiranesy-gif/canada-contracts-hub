@@ -5,6 +5,18 @@
   "url": "https://cdn.shopify.com/s/files/1/0007/0267/8860/files/LDB_Cannabis_Wholesale_PAD_Agreement_Final_Nov-2022.pdf",
   "verified": "2026-11-12"
  },
+ "contrib/claude/payees/bc_stumpage.json": {
+  "quotes": 8,
+  "sig": "1edff42e24d883db",
+  "url": "https://www2.gov.bc.ca/gov/content/taxes/natural-resource-taxes/forestry/stumpage/pay",
+  "verified": "2026-11-13"
+ },
+ "contrib/claude/payees/bc_water_rentals.json": {
+  "quotes": 7,
+  "sig": "52f4738558887226",
+  "url": "https://www2.gov.bc.ca/gov/content/environment/air-land-water/water/water-licensing-rights/water-licences-approvals/water-application-fees-rental-rates/frequently-asked-questions-about-water-billing",
+  "verified": "2026-11-13"
+ },
  "contrib/claude/payees/cc_nb_saint_john.json": {
   "quotes": 3,
   "sig": "0e3757e4ce1d5c58",
@@ -28,6 +40,12 @@
   "sig": "94aed50ef217152b",
   "url": "https://www.kaccpei.com/kaccpayments",
   "verified": "2026-11-12"
+ },
+ "contrib/claude/payees/hcra.json": {
+  "quotes": 2,
+  "sig": "60dd700736f76f47",
+  "url": "https://www.hcraontario.ca/licensing-fees/",
+  "verified": "2026-11-13"
  },
  "contrib/claude/payees/ocs_wholesale.json": {
   "quotes": 3,

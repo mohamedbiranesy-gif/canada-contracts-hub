@@ -1801,6 +1801,12 @@ for k, L in sorted(leads.items(), key=lead_strength):
                             % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
                                ("registration in force up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no expiry date on the entry",
                                (L.get("latest_record_date") or "")[:10])) if member and "registrant of the Canadian body" in L.get("canada_field_value", "") else
+                           # 2026-11-13 (tools/bc_crown.py): the Province of British Columbia's Harvest Billing System lists each stumpage invoice and the client it is billed to
+                           ("billed stumpage by a Canadian public body: %s — %s invoices to this client in the 12 months to %s, the latest no. %s of %s — the Harvest Billing System's public "
+                            "Billing Summary report (read %s); stumpage is billed on the Crown timber the client harvests and is due on receipt of the invoice"
+                            % (L["example_vendor"], (LDET.get(k) or {}).get("bc_invoices") or "?", (L.get("latest_record_date") or "")[:10], (LDET.get(k) or {}).get("reference") or "?",
+                               (L.get("latest_record_date") or "")[:10], ((LDET.get(k) or {}).get("buyer_register") or {}).get("label", "")[-10:] or (L.get("latest_record_date") or "")[:10]))
+                           if member and "stumpage invoice of the Canadian body" in L.get("canada_field_value", "") else
                            ("holder of licence no. %s issued by a Canadian public body: %s — first issued %s, %s (the body's own public list of licences in force, read %s); the holder pays the body to keep the licence"
                             % ((LDET.get(k) or {}).get("reference") or "?", L["example_vendor"], (LDET.get(k) or {}).get("start") or "on an unstated date",
                                ("in force / fees paid up to %s" % (LDET.get(k) or {})["end"]) if (LDET.get(k) or {}).get("end") else "no end or cancellation date in the list",
@@ -5605,7 +5611,7 @@ def bill_profile(x, ld, cls):
                 out["bill_amount_indicative"] = "%s%s%s" % ({"CAD": "C$", "USD": "US$"}.get(c_, "$"), ("%.2f" % v).rstrip("0").rstrip("."),
                                                              " per vehicle" if re.search(r"per vehicle", m.group(1), re.I) else " a year" if re.search(r"annual|year|ann[ée]e", m.group(1), re.I) else "")
                 out["bill_amount_basis"] = "the body's own statement of its fee: “%s” (%s)" % (m.group(1)[:280], m.group(2))
-        if ld.get("platform") in ("hc_register", "radio_register", "exchange_register"):
+        if ld.get("platform") in ("hc_register", "radio_register", "exchange_register", "bc_water", "bc_stumpage"):
             # tools/hc_registers.py / tools/radio_licences.py: the published fee of one product (a drug, a device licence, a radio station) and the year's bill
             # calculated from what the register lists for the organisation today (a radio licensee's: at least, from the lowest fee of each station)
             # lists for the company today; how the invoice comes and when it is due, in Health Canada's own guidance
@@ -5640,6 +5646,9 @@ def bill_profile(x, ld, cls):
         elif cs.startswith("listed issuer on a Canadian stock exchange"):
             out["relationship_fact_basis"] = ("fact, public record: the exchange's own list of listed companies names the organisation as a listed issuer, with its symbol (%s)"
                                               % (x.get("contract_link") or x.get("source") or "")[:160])
+        elif cs.startswith("billed stumpage by a Canadian public body"):
+            out["relationship_fact_basis"] = ("fact, public record: the Province of British Columbia's Harvest Billing System lists the invoices it billed to this client, "
+                                              "each with its number, timber mark and value (%s)" % (x.get("contract_link") or x.get("source") or "")[:160])
         elif cs.startswith(("holder of licence", "registered with a Canadian regulatory authority", "owner of ", "accredited business")):
             out["relationship_fact_basis"] = "fact, public record: the body's own public register lists the organisation as licensed / registered / accredited today (%s)" % (x.get("contract_link") or x.get("source") or "")[:160]
         elif cs.startswith("member of a Canadian body (stated on the buyer's own site"):
