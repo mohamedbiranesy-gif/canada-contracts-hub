@@ -243,6 +243,12 @@ def cmd_sites(a):
     w = csv.DictWriter(f, fieldnames=["key", "site", "tied_by", "quote", "read"])
     if new:
         w.writeheader()
+    # 2026-11-13: Wikidata's official website of an item of the sponsor's very name in the United States, kept when the site's home page carries it
+    try:
+        n_wd = HR.wd_pass([dict(b, country="United States") for b in bs], have, w, f, 12, only={"US"})
+        todo = [b for b in todo if b["key"] not in have]
+    except Exception as e:
+        print("wikidata pass: %s" % str(e)[:160], flush=True)
     dn = open(SDONE, "a", encoding="utf-8")
     ad = open(ADONE, "a", encoding="utf-8")
     t_end, lock, q, cnt = time.time() + 60 * a.minutes, threading.Lock(), queue.Queue(), collections.Counter()
