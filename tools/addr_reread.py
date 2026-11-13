@@ -243,7 +243,9 @@ def read_one(t):
 # Commission d'accès à l'information …); a federal government postal code (K1A) is never taken.
 LEGALP = re.compile(r"privacy|confidentialit|terms|conditions|legal|mentions|politique|disclaimer|imprint|avis[-_ ]?juridique|\bcgu\b|\bcgv\b|termes", re.I)
 THIRD = re.compile(r"(?i)\b(?:host(?:ed|ing|s)?|h[ée]berg\w*|shopify|wix|squarespace|godaddy|ovh|weebly|registrar|commissioner|commissaire|commission|ombudsman|"
-                   r"affiliate[sd]?|affili[ée]e?s?|parent|agent|agence du revenu|government|gouvernement|ministry|minist[èe]re|office of the|bureau du)\b")
+                   r"affiliate[sd]?|affili[ée]e?s?|parent|agent|agence du revenu|government|gouvernement|ministry|minist[èe]re|office of the|bureau du|"
+                   # (a returns or shipping address is often a warehouse that someone else runs: 2026-11-13, first run's sample)
+                   r"returns?|retours?|ship(?:ped|ping)?|exp[ée]di\w*|warehouse|entrep[ôo]t|fulfil+ment)\b")
 
 
 def _nm(s):
