@@ -2080,3 +2080,20 @@ tenants (each still needs the body's sentence that the listed pay it).
 - **Prepared, not taken (owner):** water by location in Alberta (EPCOR Water, the City of Calgary's charges billed by ENMAX) — the biller of the
   address is certain, but a tenant in a shared building rarely holds its own water account; ~18,000 Alberta mailbox owners. Recommendation: no,
   unless the owner wants it, labelled like electricity.
+
+## 2026-11-13 13:04Z — lane claude: the owner's word on the prepared decisions (07:47 EST), and Foursquare's open places
+- **Owner, 07:47 EST:** "the ones you said recommend, no, obviously not" — **Alberta water by location: NO. Workers' compensation by law: NO.**
+  Neither is built.
+- Explained to him in plain words, his answer pending (lane claude's recommendation in brackets): client lists on a vendor's own site as rows
+  "claimed by the vendor" (no — ~4,000 rows, the weak tie of rule 1); a subsidiary with no site of its own on its parent's site, address and
+  mailbox, labelled (yes — a separate bill, the parent's inbox; 2,000-4,000 rows); Sun Life's U.S. branch, the same Canadian company (yes —
+  ~3,900 U.S. employers); **new:** a Canadian company's foreign subsidiary as the Canadian vendor (his call — it would open by-location rows
+  abroad: the utilities and waste haulers Canadian companies own bill every business of their areas; rough estimate 120,000-180,000 rows; the
+  invoice would carry the subsidiary's name).
+- Owner: "You need to get to 1 million … map out something, do all the search, God mode." The map is in docs/ROUTE_TO_1M.md (update of 2026-11-13, afternoon).
+- **Foursquare Open Source Places** (Apache License 2.0; the copy on Source Cooperative, public): a second public places dataset beside Overture
+  Maps, used the same three ways and labelled with its own name on every row: the websites of open places in Canada into the scan's queue; one
+  address per domain whose places print one postal code (only when the organisation's own pages located nothing and the place's name fits the
+  organisation's); the place listing the telephone number the organisation prints on its own site. A place marked closed is never used; the
+  places' email column is never read.
+

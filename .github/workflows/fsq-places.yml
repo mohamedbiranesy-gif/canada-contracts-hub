@@ -1,0 +1,80 @@
+name: fsq-places
+# Foursquare's open places in Canada (tools/fsq_places.py; Foursquare Open Source Places, Apache License 2.0, read on Source Cooperative):
+#   ca      every website of an open place in Canada -> data/incoming/claude/credit_scan/fsq_sites.csv.gz (the scan's queue: organisations located
+#           in Canada whose sites no other list reached), and one address per domain whose places print one postal code -> fsq_addresses.csv.gz in
+#           the release harvest-state (the rank builds download it beside the Overture file; used only when the organisation's own pages located
+#           nothing and the place's name fits the organisation's)
+#   phones  the place that lists the telephone number an unlocated organisation prints on its own site -> data/incoming/claude/fsq/phone_places.csv
+# Counted on the release of 2025-02-06: 2,161,309 places in Canada, 1,046,347 with a website (585,989 hosts), 1,663,679 with a telephone number.
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "ca | phones | both"
+        default: "both"
+  schedule:
+    - cron: "47 11 * * 0"   # weekly (the Foursquare release changes monthly; the phone targets change with every address pass)
+permissions:
+  contents: write
+concurrency:
+  group: fsq-places
+  cancel-in-progress: false
+env:
+  STAGE: ${{ inputs.stage || 'both' }}
+jobs:
+  ca:
+    if: ${{ (inputs.stage || 'both') != 'phones' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Foursquare places in Canada -> websites (scan queue) and one address per domain (release harvest-state)
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          pip install -q duckdb
+          python3 tools/fsq_places.py ca | tee /tmp/f.txt
+          gzip -6 -f out/fsq_addresses.csv
+          gh release upload harvest-state out/fsq_addresses.csv.gz --clobber
+          rm -f out/fsq_addresses.csv.gz
+          mkdir -p data/incoming/claude/credit_scan
+          gzip -6 -n -c out/fsq_sites.csv > data/incoming/claude/credit_scan/fsq_sites.csv.gz
+          git config user.name "fsq-places"; git config user.email "fsq-places@users.noreply.github.com"
+          git add data/incoming/claude/credit_scan/fsq_sites.csv.gz
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "fsq-places: $(tail -1 /tmp/f.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/f.txt >> "$GITHUB_STEP_SUMMARY"
+
+  phones:
+    if: ${{ always() && (inputs.stage || 'both') != 'ca' }}
+    needs: ca
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Unlocated organisations' own telephone numbers -> the Foursquare place that lists them (computed once; main merged in on a refused push)
+        run: |
+          pip install -q duckdb
+          python3 tools/phone_places.py targets | tee /tmp/p.txt
+          python3 tools/fsq_places.py phones | tee -a /tmp/p.txt
+          python3 tools/fsq_places.py pick | tee -a /tmp/p.txt
+          git config user.name "fsq-places"; git config user.email "fsq-places@users.noreply.github.com"
+          git add data/incoming/claude/fsq/phone_places.csv
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -q -m "fsq-places phones: $(tail -1 /tmp/p.txt | cut -c1-150) [skip ci]"
+          for i in $(seq 1 20); do
+            git push -q origin HEAD:main && break
+            sleep $((RANDOM % 10 + 3))
+            git fetch -q origin main
+            git merge -q --no-edit -X theirs origin/main || { git merge --abort 2>/dev/null; true; }
+          done
+          git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::the merge could not be pushed"; exit 1; }
+          cat /tmp/p.txt >> "$GITHUB_STEP_SUMMARY"

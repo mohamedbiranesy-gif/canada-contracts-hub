@@ -615,6 +615,7 @@ def graph(a):
 
 OSM_SITES = os.path.join(DIR, "osm_sites.csv.gz")  # websites of OpenStreetMap objects in Canada (shops, offices, clinics, restaurants …), any TLD
 OVERTURE_SITES = os.path.join(DIR, "overture_sites.csv.gz")  # websites of the Overture Maps places in Canada (open data, monthly), any TLD
+FSQ_SITES = os.path.join(DIR, "fsq_sites.csv.gz")  # websites of Foursquare's open places in Canada (tools/fsq_places.py ca; Apache 2.0), any TLD
 GRAPH_SHOP = os.path.join(DIR, "graph_shopify.csv.gz")  # domains that link to shopify.com / myshopify.com (web graph): store candidates
 GRAPH_MT = os.path.join(DIR, "graph_multitenant.csv.gz")  # domains with 150+ host names of their own (multi-tenant platforms, large organisations)
 PLATFORM_CANDS = os.path.join(DIR, "platform_candidates.csv")  # those of them whose own site prints a Canadian address: to vet for the vendor table
@@ -1238,6 +1239,10 @@ def scan_queue(k, n, limit=0):
         with gzip.open(OVERTURE_SITES, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
                 add(r["dom"], 3, 100000 - min(int(r.get("objects") or 1), 400))
+    if os.path.exists(FSQ_SITES):  # 3. organisations of Foursquare's open places in Canada (any TLD; 2026-11-13), after the Overture ones
+        with gzip.open(FSQ_SITES, "rt", encoding="utf-8", newline="") as fh:
+            for r in csv.DictReader(fh):
+                add(r["dom"], 3, 50000 - min(int(r.get("objects") or 1), 400))
     if os.path.exists(UNIVERSE):  # 4. every .ca site of the archive, the sites with the most captured pages first
         with gzip.open(UNIVERSE, "rt", encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):

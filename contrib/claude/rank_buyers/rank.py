@@ -2340,7 +2340,11 @@ SRC_DIR = ("the distributor's exclusive territory and the address a public place
            "(no contract, payment or listing record)")
 SRC_PHONE = ("the distributor's exclusive territory and the address of the place a public places dataset (Overture Maps) lists for the organisation's own "
              "telephone number (no contract, payment or listing record)")
-_src_loc = lambda b_addr: SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_PHONE if _BYLOC.PHONE_MARK in b_addr else SRC_OWN
+# 2026-11-13: the same two ways on Foursquare's open places (tools/fsq_places.py), said with their own dataset
+SRC_DIR_FSQ = SRC_DIR.replace("(Overture Maps)", "(Foursquare Open Source Places)")
+SRC_PHONE_FSQ = SRC_PHONE.replace("(Overture Maps)", "(Foursquare Open Source Places)")
+_src_loc = lambda b_addr: (SRC_DIR if _BYLOC.DIRECTORY_MARK in b_addr else SRC_DIR_FSQ if _BYLOC.DIRECTORY_MARK_FSQ in b_addr else SRC_PHONE if _BYLOC.PHONE_MARK in b_addr
+                           else SRC_PHONE_FSQ if _BYLOC.PHONE_MARK_FSQ in b_addr else SRC_OWN)
 GAVE_WAY = {}
 n_gw = collections.Counter()
 _ROSTER13 = ("member named in the member directory", "tenant / merchant named by", "dealer / retailer named by", "sponsor / exhibitor named by")
@@ -6125,13 +6129,13 @@ for _ri, x in enumerate(rows):
                                                   (registrable(host_of(x["buyer_website"])) if x.get("buyer_website") else "")) if d_):
                 _oa9 = OVT.get(_d9)
                 if _oa9 and _ovt_fits(x.get("buyer") or "", _oa9.get("names") or "", _d9):
-                    x["buyer_address"] = _BYLOC.directory_cell(_oa9); npk["buyer_address_from_a_listed_place (Overture Maps)"] += 1
+                    x["buyer_address"] = _BYLOC.directory_cell(_oa9); npk["buyer_address_from_a_listed_place (%s)" % ("Foursquare" if _oa9.get("datasets") == "Foursquare" else "Overture Maps")] += 1
                     break
         # 2026-11-13: then the place listing the organisation's own telephone number, under its name or with its website (tools/phone_places.py)
         if PHP and not (x.get("buyer_address") or "").strip() and not (x.get("invoice_mailing_address") or "").strip():
             _po9 = next((PHP[_k9] for _k9 in (x.get("keys") or "").split("|") if _k9 in PHP), None)
             if _po9:
-                x["buyer_address"] = _BYLOC.phone_cell(_po9); npk["buyer_address_from_the_place_listing_its_telephone (Overture Maps)"] += 1
+                x["buyer_address"] = _BYLOC.phone_cell(_po9); npk["buyer_address_from_the_place_listing_its_telephone (%s)" % ("Foursquare" if str(_po9.get("release") or "").startswith("Foursquare") else "Overture Maps")] += 1
         t, g, ec = x.get("tier") or "", int(x.get("grade") or 0), x.get("email_check") or ""
         name_site = " ".join((x.get(c) or "") for c in ("buyer", "buyer_legal_name_as_published", "buyer_trade_name_as_published", "buyer_website"))
         # buyer_type fallback (C4.1) and sector (S4.1)

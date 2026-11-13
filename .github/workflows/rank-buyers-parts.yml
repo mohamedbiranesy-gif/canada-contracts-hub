@@ -70,6 +70,7 @@ jobs:
             -p vendor_country_unverified_contracts.jsonl.gz -p 'ended_2*.jsonl.gz' -D data/release --clobber
           # the address an Overture Maps place lists for an organisation's website (tools/credit_scan.py overture, monthly): rows by where the organisation is
           gh release download harvest-state -p overture_addresses.csv.gz -D data/release --clobber || echo "no listed addresses (release harvest-state): rows stand on the organisations' own pages only"
+          gh release download harvest-state -p fsq_addresses.csv.gz -D data/release --clobber || echo "no Foursquare listed addresses (release harvest-state)"
           python3 contrib/claude/rank_buyers/rank.py > rank.log || { tail -40 rank.log; exit 1; }
           grep -m1 "RANK_PART" rank.log | cut -c1-400 || true
           grep -E "^\[ *[0-9]+s .*\] (same-vendor carry-over|rows [0-9]+)" rank.log | cut -c1-60 || true   # time and memory at the end of the ranking

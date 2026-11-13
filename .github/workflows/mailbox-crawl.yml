@@ -62,6 +62,7 @@ jobs:
         run: |
           mkdir -p data/release
           gh release download harvest-state -p overture_addresses.csv.gz -D data/release --clobber || echo "no listed addresses: sites are located by their own home page only"
+          gh release download harvest-state -p fsq_addresses.csv.gz -D data/release --clobber || echo "no Foursquare listed addresses (release harvest-state)"
       - name: Read each lead's own site for its role mailbox
         run: |
           M=$(( MINUTES > 170 ? 170 : MINUTES ))

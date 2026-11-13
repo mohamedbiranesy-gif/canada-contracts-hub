@@ -408,6 +408,11 @@ def biller_for_city(text):
 # public places dataset, not the organisation's own pages (coord/DECISIONS.md 2026-11-12). Its own pages always come first.
 OVERTURE_ADDR = os.path.join(ROOT, "data/release/overture_addresses.csv.gz")
 DIRECTORY_MARK = "the address an Overture Maps place lists for its website"
+# 2026-11-13: the same, from Foursquare's open places (tools/fsq_places.py ca -> fsq_addresses.csv.gz in the release harvest-state; Apache License
+# 2.0): read for the domains the Overture file does not hold, with its own mark on the row
+FSQ_ADDR = os.path.join(ROOT, "data/release/fsq_addresses.csv.gz")
+DIRECTORY_MARK_FSQ = "the address a Foursquare place lists for its website"
+DIRECTORY_MARKS = (DIRECTORY_MARK, DIRECTORY_MARK_FSQ)
 # 2026-11-13: a place named like a person ("David Florek": a given name and a surname, nothing of a trade) is a person's listing — a sole proprietor's,
 # often at a home: its address does not locate an organisation, and a person's name is never quoted on a row
 _TRADE = re.compile(r"\b(?:photo\w*|counsel\w*|landscap\w*|paint\w*|funeral|home|homes|thai|creative|jewel\w*|joaill\w*|decor|composites?|ost[ée]o\w*|boulang\w*|"
@@ -442,17 +447,19 @@ def bare_person(name):
 
 
 def directory_addresses(doms, path=None):
-    """{registrable domain: row of the address file} for the domains asked (the file holds some 630,000); {} when the file is not there"""
-    out, path = {}, path or OVERTURE_ADDR
-    if not os.path.exists(path):
-        return out
-    try:
-        with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
-            for r in csv.DictReader(fh):
-                if r.get("dom") in doms and usable(r.get("postcode") or "", r.get("postcode") or "", " ") and not bare_person((r.get("names") or "").split(" | ")[0]):
-                    out[r["dom"]] = r
-    except (OSError, EOFError, csv.Error) as e:
-        print("directory addresses: %s not read (%s)" % (path, e), flush=True)
+    """{registrable domain: row of the address file} for the domains asked (the Overture file holds some 630,000, then the Foursquare file for
+    the domains Overture does not hold); {} when no file is there"""
+    out = {}
+    for pth in ([path] if path else [OVERTURE_ADDR, FSQ_ADDR]):
+        if not os.path.exists(pth):
+            continue
+        try:
+            with gzip.open(pth, "rt", encoding="utf-8", newline="") as fh:
+                for r in csv.DictReader(fh):
+                    if r.get("dom") in doms and r["dom"] not in out and usable(r.get("postcode") or "", r.get("postcode") or "", " ") and not bare_person((r.get("names") or "").split(" | ")[0]):
+                        out[r["dom"]] = r
+        except (OSError, EOFError, csv.Error) as e:
+            print("directory addresses: %s not read (%s)" % (pth, e), flush=True)
     return out
 
 
@@ -472,6 +479,9 @@ def directory_cell(o):
     first = [x_ for x_ in (street, city) if x_]
     head = ", ".join(first + [("%s %s %s" % (prov, pc[:3], pc[3:])).strip()])
     names = (o.get("names") or "").split(" | ")
+    if (o.get("datasets") or "") == "Foursquare":
+        return ("%s (%s %s: “%s”, place %s; Foursquare Open Source Places, Apache License 2.0, release %s — a public places dataset, not the organisation's "
+                "own pages%s)" % (head, DIRECTORY_MARK_FSQ, o["dom"], names[0][:80], o.get("place_id") or "", o.get("release") or "", said))
     return ("%s (%s %s: “%s”, place %s, from %s; Overture Maps Foundation open data, release %s — a public places dataset, not the organisation's "
             "own pages%s)" % (head, DIRECTORY_MARK, o["dom"], names[0][:80], o.get("place_id") or "", o.get("datasets") or "Overture", o.get("release") or "", said))
 
@@ -480,17 +490,22 @@ def directory_cell(o):
 # lists the organisation's website (tools/phone_places.py) — a public places dataset's statement, used only when nothing else located it
 PHONE_MARK = "the address of the Overture Maps place that lists its telephone number"
 PHONE_PLACES = os.path.join(ROOT, "data/incoming/claude/overture/phone_places.csv")
+# 2026-11-13: the same test on Foursquare's open places (tools/fsq_places.py phones / pick), for the organisations the Overture places did not locate
+PHONE_MARK_FSQ = "the address of the Foursquare place that lists its telephone number"
+PHONE_PLACES_FSQ = os.path.join(ROOT, "data/incoming/claude/fsq/phone_places.csv")
+PHONE_MARKS = (PHONE_MARK, PHONE_MARK_FSQ)
 
 
 def phone_addresses(path=None):
     out = {}
-    try:
-        with open(path or PHONE_PLACES, encoding="utf-8", newline="") as f:
-            for r in csv.DictReader(f):
-                if r.get("key") and r.get("postcode") and not bare_person(r.get("names") or ""):
-                    out[r["key"]] = r
-    except OSError:
-        pass
+    for pth in ([path] if path else [PHONE_PLACES, PHONE_PLACES_FSQ]):
+        try:
+            with open(pth, encoding="utf-8", newline="") as f:
+                for r in csv.DictReader(f):
+                    if r.get("key") and r["key"] not in out and r.get("postcode") and not bare_person(r.get("names") or ""):
+                        out[r["key"]] = r
+        except OSError:
+            pass
     return out
 
 
@@ -504,6 +519,10 @@ def phone_cell(o):
     head = ", ".join(first + [("%s %s %s" % (prov, pc[:3], pc[3:])).strip()])
     why = "it lists the organisation's own website" if o.get("how") == "website" else "it bears the organisation's name"
     # (2026-11-13: the number itself is not printed — the one the organisation prints on its own site; a person's name never stands in the quote)
+    if str(o.get("release") or "").startswith("Foursquare"):
+        return ("%s (%s, the one printed on its own site: “%s”, place %s; %s; Foursquare Open Source Places, Apache License 2.0, release %s — a public places "
+                "dataset, not the organisation's own pages%s)" % (head, PHONE_MARK_FSQ, (o.get("names") or "")[:80], o.get("place_id") or "", why,
+                                                                  str(o.get("release") or "").split(" ", 1)[-1], said))
     return ("%s (%s, the one printed on its own site: “%s”, place %s; %s; Overture Maps Foundation open data, release %s — a public places dataset, not the "
             "organisation's own pages%s)" % (head, PHONE_MARK, (o.get("names") or "")[:80], o.get("place_id") or "", why, o.get("release") or "", said))
 
