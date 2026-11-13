@@ -11,6 +11,23 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 **Decision left for the owner (prepared, not taken):** client listings (155,752 leads, 31,977 buyer rows with a mailbox; by 2026-11-13 05:00Z most of those organisations already stand on another row — the distributor of their address — and 4,332 dated client-listing rows with a mailbox remain held as 'stated by the vendor', plus 4,348 'link only') as labelled
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
+**2026-11-13 12:50Z — build 11:39Z: 276,301 ready of 333,286 rows (+8,351 since 07:49Z; +58,913 since the 23:25Z build that opened this run):**
+location 185,298 (+7,323), licence 14,999 (+685), agent of record 11,694, membership 19,177, service 32,335, exchange listing 347; complete in the
+biller's own words 25,703; amount and period 233,127; every main field 182,001; $5k+ a bill 2,821 (2,177 published, 644 estimated). Owner asked
+for a status report at 07:39 EST; sent (the 12-hour figures above).
+- The session stopped at ~10:20Z and was idle until 12:37Z (between turns); the automation ran (the 11:39Z build).
+- Since 09:50Z: TMX's own payment pages (payments.tmx.com/en/tsx, /en/tsxv: wire transfer, direct deposit, online banking bill payment with the
+  invoice's customer number, or card) as payee entries → exchange-listing rows in the biller's words (bank account numbers not copied); Cornwall
+  Electric's commercial rates (from $11.71 a month; about $410-$421 at 2,500 kWh); **addr-reread --city** (a street address printed with its city
+  and province but no postal code, or the one city a contact page names, in a city one distributor serves whole; 3.1 % of 591 sampled
+  organisations every earlier pass left unlocated; guards for service areas, events, listings, persons) — run dispatched 10:18Z on the 161,091
+  sites the legal pass left; bc-crown run 3: 1,001 leads on file (+282: PMRA, CNSC).
+- **Two mailbox-crawl runs lost** (09:20Z, 09:41Z) to GitHub push protection: a Mapbox public token (pk.) in a crawled page, flagged as a secret
+  token; the guard now strips pk./sk./tk. tokens (595e98a); the queued run's merge reads the fixed guard.
+- **AGLC (Alberta liquor licensees): not used.** Its licensee search form redirects to a generated report under /sites/aglc.ca/files/, which
+  robots.txt disallows (noted 2026-11-13 01:17Z). The report was downloaded once by following the form's redirect, then deleted unread beyond its
+  header; no row, no lead. The lane stays blocked by robots.
+
 **2026-11-13 09:50Z — since 09:10Z (none of it counted yet: the full build of 09:09Z and the parts build queued behind it read most of it):**
 - Ontario by every address point: 193,560 postal codes added (Overture addresses inside the Board's map), 1,394 codes where the dump's one point
   and the address points disagree now name no distributor; Ontario sites located 107,913 -> 111,206. Hydro-Coaticook added (49 + 10 quotes
