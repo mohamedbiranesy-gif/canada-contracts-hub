@@ -79,7 +79,8 @@ def nkey(s):
 # the legal forms of the European countries of ABROAD, for owners there ("SIEMENS AKTIENGESELLSCHAFT" is "Siemens AG" on its site and in a
 # places dataset): one more pass over a key nkey() made — the same pattern in Python and in DuckDB (RE2)
 EU_FORMS = (r"\b(aktiengesellschaft|gesellschaft mit beschrankter haftung|kommanditgesellschaft|kgaa|kg|se|spa|s p a|sarl|s a r l|sas|sasu|sl|s l|slu|"
-            r"s r l|srls|scarl|sapa|snc|eurl|ab|publ|oy|oyj|as|a s|aps|bvba|sprl|nv|bv|b v|n v|gmbh|ag|sa|s a|cie|et cie)\b")
+            r"s r l|srls|scarl|sapa|snc|eurl|ab|publ|oy|oyj|as|a s|aps|bvba|sprl|nv|bv|b v|n v|gmbh|ag|sa|s a|cie|et cie|"
+            r"kabushiki kaisha|k k|godo kaisha|yugen kaisha|asa|pvt|private limited|co ltd|company limited|corporation|limited|ltd|inc)\b")
 
 
 def nkey_raw(s):
@@ -438,6 +439,20 @@ EU_CODE = {"FR": (r"(?<![\d-])(?:F-?\s?)?(\d{5})(?!\d)", "France", (".fr", ".com
            "BE": (r"(?<![\d-])(?:B-?\s?)?(\d{4})(?!\d)", "Belgique|België|Belgie|Belgium|Belgien", (".be", ".com")), "DK": (r"(?<![\d-])(?:DK-?\s?)?(\d{4})(?!\d)", "Danmark|Denmark", (".dk", ".com")),
            "NL": (r"(?<![\d-])(\d{4}\s?[A-Z]{2})(?![A-Za-z])", "Nederland|Netherlands|Pays-Bas", (".nl", ".com")), "SE": (r"(?<![\d-])(?:S-?|SE-?)?(\d{3}\s?\d{2})(?!\d)", "Sverige|Sweden|Suède", (".se", ".com"))}
 _EU_NAME = {"FR": "France", "DE": "Germany", "IT": "Italy", "ES": "Spain", "CH": "Switzerland", "AT": "Austria", "BE": "Belgium", "DK": "Denmark", "NL": "Netherlands", "SE": "Sweden"}
+# 2026-11-13: the other countries with many owners and no site found yet (patents + trademarks: CN 3,710 + 26,540 · JP 2,330 + 3,196 · KR 1,286 + 1,443 ·
+# IL 1,329 · TW 1,229 · NO 893 · IN 752 · NZ 720 · FI 714): their postal codes, names and endings. In JP, KR, CN, TW, IN and NZ an address prints its
+# code after the city ("Tokyo 105-8001", "Seoul 06236"), so a site's page counts the code wherever it stands, digits not run together with others
+EU_CODE.update({"JP": (r"(?<![\d-])(?:〒\s?)?(\d{3}-?\d{4})(?![\d-])", "Japan|日本", (".co.jp", ".jp", ".com")),
+                "KR": (r"(?<![\d-])(\d{5})(?![\d-])", "Korea|대한민국|한국", (".co.kr", ".kr", ".com")),
+                "IL": (r"(?<![\d-])(\d{7})(?![\d-])", "Israel|ישראל", (".co.il", ".com")),
+                "NO": (r"(?<![\d-])(?:N-?|NO-?)?(\d{4})(?!\d)", "Norge|Norway", (".no", ".com")),
+                "FI": (r"(?<![\d-])(?:FI-?)?(\d{5})(?!\d)", "Suomi|Finland", (".fi", ".com")),
+                "NZ": (r"(?<![\d-])(\d{4})(?![\d-])", "New Zealand|Aotearoa", (".co.nz", ".nz", ".com")),
+                "TW": (r"(?<![\d-])(\d{3}(?:\d{3}|\d{2})?)(?![\d-])", "Taiwan|臺灣|台灣", (".com.tw", ".tw", ".com")),
+                "IN": (r"(?<![\d-])(\d{3}\s?\d{3})(?![\d-])", "India", (".in", ".co.in", ".com")),
+                "CN": (r"(?<![\d-])(\d{6})(?![\d-])", r"China|中国|P\.\s?R\.\s?China|PRC", (".cn", ".com.cn", ".com"))})
+_EU_NAME.update({"JP": "Japan", "KR": "South Korea", "IL": "Israel", "NO": "Norway", "FI": "Finland", "NZ": "New Zealand", "TW": "Taiwan", "IN": "India", "CN": "China"})
+_CODE_ANYWHERE = {"JP", "KR", "CN", "TW", "IN", "NZ", "IL"}
 for _cc, (_rx, _nm, _tl) in EU_CODE.items():
     ABROAD[_cc] = (_EU_NAME[_cc], _tl)
 
@@ -476,7 +491,7 @@ def place_abroad(address, country):
         return m.group(2), st
     if country in EU_CODE:  # the LAST postal code of the one-line address ("Hauptstraße 12, 80331 München": 80331)
         ms = list(re.finditer(EU_CODE[country][0], a.upper() if country == "NL" else a))
-        return (re.sub(r"\s", "", ms[-1].group(1)), "") if ms else ("", "")
+        return (re.sub(r"[\s-]", "", ms[-1].group(1)), "") if ms else ("", "")
     return "", ""
 
 
@@ -496,6 +511,13 @@ def printed_abroad(text, country, code, state):
         for m in re.finditer(r"(?<![A-Za-z0-9])(NSW|VIC|QLD|TAS|ACT|WA|SA|NT)\s+(\d{4})(?!\d)", text):
             same_state = same_state or (bool(state) and m.group(1) == state)
             same_code = same_code or (bool(code) and m.group(2) == code and (not state or m.group(1) == state))
+    elif country in _CODE_ANYWHERE:
+        # 2026-11-13: the register's postal code where it stands (after the city in these countries), not run together with other digits;
+        # "the same state" is the country's own name printed on the site
+        rx, names_, _ = EU_CODE[country]
+        for m in re.finditer(rx, text):
+            same_code = same_code or (bool(code) and re.sub(r"[\s-]", "", m.group(1)) == code)
+        same_state = bool(re.search(r"(?:%s)" % names_, text))
     elif country in EU_CODE:
         # the register's postal code followed by a place name ("80331 München", "75008 Paris", "1012 AB Amsterdam"), as an address prints it;
         # "the same state" here is the country's own name printed on the site

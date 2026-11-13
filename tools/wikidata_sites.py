@@ -25,7 +25,11 @@ INC = os.path.join(ROOT, "data/incoming/claude")
 UA = HR.UA
 ENDPOINT = "https://qlever.dev/api/wikidata"
 QC = {"Q30": "US", "Q145": "GB", "Q408": "AU", "Q142": "FR", "Q183": "DE", "Q38": "IT", "Q29": "ES", "Q39": "CH", "Q40": "AT", "Q31": "BE", "Q35": "DK",
-      "Q55": "NL", "Q34": "SE", "Q16": "CA"}
+      "Q55": "NL", "Q34": "SE", "Q16": "CA",
+      # 2026-11-13: the countries the site tests learned the same day (their owners' names are written in Latin letters on the register: the English
+      # label and the official name only)
+      "Q17": "JP", "Q884": "KR", "Q801": "IL", "Q20": "NO", "Q33": "FI", "Q664": "NZ", "Q865": "TW", "Q668": "IN", "Q148": "CN"}
+SHORT = {"JP", "KR", "IL", "NO", "FI", "NZ", "TW", "IN", "CN"}
 PARTS = ["en", "de", "fr", "it", "es", "nl", "sv", "da", "P1448"]
 PREFIX = ("PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> "
           "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ")
@@ -44,7 +48,7 @@ def pull(d, only=None):
     for q, cc in QC.items():
         if only and cc not in only:
             continue
-        for part in PARTS:
+        for part in (["en", "P1448"] if cc in SHORT else PARTS):
             w = "?item wdt:P1448 ?name ." if part == "P1448" else "?item rdfs:label ?name . FILTER(LANG(?name) = \"%s\")" % part
             query = PREFIX + "SELECT ?item ?site ?name WHERE { ?item wdt:P856 ?site ; wdt:P17 wd:%s . %s }" % (q, w)
             out = os.path.join(d, "p_%s_%s.tsv" % (q, part))
