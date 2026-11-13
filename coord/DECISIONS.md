@@ -2140,3 +2140,12 @@ Canadian company. Nothing is built on this until the owner answers; asked again 
   UNS Energy), Central Hudson Gas & Electric (Fortis), Green Mountain Power (Énergir), Versant Power (ENMAX), The Empire District Electric Company,
   Liberty Utilities (CalPeco Electric) and Granite State Electric (Algonquin, Liberty); Caribbean Utilities (Grand Cayman) and FortisTCI (Fortis),
   The Barbados Light & Power Company and Grand Bahama Power (Emera), Bermuda Electric Light Company (Algonquin).
+
+## 2026-11-13 16:45Z — owner (11:44 EST): no to both open questions (AGENTS.md rules 19 and 20)
+Asked at 15:16Z and 16:44Z, answered "no" and "no":
+- A company abroad that a Canadian company owns does not count as the Canadian vendor, other than the electric utilities of rule 18 (no rows for
+  US public bodies paying CGI's, Stantec's or WSP's US companies, plans paying Empower or John Hancock, tenants of a Canadian group's buildings abroad).
+  A Canadian entity's own branch abroad (Sun Life Assurance Company of Canada's U.S. branch) stays: it is the Canadian legal entity itself.
+- A utility abroad held by several Canadian pension funds together (Puget Sound Energy, Minnesota Power) does not count.
+Nothing had been built on either: no lane, lead or row changes. data/incoming/claude/canadian_owned/subsidiaries_abroad.csv.gz (the LEI register's
+Canadian parents) stays on file as data only — it confirmed the parents of rule 18's utilities.

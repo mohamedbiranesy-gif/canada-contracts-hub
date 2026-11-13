@@ -126,6 +126,13 @@ count it. The U.S. power company owned by Canadian company counts as Canadian ve
     distributor (rule 13): electricity only, the biller certain for the address, the account holder not published, the parent's own page quoted for the
     ownership. Households are never rows.
 
+**Owner rules (2026-11-13 11:44 EST, binding).** Asked two yes/no questions, he answered "no" to both.
+19. **A company abroad that a Canadian company owns is not a Canadian vendor — except the electric utilities of rule 18.** US cities paying the US
+    companies of CGI, Stantec or WSP, plans paying Empower or John Hancock, tenants of a Canadian group's buildings abroad: no row. (A Canadian legal
+    entity's own branch abroad — Sun Life Assurance Company of Canada's U.S. branch, owner 2026-11-13 08:07 EST — is the Canadian entity itself and stays.)
+20. **A utility abroad held by several Canadian pension funds together is not a Canadian vendor.** Puget Sound Energy (OMERS, BCI, Ontario Teachers',
+    AIMCo, with Macquarie and PGGM) and Minnesota Power (Canada Pension Plan with a US partner): no row. Rule 18 is a utility that a Canadian company owns.
+
 **Owner rule (2026-10-28): when a buyer publishes no invoicing/AP mailbox, save its purchasing/procurement role mailbox
   (`ap_email_type=procurement`) or, failing that, its general role mailbox such as info@ / reception@ / greffe@
   (`ap_email_type=general`), with status `found` and a note saying no invoicing mailbox is published.** Still never
