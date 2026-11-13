@@ -412,6 +412,34 @@ BILLING["thinkific"].update(amount="from $109 a month", amount_basis="“Our Sta
 BILLING["amilia"].update(amount="from $99 a month", amount_basis="“$99 /mo” (https://www.amilia.com/pricing, read 2026-11-11)")
 BILLING["jumptools"].update(amount="from $35 a month, paid by the year", amount_basis="“Get online for as little as $35/month (paid annually).” (https://jumptools.com/, read 2026-11-11)")
 # vendors found through DNS records or credits, not in VENDORS: their terms read by hand, keyed by the vendor's own domain
+# 2026-11-13 (owner 13:23 EST: "go through every row populate as much as can be max"): when the bill is due, in the host's own terms. 44,084 ready rows of
+# services and licences had every main invoice field but the due terms (build 18:26Z: Web Hosting Canada alone 19,386). Each host's terms page opened with
+# the project's reader on 2026-11-13; the sentence is the host's own, at most 300 characters each. rank.py writes it to bill_due_terms_as_published.
+DUE_TERMS_BY_DOMAIN = {
+    "whc.ca": ("each invoice is due on the service's expiration date, the renewal invoice issued at least 15 days before: “A first payment is required prior to the activation of a "
+               "service, and all following invoices must be paid in full prior to their due date.” … “WHC will generate renewal invoices automatically for all your active services "
+               "at least 15 days prior to their expiration date.” (https://whc.ca/legal/terms-of-service, read 2026-11-13)"),
+    "doteasy.com": ("by the due date the invoice gives, the invoice sent ahead of it: “Invoices will be sent in advance of payment due.” … “If you do not make any payment to us by the due "
+                    "date we may charge interest to you on the overdue amount” (https://terms.doteasy.com/, read 2026-11-13)"),
+    "aplus.net": ("in advance, before the registration or renewal date: “All fees are due prior to the registration or renewal date.” … “Your activation fee and monthly service fees are "
+                  "payable in advance” … “If you fail to pay the fees within 30 days after due your services will be disabled.” (https://www.aplus.net/sites/aplus/files/Terms_and_Conditions.pdf, read 2026-11-13)"),
+    "canadianwebhosting.com": ("in advance, by the time the invoice states: “Pre-payment of recurring fees is due by the time stated on CWH's invoice.” … “All CLIENT fees are due in advance of the "
+                               "first day of the relevant term.” (https://canadianwebhosting.com/company/terms-of-service, read 2026-11-13)"),
+    "linknowmedia.com": ("on the billing date, or ten business days after billing where its terms allow: “All amounts billed on your account on a given date are due and payable on that date.” … "
+                         "“In such cases, payment shall be due ten (10) business days after billing.” (https://linknow.com/terms/, read 2026-11-13)"),
+    "linknow.com": ("on the billing date, or ten business days after billing where its terms allow: “All amounts billed on your account on a given date are due and payable on that date.” … "
+                    "“In such cases, payment shall be due ten (10) business days after billing.” (https://linknow.com/terms/, read 2026-11-13)"),
+    "astralinternet.com": ("by the service's due date, printed on the invoice, the renewal invoice issued 30 days before: “Cette date d’expiration est la « date d’échéance du Service » et constitue "
+                           "la date limite de paiement de son renouvellement ; elle est indiquée sur la facture.” … “Astral Internet émet la facture de renouvellement trente (30) jours avant la "
+                           "date d’échéance du Service” (https://www.astralinternet.com/conditions/, read 2026-11-13)"),
+    "webware.ai": ("by the due date the invoice sets out: “In the event a payment is not received by the due date set forth on an invoice, a late fee of one and a half percent” "
+                   "(https://www.webware.ai/?fuseaction=store.privacy, read 2026-11-13)"),
+    "websites.ca": "in advance: “All fees are billed in advance and are non-refundable.” (https://websites.ca/terms/, read 2026-11-13)",
+    "coolcom.com": ("on or before the due date, after notices 30 and 15 days ahead: “30 and 15 days notice for payment due (allowing time for checks to be mailed in) are sent out and payment "
+                    "is due on or before due date.” (https://coolcom.com/index.php/policies, read 2026-11-13)"),
+    "varialhosting.com": ("by the date the account is due for renewal, the invoice issued 15 days before: “Hosting renewal invoices are automatically generated 15 days before the account is due for.” "
+                          "(https://my.varialhosting.com/knowledgebase/33/Billing, read 2026-11-12)"),
+}
 BILLING_BY_DOMAIN = {
     "1password.com": dict(cls="monthly_or_yearly", read="2026-11-11", url="https://1password.com/legal/terms-of-service",
                           quote="You will be billed in advance on a recurring and periodic basis (“Billing Cycle”). Billing cycles are set on a regular basis, typically monthly or yearly.",
