@@ -1,0 +1,17 @@
+{
+ "key": "dl_ocs_ontario",
+ "kind": "dealer",
+ "biller": "Ontario Cannabis Store (OCS Wholesale)",
+ "biller_site": "https://learn.ocswholesale.ca/",
+ "biller_address": "200-4100 Yonge Street, Toronto, Ontario M2P 2B5",
+ "biller_address_url": "https://learn.ocswholesale.ca/wp-content/uploads/2026/02/OCS-Wholesale-Authorized-Cannabis-Retailers-Handbook-February2026.pdf",
+ "biller_address_quote": "200-4100 Yonge Street, Toronto, Ontario M2P 2B5",
+ "read": "2026-11-13",
+ "pays_quote": "Authorized Retailers of cannabis in Ontario may only purchase legal cannabis products through OCS Wholesale.",
+ "pays_url": "https://learn.ocswholesale.ca/wp-content/uploads/2026/02/OCS-Wholesale-Authorized-Cannabis-Retailers-Handbook-February2026.pdf",
+ "list_name": "the Alcohol and Gaming Commission of Ontario's open-data list of authorized cannabis retail stores (status Authorized to Open, licence active), which every store buys from OCS Wholesale",
+ "list_hosts": [
+  "agco.ca"
+ ],
+ "list_host_link_url": "https://learn.ocswholesale.ca/ontario-cannabis-retail-market-conditions-map/"
+}
