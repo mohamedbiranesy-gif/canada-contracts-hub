@@ -25,6 +25,7 @@ def main():
     ap.add_argument("--minutes", type=float, default=50)
     ap.add_argument("--out", default="data/incoming/claude/claude_buyer_ap_results_c5k01.csv")
     ap.add_argument("--sites", default="", help="read the sites of this file (key, name, site) instead of the table's")
+    ap.add_argument("--skip", type=int, default=0, help="leave the first N sites of the table's order (read by an earlier run that stopped at its time limit)")
     a = ap.parse_args()
     os.chdir(ROOT)
     tasks, seen = [], set()
@@ -48,6 +49,9 @@ def main():
             seen.add(site)
             tasks.append({"task_id": "C5K-%04d" % (len(tasks) + 1), "buyer_key": key, "buyer_name": (x.get("buyer") or "")[:200], "known_website": site})
     print("%d sites of $5,000+ rows with no mailbox" % len(tasks), flush=True)
+    if a.skip:
+        tasks = tasks[a.skip:]
+        print("left the first %d (read before); %d to read" % (a.skip, len(tasks)), flush=True)
     deadline = time.time() + a.minutes * 60
     lock, out_rows, stats = threading.Lock(), [], {"sites": 0, "found": 0}
 
