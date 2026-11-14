@@ -2189,3 +2189,18 @@ Canadian parents) stays on file as data only — it confirmed the parents of rul
   distributor's bill (retail choice).
 - Left: Ontario's large-building energy data (no owner or occupant named); bbb.org refuses the reader; most law firms publish no billing page
   (Osler's client terms do: monthly accounts, due on receipt — a payee entry later).
+
+## 2026-11-14 00:47Z — lane claude: rule 19 by name, narrowed and measured
+The name test added on 2026-11-13 (an LLC, "… USA Inc.", "(U.S.)", "… of America Inc." is a U.S. legal entity: a company abroad, AGENTS.md rule 19) was
+measured on the table of 22:10Z before any build used it: 482 ready rows. Two corrections: (1) it never applies to a row that stands on where the
+organisation is — its biller is the distributor of the address by law, and abroad only the utilities of rule 18 (86 rows of "Liberty Utilities
+(CalPeco Electric) LLC", Algonquin's, which the owner counted) would have been taken out; (2) a legal name read on a site (a copyright or terms line:
+"Legrand North America, LLC" on legrand.ca, an IP holder's LLC on a festival's site, a U.S. sister company on PAL Aerospace's PO terms) does not decide
+it — only the vendor's own name, the record's name or a register's entry; and a register's entry that is an unlimited liability corporation (a form only
+Alberta, B.C. and Nova Scotia create: "LJ WELDING AUTOMATION USA ULC") is Canadian. What remains on 22:10Z: ~380 ready rows — 336 exhibitors and sponsors
+of Marketplace Events' shows, whose only register entry under that name is "MARKETPLACE EVENTS LLC" (registered in Québec as a foreign LLC; its Canadian
+office is a Toronto post-office box), 44 public contracts (FieldTurf USA, New Flyer of America, TransAlta Energy Marketing (U.S.), H.Q. Energy Services
+(U.S.), Canaccord Genuity LLC …), 2 export sales. Reading: the owner's rule 19 makes the legal home decide (a Canadian entity's branch abroad stays, a
+company abroad does not); a U.S. LLC with a Canadian office is a company abroad. If the owner reads Marketplace Events otherwise, the 336 rows come back by
+removing that one register match.
+

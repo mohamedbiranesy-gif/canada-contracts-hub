@@ -817,7 +817,16 @@ def owner_test(x):
         out.append("relationship: %d organisations print this postal code — a tower, a campus, a business centre or a mail service, where an account of its own is unlikely" % n_shared)
     if (x.get("sensitivity_flag") or "") == "yes":
         out.append("flag: " + ((x.get("sensitivity_tag") or "sensitive buyer").split(":")[0][:70]))
-    if (_US_ENTITY.search(x.get("vendor") or "") or _US_ENTITY.search((x.get("vendor_legal_name") or "").split(" (")[0])) and not str(x.get("vendor") or "").startswith("inferred"):
+    _vl = x.get("vendor_legal_name") or ""
+    _vl_rec = bool(re.search(r"\(as registered|as the source of this row's record gives it", _vl))  # a register's entry or the record itself — not a line of a site
+    # (2026-11-14: a site's copyright or terms line can name an affiliate or a licensor — "Legrand North America, LLC" on legrand.ca, "ABG EPE IP LLC" on an
+    # Elvis festival's site, a U.S. sister company on PAL Aerospace's purchase-order terms — so a legal name read on a site does not decide rule 19; and a
+    # register's entry that is an unlimited liability corporation is Canadian whatever its name says: "LJ WELDING AUTOMATION USA ULC", Alberta)
+    # (and never on a row that stands on where the organisation is: its biller is the distributor of the address by law, and abroad only the utilities of
+    # rule 18 — "Liberty Utilities (CalPeco Electric) LLC" is Algonquin's, which the owner counted on 2026-11-13 09:46 EST)
+    if ((_US_ENTITY.search(x.get("vendor") or "") or (_vl_rec and _US_ENTITY.search(_vl.split(" (")[0]))) and not str(x.get("vendor") or "").startswith("inferred")
+            and not (_vl_rec and re.search(r"\bULC\b|unlimited liability", _vl.split(" (")[0], re.I))
+            and kind not in ("utility account by location", "utility account by own report")):
         out.append("relationship: the vendor's own name is a U.S. legal entity's (an LLC, “USA Inc.”, “(U.S.)”) — a company abroad, not a Canadian vendor (AGENTS.md rule 19)")
     if _NO_ADDRESS.search((x.get("vendor_address") or "").split(" (")[0]) and not _has(x, "vendor_registered_address"):
         out.append("field: vendor address (the source prints none: “%s”)" % (x.get("vendor_address") or "")[:60])
