@@ -186,6 +186,12 @@
    "method": "rank.log line 'one row per buyer: rows of one website …'; measured on 22:10Z: 22 groups, 22 rows folded (3 of them ready), all 22 read and genuine; web platforms (wixsite, squarespace …) and government-wide domains left out",
    "cmd": "grep 'one row per buyer: rows of one website' rank.log",
    "status": "pending (pushed 2026-11-14 ~00:45Z; waits for a build)"
+  },
+  {
+   "deliverable": "rule 19 by name: a vendor whose own name, record name or register entry is a U.S. legal entity's (LLC, '… USA Inc.', '(U.S.)', '… of America Inc.') is a company abroad — not on rows by location (rule 18 utilities such as Liberty Utilities (CalPeco Electric) LLC stay), not from a legal name read on a site, not for a Canadian ULC",
+   "method": "ship_ready_missing contains 'U.S. legal entity'; expected on the next table ~380 ready rows out (336 Marketplace Events exhibitors/sponsors, ~44 public contracts, 2 export sales); Liberty Utilities rows still ready; PAL Aerospace, Legrand, LJ Welding Automation still ready",
+   "cmd": "python3 -c \"import gzip,csv,collections;csv.field_size_limit(10**9);c=collections.Counter((x['vendor'][:30],x['ship_ready'][:3]) for x in csv.DictReader(gzip.open('ranked_buyers.csv.gz','rt')) if 'U.S. legal entity' in x['ship_ready_missing'] or x['vendor'].startswith(('Liberty Utilities','PAL Aerospace','Legrand','LJ WELDING')));print(c.most_common(20))\"",
+   "status": "pending (pushed 2026-11-14 ~01:30Z; waits for a build)"
   }
  ]
 }
