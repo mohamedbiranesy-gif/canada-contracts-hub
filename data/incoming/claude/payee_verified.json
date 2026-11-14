@@ -71,6 +71,12 @@
   "url": "https://airdriechamber.ab.ca/faqs",
   "verified": "2026-11-13"
  },
+ "tools/data/payees/cmeq.json": {
+  "quotes": 2,
+  "sig": "fe3347d72a2d1753",
+  "url": "https://www.cmeq.org/fileadmin/user_upload/documents/Images_Nouvelles/Maintien_Licence.pdf",
+  "verified": "2026-11-13"
+ },
  "tools/data/payees/greater_kw_chamber.json": {
   "quotes": 1,
   "sig": "b7976d1236875903",

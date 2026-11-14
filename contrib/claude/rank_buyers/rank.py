@@ -6081,12 +6081,35 @@ def bill_profile(x, ld, cls):
             # (an owner-builder's licence — "constructeur-propriétaire" — has its own fee table, not read yet: no amount is written for it)
             # the Régie's own fee table, read 2026-11-11: what a licence costs to keep for a year, by type of licence (the row's licence names its categories)
             _gen = bool(re.search(r"g[ée]n[ée]ral", (ld.get("title") or "") + " " + (x.get("contract_title") or ""), re.I))
-            out["bill_amount_indicative"] = "%s $ a year" % ("989.81" if _gen else "547.53")
-            out["bill_amount_basis"] = ("the Régie du bâtiment du Québec's fee table “Maintien d’une licence – 2026” (droits + frais = total): “Général (annexe I) 884,54 $ 105,27 $ 989,81 $”, "
-                                        "“Général et spécialisé (annexes I, II et III) 884,54 $ 105,27 $ 989,81 $”, “Spécialisé (annexes II et III) 442,26 $ 105,27 $ 547,53 $” "
-                                        "(https://www.rbq.gouv.qc.ca/licence/tarification-et-amendes/tarification-pour-lentrepreneur-de-construction/, read 2026-11-11); this licence is %s"
-                                        % ("general or general and specialised" if _gen else "specialised only, as far as its categories on the register say"))
-            out["bill_items_as_published"] = "the yearly fee to keep a construction contractor's licence (“Maintien d’une licence”): droits + frais"
+            _maint, _vn = ("989.81" if _gen else "547.53"), norm(x.get("vendor") or "")
+            _tab = ("the Régie du bâtiment du Québec's fee table “Maintien d’une licence – 2026” (droits + frais = total): “Général (annexe I) 884,54 $ 105,27 $ 989,81 $”, "
+                    "“Général et spécialisé (annexes I, II et III) 884,54 $ 105,27 $ 989,81 $”, “Spécialisé (annexes II et III) 442,26 $ 105,27 $ 547,53 $” "
+                    "(https://www.rbq.gouv.qc.ca/licence/tarification-et-amendes/tarification-pour-lentrepreneur-de-construction/, read 2026-11-11)")
+            if "maitres mecaniciens en tuyauterie" in _vn:
+                # 2026-11-14: a licence the CMMTQ issues as the government's mandatary is billed by the CMMTQ, not by the Régie: its own yearly dues and the
+                # yearly fee to keep the licence, both in its own leaflet of 1 January 2026 (the fee there is the Régie's 547.53 $ for a specialised licence)
+                out["bill_amount_indicative"] = "881 $ a year in dues + %s $ a year to keep the licence" % _maint
+                out["bill_amount_calculated"] = ("calculated — %s $ a year: the CMMTQ's two yearly fees added, its dues (881 $) and the fee to keep the licence (%s $)"
+                                                 % (format(881 + float(_maint), ",.2f"), _maint))
+                out["bill_amount_basis"] = ("the CMMTQ's own leaflet “Taux horaires de référence — Tuyauteur” of 1 January 2026: “Cotisation annuelle de 881 $ à la Corporation” … “des maîtres "
+                                            "mécaniciens en tuyauterie du Québec (CMMTQ).” and “Frais annuel de maintien de licence de 547,53 $.” (https://www.cmmtq.org/client_file/upload/pdf/Taux/"
+                                            "Taux-horaires-tuyauteurs-janvier-2026.pdf, read 2026-11-14)%s" % (("; this licence also carries general categories: " + _tab) if _gen else ""))
+                out["bill_items_as_published"] = "the CMMTQ's yearly dues (“Cotisation annuelle”) and the yearly fee to keep the contractor's licence (“Frais annuel de maintien de licence”)"
+            elif "maitres electriciens" in _vn:
+                # 2026-11-14: a licence the CMEQ issues as the government's mandatary is billed by the CMEQ on its yearly notice (avis de cotisation): its dues
+                # (837.94 $ as of 1 August 2022, its latest published figure) and the fee to keep the licence (the Régie's 2026 table; 507.51 $ in 2022)
+                out["bill_amount_indicative"] = "837.94 $ a year in dues (1 August 2022) + %s $ a year to keep the licence (2026)" % _maint
+                out["bill_amount_calculated"] = ("calculated — about %s $ a year: the CMEQ's dues, 837.94 $ (its latest published figure, 1 August 2022), and the fee to keep the "
+                                                 "licence in 2026, %s $" % (format(837.94 + float(_maint), ",.2f"), _maint))
+                out["bill_amount_basis"] = ("the CMEQ's own leaflet of January 2023: “Corporation des maîtres électriciens du Québec Cotisation annuelle 837,94 $ au 1er août 2022 Maintien de "
+                                            "licence 507,51 $” (https://www.cmeq.org/fileadmin/user_upload/documents/Documents_administratifs/DE%CC%81PLIANT_janv2023_02.pdf, read 2026-11-14); "
+                                            "the fee to keep the licence in 2026: " + _tab)
+                out["bill_items_as_published"] = ("the CMEQ's yearly dues (“Cotisation annuelle”) and the yearly fee to keep the contractor's licence (“Maintien de licence”), on its yearly "
+                                                  "notice (“avis de cotisation”)")
+            else:
+                out["bill_amount_indicative"] = "%s $ a year" % _maint
+                out["bill_amount_basis"] = _tab + "; this licence is %s" % ("general or general and specialised" if _gen else "specialised only, as far as its categories on the register say")
+                out["bill_items_as_published"] = "the yearly fee to keep a construction contractor's licence (“Maintien d’une licence”): droits + frais"
         rec = VBILL.get(vd) if vd else None
         if rec and not out.get("bill_amount_indicative"):
             low = _VB.lowest(rec)
