@@ -3704,11 +3704,18 @@ for x in rows:
                 if _foreign_site and not in_ca_section((v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url")) or ""):
                     continue  # the group's own statement on its worldwide pages; a page of its Canadian section may name the Canadian entity
                 cand = clean_legal(v.get(k) or "", x.get("vendor") or "")
-                if cand and name_overlap(cand, x.get("vendor") or "", x.get("vendor_website") or ""):
+                # 2026-11-14 (the table of 22:10Z: 1,967 ready rows with a legal-page name and no legal form): a sentence of a terms page that shares a word with
+                # the vendor is not its name — "Voice over Internet Protocol" for Storm Internet, "Town of Bonnyville" for the Bonnyville and District Chamber,
+                # "MEMBERSHIP The Masonry Institute": by a shared word alone, such a name is taken only with a legal form or when it is the vendor's very name
+                # (nor as the site's operator: "Dealer Login Community" for Notus Electronics)
+                _weak = bool(cand) and k == "legal_name_stated" and not _LEGAL_PERSON.search(cand) and norm(cand) != norm(re.sub(r"\s*\(.*$", "", x.get("vendor") or ""))
+                if _weak:
+                    n_ox["vendor legal name from a legal page, by a shared word only, left: no legal form and not the vendor's own name"] += 1
+                if cand and not _weak and name_overlap(cand, x.get("vendor") or "", x.get("vendor_website") or ""):
                     x["vendor_legal_name"] = "%s (%s: %s)" % (tight_name(cand, x.get("vendor_website") or ""), lab, v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2"] += 1
                     break
                 if cand and ((k == "jsonld_legal_name" and v.get("jsonld_url") and host_of(v["jsonld_url"]) == host_of(x.get("vendor_website") or "")) or
-                             (k == "legal_name_stated" and stated_as_operator(v.get(k), v.get("legal_name_stated_quote"), v.get("legal_name_stated_url") or "", x.get("vendor_website") or ""))):
+                             (k == "legal_name_stated" and not _weak and stated_as_operator(v.get(k), v.get("legal_name_stated_quote"), v.get("legal_name_stated_url") or "", x.get("vendor_website") or ""))):
                     # the vendor's own site says it in so many words: its structured data gives the site as the organisation's own, or a page says who operates it
                     x["vendor_legal_name"] = "%s (%s: %s)" % (cand, lab + (", which gives this site as the organisation's own" if k.startswith("jsonld") else ", as the site's operator"), v.get("jsonld_page") if k.startswith("jsonld") else v.get("legal_name_stated_url") or ""); n_ox["vendor_legal_name_v2_site_says"] += 1
                     break

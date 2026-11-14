@@ -828,7 +828,9 @@ def owner_test(x):
             and not (_vl_rec and re.search(r"\bULC\b|unlimited liability", _vl.split(" (")[0], re.I))
             and kind not in ("utility account by location", "utility account by own report")):
         out.append("relationship: the vendor's own name is a U.S. legal entity's (an LLC, “USA Inc.”, “(U.S.)”) — a company abroad, not a Canadian vendor (AGENTS.md rule 19)")
-    if _NO_ADDRESS.search((x.get("vendor_address") or "").split(" (")[0]) and not _has(x, "vendor_registered_address"):
+    _va = (x.get("vendor_address") or "").split(" (")[0]
+    if (_NO_ADDRESS.search(_va) and not re.search(r"\b[ABCEGHJ-NPRSTVXY]\d[A-Z]\s?\d[A-Z]\d\b", _va.upper())  # "8133 WARDEN AVE, MARKHAM ON L6G 1B3, 00000" is an address
+            and not _has(x, "vendor_registered_address")):
         out.append("field: vendor address (the source prints none: “%s”)" % (x.get("vendor_address") or "")[:60])
     if _ABROAD_OWNED.search(x.get("vendor") or "") or _ABROAD_OWNED.search(x.get("vendor_legal_name") or ""):
         # AGENTS.md rule 19 (owner 2026-11-13 11:44 EST): a company abroad that a Canadian company owns is not a Canadian vendor — "plans paying Empower or
