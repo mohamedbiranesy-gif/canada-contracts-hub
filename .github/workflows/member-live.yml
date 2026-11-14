@@ -11,9 +11,9 @@ name: member-live
 #                    whose own page prints a Canadian postal address joins claude_member_hosts.csv, a directory abroad is noted and not asked again
 # One request queue per runner towards the directory platform (2 requests per second), robots.txt respected. No AI, no search engine.
 on:
-  schedule:
-    - cron: "53 4 * * *"
-    - cron: "53 16 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "53 4 * * *"
+    # - cron: "53 16 * * *"
   workflow_dispatch:
     inputs:
       stage:
@@ -125,7 +125,7 @@ jobs:
           # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/i.txt >> "$GITHUB_STEP_SUMMARY"
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=discover-index" || true
+          { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=discover-index" || true
 
   discover_index:
     if: ${{ inputs.stage == 'discover-index' }}
@@ -173,4 +173,4 @@ jobs:
           # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/h.txt >> "$GITHUB_STEP_SUMMARY"
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=crawl" || true
+          { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/member-live.yml/dispatches" -f ref=main -f "inputs[stage]=crawl" || true

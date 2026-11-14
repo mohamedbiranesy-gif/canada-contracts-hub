@@ -11,8 +11,8 @@ name: bc-crown
 # 2026-11-13: also the Alberta Energy Regulator's yearly administration fee (industry levy), invoiced by e-mail every April to the operator of
 # record of each well (the licensee when the operator does not pay), payable by cheque or EFT only — the licensees of ST37, List of Wells in Alberta.
 on:
-  schedule:
-    - cron: "37 3 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "37 3 * * *"
   workflow_dispatch:
     inputs:
       minutes:

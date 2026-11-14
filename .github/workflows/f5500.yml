@@ -5,8 +5,8 @@ name: f5500
 # paid $5,000 or more, with its address (country CA: a provider in Canada). The sponsor's site is kept only on its own pages (its ZIP code
 # printed after its state, or its name in its title for a place-dataset candidate); the mailbox comes from that site (mailbox-crawl).
 on:
-  schedule:
-    - cron: "17 7 * * 3"          # weekly: the site finder works through the sponsors; the filings are pulled again when a week has passed
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "17 7 * * 3"          # weekly: the site finder works through the sponsors; the filings are pulled again when a week has passed
   workflow_dispatch:
     inputs:
       years:

@@ -3,8 +3,8 @@ name: rebuild-dataset
 # harvester progress (websites, BC registrations, SEAO end dates) and validated new-source records
 # (matched to existing vendor/buyer enrichment), and republish it. Contracts whose end date has passed move out.
 on:
-  schedule:
-    - cron: "37 6 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "37 6 * * *"
   workflow_dispatch:
 permissions:
   contents: write
@@ -69,4 +69,4 @@ jobs:
             git push -q origin HEAD:main && break
             sleep $((i * 7))
           done
-          gh workflow run verify-and-merge.yml --ref main || true
+          [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh workflow run verify-and-merge.yml --ref main || true

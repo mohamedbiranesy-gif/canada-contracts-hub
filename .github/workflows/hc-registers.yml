@@ -6,8 +6,8 @@ name: hc-registers
 # site is tied from the sites on file (same postal code, names that agree) or from the company-name autocomplete under its very name, checked on
 # the site's own home page. The mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the done list is committed.
 on:
-  schedule:
-    - cron: "23 3,15 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "23 3,15 * * *"
   workflow_dispatch:
     inputs:
       minutes:

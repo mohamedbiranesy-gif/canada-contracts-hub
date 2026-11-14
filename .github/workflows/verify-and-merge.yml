@@ -7,8 +7,8 @@ on:
   push:
     branches: [main]
     paths: ["data/incoming/**", "coord/tasks/**", "coord/source_registry.csv"]
-  schedule:
-    - cron: "29 5 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "29 5 * * *"
   workflow_dispatch:
 permissions:
   contents: write
@@ -46,10 +46,10 @@ jobs:
           TITLE: ${{ github.event.pull_request.title }}
         run: |
           gh pr ready "$PR" || true
-          gh pr merge "$PR" --squash --delete-branch && gh workflow run verify-and-merge.yml --ref main
+          gh pr merge "$PR" --squash --delete-branch && { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh workflow run verify-and-merge.yml --ref main; }
           # new source records -> rebuild now; a finished Jules task -> start the next Jules task right away
-          if grep -qE '^data/incoming/.*records_.*\.jsonl(\.gz)?$' changed.txt; then gh workflow run rebuild.yml --ref main || true; fi
-          case "$TITLE" in "[jules]"*) gh workflow run jules-builder.yml --ref main || true;; esac
+          if grep -qE '^data/incoming/.*records_.*\.jsonl(\.gz)?$' changed.txt; then [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh workflow run rebuild.yml --ref main || true; fi
+          case "$TITLE" in "[jules]"*) [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh workflow run jules-builder.yml --ref main || true;; esac
       - name: Flag for review
         if: steps.v.outputs.decision != 'automerge' || steps.v.outputs.ok != 'yes' || github.event.pull_request.head.repo.full_name != github.repository
         env:

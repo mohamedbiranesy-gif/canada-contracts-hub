@@ -10,11 +10,11 @@ name: claude-engines
 #                2026-11-11: it had last run on 2026-11-09 (by hand), and 57,170 buyers whose name carries a legal form, or whose own site
 #                states their legal person, were waiting — 8,872 looked up of 66,042.
 on:
-  schedule:
-    - cron: "41 9 * * *"    # daily bulk-registry match (REQ + Corporations Canada open data)
-    - cron: "11 */6 * * *"  # org_facts: legal name / address / phone / portals from buyer and vendor sites not read yet (8 shards, 2 h) — cloud-only since 2026-11-09 (owner's Mac is off)
-    - cron: "31 2 * * *"    # walk_terms over the stronger packages (AP pages → payment terms, PO rule, invoice address), 6 shards, 4 h
-    - cron: "23 1,7,13,19 * * *"  # registry: Canada's Business Registries, the buyers not looked up yet (2 runners, 1 request a second each, 5 h 20)
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "41 9 * * *"    # daily bulk-registry match (REQ + Corporations Canada open data)
+    # - cron: "11 */6 * * *"  # org_facts: legal name / address / phone / portals from buyer and vendor sites not read yet (8 shards, 2 h) — cloud-only since 2026-11-09 (owner's Mac is off)
+    # - cron: "31 2 * * *"    # walk_terms over the stronger packages (AP pages → payment terms, PO rule, invoice address), 6 shards, 4 h
+    # - cron: "23 1,7,13,19 * * *"  # registry: Canada's Business Registries, the buyers not looked up yet (2 runners, 1 request a second each, 5 h 20)
   workflow_dispatch:
     inputs:
       engine:
@@ -265,7 +265,7 @@ jobs:
             cut=$(ls shards/refresh_cut_*.txt 2>/dev/null | wc -l)
             echo "refresh: shards cut by their time box: $cut of $SHARDS" >> "$GITHUB_STEP_SUMMARY"
             if [ "$cut" -gt 0 ]; then
-              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=org_facts" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" -f "inputs[refresh]=true" && echo "next refresh run dispatched" >> "$GITHUB_STEP_SUMMARY" || true
+              { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=org_facts" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" -f "inputs[refresh]=true" && echo "next refresh run dispatched" >> "$GITHUB_STEP_SUMMARY" || true
             fi
           fi
           if [ "$ENGINE" = "walk_terms" ]; then
@@ -273,7 +273,7 @@ jobs:
             walked=$(wc -l < /tmp/done.tsv 2>/dev/null || echo 0)
             echo "sites still to walk (sum over shards at start): $left; walked so far: $walked" >> "$GITHUB_STEP_SUMMARY"
             if [ "$left" -gt "$((SHARDS * 50))" ] && [ "$REDO" != "0" ]; then  # a redo-everything pass (deep walk) must not re-dispatch itself: its "sites to walk" never shrinks
-              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=walk_terms" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[tiers]=$TIERS" -f "inputs[max_pages]=$MAXP" -f "inputs[redo_days]=$REDO" -f "inputs[only_missing]=$ONLYMISS" && echo "re-dispatched walk_terms" >> "$GITHUB_STEP_SUMMARY" || true
+              { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/claude-engines.yml/dispatches" -f ref=main -f "inputs[engine]=walk_terms" -f "inputs[shards]=$SHARDS" -f "inputs[minutes]=$MINUTES" -f "inputs[tiers]=$TIERS" -f "inputs[max_pages]=$MAXP" -f "inputs[redo_days]=$REDO" -f "inputs[only_missing]=$ONLYMISS" && echo "re-dispatched walk_terms" >> "$GITHUB_STEP_SUMMARY" || true
             fi
           fi
           python3 - <<'EOF' >> "$GITHUB_STEP_SUMMARY"

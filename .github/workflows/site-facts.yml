@@ -5,8 +5,8 @@ name: site-facts
 # finance / purchasing mailbox when the row only has a general one. rank.py builds the bill-to block from it (SOR/91-45 s. 3(c)(i): a recipient
 # may be named by the name under which it does business). No AI, no search engine, no Mac.
 on:
-  schedule:
-    - cron: "33 3,9,15,21 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "33 3,9,15,21 * * *"
   workflow_dispatch:
     inputs:
       shards:
@@ -80,4 +80,4 @@ jobs:
           # a merge that could not be pushed is a failed job (2026-11-10: twelve refused pushes ended a crawl's merge green)
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main (see the push errors above): its work was not saved"; exit 1; }
           cat /tmp/sf.txt >> "$GITHUB_STEP_SUMMARY"
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true
+          { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true

@@ -163,16 +163,16 @@ jobs:
             # the list is long (63 M domains): the next run starts by itself until every shard has reached the end
             left=$(python3 tools/dns_services.py sweep-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "sweep shards with work left: $left"
-            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=sweep" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" || true; fi
+            if [ "${left:-0}" != "0" ]; then { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=sweep" -f "inputs[shards]=4" -f "inputs[minutes]=$MINUTES" || true; fi
           elif [ "$MODE" = "ctsweep" ]; then
             left=$(python3 tools/dns_services.py sweep-plan --list auto --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "shards with work left on a certificate-log list: $left"
-            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=2" -f "inputs[minutes]=$MINUTES" || true; fi
+            if [ "${left:-0}" != "0" ]; then { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=ctsweep" -f "inputs[shards]=2" -f "inputs[minutes]=$MINUTES" || true; fi
           elif [ "$MODE" = "hosts" ]; then
             left=$(python3 tools/dns_services.py hosts-plan --after shards | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo 0)
             echo "host sweep shards with work left: $left"
             # two runners at a time: the list is short (7 M hosts) and the mailbox crawl needs the runners more
-            if [ "${left:-0}" != "0" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=hosts" -f "inputs[shards]=2" -f "inputs[minutes]=$MINUTES" || true; fi
+            if [ "${left:-0}" != "0" ]; then { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/dns-services.yml/dispatches" -f ref=main -f "inputs[mode]=hosts" -f "inputs[shards]=2" -f "inputs[minutes]=$MINUTES" || true; fi
           else
-            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/credit-scan.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true
+            { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/credit-scan.yml/dispatches" -f ref=main -f "inputs[stage]=cycle" || true
           fi

@@ -5,8 +5,8 @@ name: vendor-billing
 # the page and the date. The ranker (recurring_billing, recurring_billing_basis) uses nothing else. Vendors of live services first (DNS, hosting,
 # credits), then member bodies, then the vendors of client listings; a vendor is read again after 45 days.
 on:
-  schedule:
-    - cron: "43 5 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "43 5 * * *"
   workflow_dispatch:
     inputs:
       minutes:

@@ -6,8 +6,8 @@ name: exchange-issuers
 # prints the issuer's symbol on its exchange or names it; the mailbox comes from that site (mailbox-crawl reads lead_shards/). Resumable: the site
 # list and the done list are committed, and every run asks only about the issuers not asked yet.
 on:
-  schedule:
-    - cron: "37 3,9,15,21 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "37 3,9,15,21 * * *"
   workflow_dispatch:
     inputs:
       minutes:

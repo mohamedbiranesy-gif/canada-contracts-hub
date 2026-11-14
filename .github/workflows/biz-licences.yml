@@ -5,8 +5,8 @@ name: biz-licences
 #   probe : search each portal's catalogue; print dataset ids, fields, row counts and two sample rows (nothing is written)
 #   pull  : download the configured lists -> tie licences to organisations (postal code / telephone / street address + name) -> lead_shards/
 on:
-  schedule:
-    - cron: "41 4,16 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "41 4,16 * * *"
   workflow_dispatch:
     inputs:
       stage:

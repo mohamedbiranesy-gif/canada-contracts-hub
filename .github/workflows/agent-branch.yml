@@ -5,8 +5,8 @@ name: agent-branch
 on:
   push:
     branches: ["gemini/**", "chatgpt/**", "jules/**", "codex/**", "claude/**"]
-  schedule:
-    - cron: "13,43 * * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "13,43 * * * *"
   workflow_dispatch:
 permissions:
   contents: write

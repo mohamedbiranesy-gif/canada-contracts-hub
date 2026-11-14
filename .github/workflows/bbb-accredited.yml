@@ -8,8 +8,8 @@ name: bbb-accredited
 #   cc-index : Common Crawl's index -> archived copies of those profiles and of the local BBBs' pages
 #   cc-read  : each archived profile -> leads (lead_shards/), then the mailbox crawl reads each business's own site
 on:
-  schedule:
-    - cron: "29 1,7,13,19 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "29 1,7,13,19 * * *"
   workflow_dispatch:
     inputs:
       stage:

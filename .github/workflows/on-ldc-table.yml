@@ -6,9 +6,9 @@ name: on-ldc-table
 # The Board's file of current rates (the fixed monthly charge and the rates by the kilowatt-hour of every distributor's small-business class) is
 # refreshed monthly: on the 2nd of every month only that step runs (tools/on_ldc_table.py rates), one request, a minute.
 on:
-  schedule:
-    - cron: "23 7 1 1,4,7,10 *"
-    - cron: "41 7 2 * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "23 7 1 1,4,7,10 *"
+    # - cron: "41 7 2 * *"
   workflow_dispatch:
     inputs:
       what:

@@ -136,4 +136,4 @@ jobs:
           # a merge that could not be pushed is a failed job
           git fetch -q origin main 2>/dev/null; git merge-base --is-ancestor HEAD origin/main || { echo "::error::this run's commit could not be pushed to main: its work was not saved"; exit 1; }
           cat /tmp/tms.txt >> "$GITHUB_STEP_SUMMARY"
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/pt-register.yml/dispatches" -f ref=main -f "inputs[stage]=match" || true
+          { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/pt-register.yml/dispatches" -f ref=main -f "inputs[stage]=match" || true

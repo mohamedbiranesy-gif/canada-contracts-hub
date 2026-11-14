@@ -1,9 +1,9 @@
 name: jules-builder
 # Starts a Jules session (Gemini coding agent, runs in Google's cloud). Jules opens a PR; the referee checks it.
 on:
-  schedule:
-    - cron: "43 2 * * *"
-    - cron: "43 14 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "43 2 * * *"
+    # - cron: "43 14 * * *"
   workflow_dispatch:
     inputs:
       extra:

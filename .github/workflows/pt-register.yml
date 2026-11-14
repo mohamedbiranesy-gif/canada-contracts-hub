@@ -7,8 +7,8 @@ name: pt-register
 #   match (default) : owners in Canada x the sites on file, plus the owners' own sites found by pt-sites.yml -> pt_matches.csv -> leads
 #   build           : download the register's two tables and rebuild the owner tables first (they are committed; the extract is fixed)
 on:
-  schedule:
-    - cron: "11 8 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "11 8 * * *"
   workflow_dispatch:
     inputs:
       stage:

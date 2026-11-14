@@ -3,6 +3,8 @@
 # Called by the hourly `tick` workflow and after every referee run, so the team keeps moving whatever the timer does.
 # Usage: bash tools/dispatch_overdue.sh        (needs GH_TOKEN with actions:write)
 set -u
+# 2026-11-13 20:51 EST: the owner stopped the project ("pull the plug"). While coord/ACTIONS_PAUSED exists, nothing is started from here.
+if [ -f "$(dirname "$0")/../coord/ACTIONS_PAUSED" ]; then echo "coord/ACTIONS_PAUSED: the project is stopped — nothing started"; exit 0; fi
 now=$(date -u +%s)
 check() {  # <workflow file> <max hours since last run> [extra gh args]
   wf="$1"; hours="$2"; shift 2

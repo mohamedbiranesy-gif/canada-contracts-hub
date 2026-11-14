@@ -6,8 +6,8 @@ name: rbq-licences
 # kept only when it shows the holder's licence number, telephone, postal code or name; the ordinary mailbox crawl then reads that site.
 # Natural persons are left out. One bulk download from donneesquebec.ca, then one to three pages per holder's own site.
 on:
-  schedule:
-    - cron: "17 9 * * 3"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "17 9 * * 3"
   workflow_dispatch:
     inputs:
       minutes:

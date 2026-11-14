@@ -2204,3 +2204,12 @@ office is a Toronto post-office box), 44 public contracts (FieldTurf USA, New Fl
 company abroad does not); a U.S. LLC with a Canadian office is a company abroad. If the owner reads Marketplace Events otherwise, the 336 rows come back by
 removing that one register match.
 
+## 2026-11-14 01:54Z — the owner stopped the project; every workflow switched off
+Owner, 2026-11-13 20:47–20:51 EST: "alright im thinking we pull the plug now … im asking for opinion"; told that stopping cleanly was the right call
+(Actions disabled for the account since 23:39Z, GitHub Support possibly weeks away, the crawling itself the likely cause), he answered: "do all of this
+for me" — keep a copy of the table, switch off the automation, turn off the ChatGPT and Gemini automations on his Mac, write a detailed handoff, and fix
+the ~1% of rows whose corrections never reached a build. Done here: every timer of the 42 workflows that had one is commented out, no workflow starts
+another, tools/dispatch_overdue.sh starts nothing, while coord/ACTIONS_PAUSED exists. Every workflow can still be run by hand, so one last table build
+is one click (rank-buyers) if GitHub turns Actions back on. To restart anything: revert that commit, with the owner's word, and bring the crawlers back
+far slower.
+

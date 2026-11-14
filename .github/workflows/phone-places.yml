@@ -5,8 +5,8 @@ name: phone-places
 # pages, a registry, the city it names and the address listed for its website, and says on the row where it comes from.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "23 10 * * 0"   # weekly, after the address re-read (addr-reread.yml, Sundays 09:41)
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "23 10 * * 0"   # weekly, after the address re-read (addr-reread.yml, Sundays 09:41)
 permissions:
   contents: write
 concurrency:

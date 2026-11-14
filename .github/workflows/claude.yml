@@ -5,8 +5,8 @@ on:
   issue_comment: { types: [created] }
   pull_request_review_comment: { types: [created] }
   issues: { types: [opened] }
-  schedule:
-    - cron: "11 9 * * 1"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "11 9 * * 1"
   workflow_dispatch:
 permissions:
   contents: write

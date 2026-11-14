@@ -11,8 +11,8 @@ on:
       minutes:
         description: "minutes per runner"
         default: "330"
-  schedule:
-    - cron: "17 17 * * *"   # daily: products listed since, then the agents, the producers' sites and the leads
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "17 17 * * *"   # daily: products listed since, then the agents, the producers' sites and the leads
 permissions:
   contents: write
   actions: write
@@ -84,4 +84,4 @@ jobs:
           left=$(python3 tools/saq_agents.py left 2>/dev/null | tail -1)
           read=$(grep -o "[0-9]* product pages read this run" /tmp/m.txt | grep -o "^[0-9]*" || echo 0)
           echo "pages left: $left; read this run: $read"
-          if [ "${left:-0}" -gt 0 ] && [ "${read:-0}" -gt 0 ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/saq-agents.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi
+          if [ "${left:-0}" -gt 0 ] && [ "${read:-0}" -gt 0 ]; then { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/saq-agents.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi

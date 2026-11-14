@@ -10,8 +10,8 @@ on:
       stage:
         description: "all | zips (territories + ZIP table) | places (places + leads)"
         default: "all"
-  schedule:
-    - cron: "23 6 2 * *"   # monthly (Overture's release is monthly; the territories change rarely)
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "23 6 2 * *"   # monthly (Overture's release is monthly; the territories change rarely)
 permissions:
   contents: write
 concurrency:

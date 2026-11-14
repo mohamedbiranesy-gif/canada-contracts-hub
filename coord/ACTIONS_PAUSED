@@ -1,0 +1,21 @@
+STOPPED by the owner — written by lane claude at 2026-11-14T01:54Z.
+
+The owner decided to end the project ("pull the plug", 2026-11-13 20:51 EST), after GitHub disabled Actions for the account at 2026-11-13 23:39:30Z
+("Actions has been disabled for this user"). The final deliverable is the table on the release ranked-latest (build 2026-11-13 22:10Z) and the
+corrected copy of it described in docs/HANDOFF_ROWS.md.
+
+While this file exists:
+- no workflow has a timer: every "schedule:" block is commented out ("# schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED");
+- no workflow starts another: each line that would looks for this file first (in the checkout, or on main through the API);
+- tools/dispatch_overdue.sh starts nothing.
+Every workflow can still be started by hand (Actions tab → the workflow → Run workflow). One last table build, if GitHub turns Actions back on:
+start "rank-buyers" by hand once — it builds and publishes the table with every correction saved in the repository.
+
+Why it matters: GitHub's terms for Actions bar "any activity that places a burden on our servers, where that burden is disproportionate to the
+benefits provided to users" and, on GitHub-hosted runners, "any other activity unrelated to the production, testing, deployment, or publication
+of the software project"; misuse "may result in ... restrictions in your ability to use GitHub Actions ... or in some cases, suspension or
+termination of your GitHub account." In the 24 hours before the block this repository started 583 workflow runs (253 hours of run time, shards
+not counted), most of them web crawls that restarted themselves.
+
+To restart anything, only with the owner's word: revert the commit that added this file (git log -1 -- coord/ACTIONS_PAUSED), which removes this
+file and restores every timer and every self-start — then bring the crawlers back far slower than before.

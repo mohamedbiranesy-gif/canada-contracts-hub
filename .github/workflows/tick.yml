@@ -3,9 +3,9 @@ name: tick
 # whatever is overdue (tools/dispatch_overdue.sh). The referee runs the same check after every verification, so any
 # activity in the repo also keeps the team moving.
 on:
-  schedule:
-    - cron: "23 * * * *"
-    - cron: "53 * * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "23 * * * *"
+    # - cron: "53 * * * *"
   workflow_dispatch:
 permissions:
   actions: write

@@ -12,8 +12,8 @@ on:
       stage:
         description: "ca | phones | owners | both (ca + phones) | all"
         default: "all"
-  schedule:
-    - cron: "47 11 * * 0"   # weekly (the Foursquare release changes monthly; the phone targets change with every address pass)
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "47 11 * * 0"   # weekly (the Foursquare release changes monthly; the phone targets change with every address pass)
 permissions:
   contents: write
   actions: write
@@ -110,7 +110,7 @@ jobs:
           cat /tmp/o.txt >> "$GITHUB_STEP_SUMMARY"
           # the registers' site runs read the candidates now on main (abroad, then in Canada; each workflow runs one at a time)
           for wf in tm-sites.yml pt-sites.yml; do
-            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/dispatches" -f ref=main -f "inputs[abroad]=true" -f "inputs[ror]=true" >/dev/null 2>&1 || true
-            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/dispatches" -f ref=main -f "inputs[abroad]=false" -f "inputs[ror]=true" >/dev/null 2>&1 || true
+            { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/dispatches" -f ref=main -f "inputs[abroad]=true" -f "inputs[ror]=true" >/dev/null 2>&1 || true
+            { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/dispatches" -f ref=main -f "inputs[abroad]=false" -f "inputs[ror]=true" >/dev/null 2>&1 || true
           done
 

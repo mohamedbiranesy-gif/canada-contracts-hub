@@ -2,8 +2,8 @@ name: harvest
 # Continue a long-running harvester from its saved state (release `harvest-state`), time-boxed.
 # Public repo = unlimited free minutes, so the SEAO end-date harvest runs daily until its todo list is empty.
 on:
-  schedule:
-    - cron: "3 8 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "3 8 * * *"
   workflow_dispatch:
     inputs:
       harvester:

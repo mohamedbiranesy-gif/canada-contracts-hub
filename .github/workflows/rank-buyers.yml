@@ -8,8 +8,8 @@ name: rank-buyers
 # One process ranks the whole table here. rank-buyers-parts.yml ranks it on several runners and puts the parts together; both use
 # tools/rank_prep.sh (before the table) and tools/rank_tail.sh (after it), and share one concurrency group, so they never run at the same time.
 on:
-  schedule:
-    - cron: "17 */6 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "17 */6 * * *"
   workflow_dispatch:
 permissions:
   contents: write

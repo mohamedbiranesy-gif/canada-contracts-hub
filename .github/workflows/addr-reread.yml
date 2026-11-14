@@ -31,8 +31,8 @@ on:
       abroad:
         description: "true = only the organisations of the places abroad (rule 18: a utility a Canadian company owns): their pages read again for an address in its territory"
         default: "false"
-  schedule:
-    - cron: "41 9 * * 0"   # weekly: the sites whose mailbox was confirmed since
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "41 9 * * 0"   # weekly: the sites whose mailbox was confirmed since
 permissions:
   contents: write
   actions: write
@@ -112,4 +112,4 @@ jobs:
           cat /tmp/m.txt >> "$GITHUB_STEP_SUMMARY"
           # the telephone numbers kept: the places that list them (tools/phone_places.py), now that the numbers are on main
           # (not after a run on the legal pages: it reads no new telephone numbers)
-          if [ "${{ inputs.legal }}" != "true" ] && [ "${{ inputs.city }}" != "true" ]; then gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/phone-places.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi
+          if [ "${{ inputs.legal }}" != "true" ] && [ "${{ inputs.city }}" != "true" ]; then { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/phone-places.yml/dispatches" -f ref=main >/dev/null 2>&1 || true; fi

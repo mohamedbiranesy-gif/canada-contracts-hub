@@ -5,8 +5,8 @@ name: registry-locate
 # names the distributor of that address and says where the address comes from.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "53 12 * * 0"   # weekly, after the address passes
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "53 12 * * 0"   # weekly, after the address passes
 permissions:
   contents: write
 concurrency:

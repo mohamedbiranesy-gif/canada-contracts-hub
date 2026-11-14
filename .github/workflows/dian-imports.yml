@@ -8,8 +8,8 @@ name: dian-imports
 # list are committed; each run downloads only the months not read yet (one zip of ~280 MB at a time, deleted once read). Since 2026-11-13 the
 # website each importer gave in its own entry of Colombia's SECOP II supplier register (datos.gov.co) is read first.
 on:
-  schedule:
-    - cron: "41 6 * * 1"          # weekly: a new month appears around the 21st; the site finder works through the importers without a site
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "41 6 * * 1"          # weekly: a new month appears around the 21st; the site finder works through the importers without a site
   workflow_dispatch:
     inputs:
       months:

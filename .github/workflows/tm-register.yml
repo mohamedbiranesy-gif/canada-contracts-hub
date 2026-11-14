@@ -7,8 +7,8 @@ name: tm-register
 #   build           : download the register's two tables again and rebuild the owner / agent tables first (the Office's extract changes rarely)
 # The sites on file grow with every scan cycle: the match runs every day. No request to any organisation's site is made here.
 on:
-  schedule:
-    - cron: "41 7 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "41 7 * * *"
   workflow_dispatch:
     inputs:
       stage:

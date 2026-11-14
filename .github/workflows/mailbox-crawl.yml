@@ -5,8 +5,8 @@ name: mailbox-crawl
 # Queue order: sites whose home page prints a role mailbox (scan detector 4) first — leads of every kind, then registry candidates (.ca sites,
 # tier R) — then the other leads. robots.txt respected, 1 request per second per site, identified user agent. No AI, no search engine.
 on:
-  schedule:
-    - cron: "9 * * * *"      # a new run is queued every hour and starts when the one before it ends (one run at a time)
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "9 * * * *"      # a new run is queued every hour and starts when the one before it ends (one run at a time)
   workflow_dispatch:
     inputs:
       shards:
@@ -131,9 +131,9 @@ jobs:
           [ "${pushed:-0}" = "1" ] || { echo "::error::the crawl's rows could not be pushed to main (see the push errors above): nothing of this run was saved"; exit 1; }
           cat /tmp/crawl.txt /tmp/stores.txt >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
           # pushes made with the workflow token do not start other workflows: call the referee, which re-fetches every evidence page
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true
+          { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/verify-and-merge.yml/dispatches" -f ref=main || true
           # back to back: the next run is queued here (GitHub's own timer fired four times in 36 hours for this workflow, and the keeper only looks
           # after a referee run). One run at a time is the concurrency group's job: this one waits until the present run has ended.
           # (not after a run that read nothing new or fewer than 200 sites: an empty queue must not turn into a chain of empty runs — the hourly timer and the keeper start the next)
           echo "sites finished this run: ${fresh:-0}"
-          [ "${nothing:-0}" = "1" ] || [ "${fresh:-0}" -lt 200 ] || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/mailbox-crawl.yml/dispatches" -f ref=main || true
+          [ "${nothing:-0}" = "1" ] || [ "${fresh:-0}" -lt 200 ] || { [ -f "$GITHUB_WORKSPACE/coord/ACTIONS_PAUSED" ] || gh api "repos/${GITHUB_REPOSITORY}/contents/coord/ACTIONS_PAUSED" --silent 2>/dev/null; } && echo "not started (coord/ACTIONS_PAUSED: the project is stopped)" || gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/mailbox-crawl.yml/dispatches" -f ref=main || true

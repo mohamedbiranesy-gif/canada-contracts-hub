@@ -2,8 +2,8 @@ name: codex-builder
 # Optional fully-autonomous Codex lane. Needs secret OPENAI_API_KEY (OpenAI API billing, separate from ChatGPT Plus).
 # Without it, use Codex from chatgpt.com/codex (prompts/codex_kickoff.md); Codex automatic PR reviews work either way.
 on:
-  schedule:
-    - cron: "5 4 * * *"
+  # schedule:   # stopped 2026-11-13 by the owner: coord/ACTIONS_PAUSED
+    # - cron: "5 4 * * *"
   workflow_dispatch:
     inputs:
       extra: { description: "Optional extra instruction", default: "" }
