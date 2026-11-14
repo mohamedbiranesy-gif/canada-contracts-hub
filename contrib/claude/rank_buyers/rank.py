@@ -6484,6 +6484,11 @@ for _ri, x in enumerate(rows):
     if _cvb and _cvb.get("addr"):
         x["vendor_address"] = _cvb["addr"]
     x["buyer_type"] = buyer_type(x.get("buyer"), x.get("jurisdiction") or x.get("_jur") or "")
+    if not (x.get("vendor") or "").strip() and t not in ("N", "I", "R"):
+        # 2026-11-14 (tools/audit_deliverable.py check 16 on the table of 22:10Z: 65 rows, in the packages of active relationships): a lead with no vendor at
+        # all — places of the abroad lane (tools/abroad_utilities.py) that no utility row could stand on — took the label of a public contract of the last
+        # 12 months from its lead's date. It is no relationship record.
+        x["tier"], x["rank_group"], t = "N", "N%s" % (x.get("grade") or 0), "N"; n9["row with no vendor at all: no relationship record (it was labelled by its lead's date)"] += 1
     x["relationship_kind"] = KIND.get(t, KIND["N"])
     x["how_relationship_was_found"] = HOW_FOUND.get(t, HOW_FOUND["N"])
     if (x.get("contract_status") or "").startswith(("insured benefit plan of a Canadian insurer", "service provider in Canada paid by the organisation's benefit plan")):
