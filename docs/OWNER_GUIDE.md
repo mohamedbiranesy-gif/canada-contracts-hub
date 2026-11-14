@@ -45,9 +45,13 @@ electric utilities of rule 18); households; anything behind a login or a bot che
 - Nothing builds, crawls, checks or publishes until GitHub turns it back on. Only GitHub Support can do that (a ticket from your account).
 - The table on the release **ranked-latest** (built 22:10Z) stays downloadable and is the current deliverable.
 - The corrections below are saved in the repository and go into the first build after Actions returns. Until then, the 22:10Z table still has
-  these rows (counted on it): 123 ready rows whose vendor is a U.S. company by its own name (an LLC, "… USA Inc." — rule 19); 36 foundations
+  these rows (counted on it, with the new rules replayed row by row): about 380 ready rows whose biller is a U.S. legal entity (rule 19) — 336 of
+  them exhibitors and sponsors of Marketplace Events' home and trade shows (the company is "Marketplace Events LLC", a U.S. company with offices in
+  Canada; the rule can be lifted for it if you read it otherwise), the rest public contracts with "FieldTurf USA", "New Flyer of America" and the
+  like; 39 rows where the postal code is in another province than the one printed (the electricity distributor is not certain); 36 foundations
   listed as sponsors (a grant, not an invoice); about 660 buyer names that are not names (75 image file names, 480 with the page word "Home",
   104 one trade word like "Accounting"); 3 buyers that appear twice; 989 Québec electrical and plumbing contractors whose yearly bill shows only
-  the licence fee, without the CMEQ's or the CMMTQ's own dues.
+  the licence fee, without the CMEQ's or the CMMTQ's own dues; about 2,900 biller legal names read off a website that are not legal names
+  ("Voice over Internet Protocol" for an Internet provider).
 - When Actions returns, the first thing to run is the table build (rank-buyers); it takes about two hours.
 
