@@ -1,6 +1,6 @@
 # Owner's guide to the table (plain language)
 
-*Kept current by lane `claude`. Last refreshed: 2026-11-13 23:20Z, from the table built at 22:10Z.*
+*Kept current by lane `claude`. Last refreshed: 2026-11-14 00:34Z, from the table built at 2026-11-13 22:10Z.*
 
 ## What it is
 One row per organisation (the **buyer**) that a **Canadian biller** (the **vendor**) bills **on invoice**, payable **by bank transfer or cheque**,
@@ -40,3 +40,14 @@ referee. Every value says where it was read, and every estimate says that it is 
 ## What is never in it
 A named person's mailbox; a guessed address; a card-on-file bill (owner's rule, 11 Nov); a company abroad that a Canadian company owns (except the
 electric utilities of rule 18); households; anything behind a login or a bot check.
+
+## Right now: GitHub has switched Actions off on your account (since 2026-11-13 23:39Z)
+- Nothing builds, crawls, checks or publishes until GitHub turns it back on. Only GitHub Support can do that (a ticket from your account).
+- The table on the release **ranked-latest** (built 22:10Z) stays downloadable and is the current deliverable.
+- The corrections below are saved in the repository and go into the first build after Actions returns. Until then, the 22:10Z table still has
+  these rows (counted on it): 123 ready rows whose vendor is a U.S. company by its own name (an LLC, "… USA Inc." — rule 19); 36 foundations
+  listed as sponsors (a grant, not an invoice); about 660 buyer names that are not names (75 image file names, 480 with the page word "Home",
+  104 one trade word like "Accounting"); 3 buyers that appear twice; 989 Québec electrical and plumbing contractors whose yearly bill shows only
+  the licence fee, without the CMEQ's or the CMMTQ's own dues.
+- When Actions returns, the first thing to run is the table build (rank-buyers); it takes about two hours.
+
