@@ -174,6 +174,12 @@
    "method": "in the next table, the ready rows of the two vendors: bill_amount_indicative starts '837.94 $ a year in dues' (CMEQ) / '881 $ a year in dues' (CMMTQ), bill_amount_calculated gives the sum, CMEQ rows carry the avis de cotisation sentence in bill_delivery_as_published; payment stays 'by the kind of relationship' (no card-only sentence taken); counts before (22:10Z): CMEQ 524 ready, CMMTQ 465 ready",
    "cmd": "python3 -c \"import gzip,csv,collections;csv.field_size_limit(10**9);c=collections.Counter((x['vendor'][:40],x['bill_amount_indicative'][:30],x['ship_ready'][:3]) for x in csv.DictReader(gzip.open('ranked_buyers.csv.gz','rt')) if 'maîtres' in x['vendor']);print(c.most_common(8))\"",
    "status": "pending (pushed 2026-11-14 ~00:25Z; waits for a build — GitHub Actions disabled for the account since 2026-11-13 23:39Z)"
+  },
+  {
+   "deliverable": "buyer names: one trade word alone (Accounting, Avocats, Construction, Notaire, Toiture …) on a site that names more → the site's domain name; no site, or a government-wide site → not ready (buyer not named)",
+   "method": "SUMMARY.md counter 'buyer named by one trade word alone'; measured on 22:10Z: 104 ready rows (125 in all), 60 sampled hits read, all genuine; guards tested: The Studio / thestudio.ca, Moving Co / movingco.ca, Care & Co / careandco.ca, LA AUTOMOTIVE LTD. / laautomotive.ca, Centre A, Spa La La keep their names",
+   "cmd": "grep -i 'one trade word' coord/results/ranked/SUMMARY.md",
+   "status": "pending (pushed 2026-11-14 ~01:20Z; waits for a build)"
   }
  ]
 }

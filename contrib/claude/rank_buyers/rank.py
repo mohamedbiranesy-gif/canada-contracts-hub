@@ -3736,7 +3736,7 @@ REGION_TOK = {"aunz": {"AU", "NZ"}, "anz": {"AU", "NZ"}, "apac": {"AU", "NZ", "S
               "mexico": {"MX"}, "france": {"FR"}, "germany": {"DE"}, "japan": {"JP"}, "singapore": {"SG"}, "australia": {"AU"}, "nz": {"NZ"}, "europe": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE"},
               "eu": {"UK", "GB", "FR", "DE", "IE", "NL", "BE", "ES", "IT", "CH", "SE", "EU", "DK", "FI", "NO", "AT", "PT", "PL", "LU"}, "asia": {"SG", "JP", "IN", "CN", "HK", "MY", "PH", "KR", "TH", "ID", "VN"}, "oceania": {"AU", "NZ"},
               "mena": {"AE", "SA", "QA", "EG", "KW", "BH", "OM", "JO", "MA"}, "nordic": {"SE", "NO", "DK", "FI", "IS"}, "nordics": {"SE", "NO", "DK", "FI", "IS"}, "benelux": {"BE", "NL", "LU"}, "canada": {"CA", "FED", "QC", "ON", "BC", "AB", "SK", "MB", "NS", "NB", "PE", "NL", "YT", "NT", "NU"},
-              "asia": {"SG", "JP", "IN", "CN", "HK", "MY", "PH"}, "ptvi": {"ID"}, "indonesia": {"ID"}, "africa": {"ZA"}, "canada": {"CA"}, "ca": {"CA"}}
+              "ptvi": {"ID"}, "indonesia": {"ID"}, "africa": {"ZA"}, "ca": {"CA"}}  # 2026-11-14: a second "asia" (without KR, TH, ID, VN) and a second "canada" overrode the ones above
 CA_PROV = {"ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE", "YT", "NT", "NU", "CA"}
 n_reg = 0
 for x in rows:
@@ -5858,6 +5858,37 @@ def place_name_not_this_org(name, website):
         return False
     a, b = lab.split(core, 1)
     return len(_strip_affixes(a)) + len(_strip_affixes(b)) >= 3
+# 2026-11-14 (the table of 22:10Z, 164 ready rows): a buyer named by one word of a trade alone — "Accounting" on zakaccounting.ca, "Avocats" on
+# gnhavocats.com, "Construction" on axrconstruction.com, "Toiture" on carsim.ca: the page's title kept the kind of business and lost the name. Not when
+# the site's own domain is that word or the whole name ("The Studio" on thestudio.ca, "Moving Co" on movingco.ca), nor for two words or more
+# ("Centre A", "Spa La La", "Capital Janitorial Service" are names).
+_TRADE_WORD = set("""accounting accountants comptables comptable avocats avocat lawyers legal notaires notaire construction constructions contracting contractors renovations
+renovation roofing plumbing electrical electrique plomberie toiture landscaping paysagement paysagiste cleaning nettoyage janitorial dental dentaire dentist dentistry clinic
+clinique medical health sante therapy physiotherapy physiotherapie physio chiropractic chiropratique massage spa salon studio design media marketing consulting consultants
+services solutions group groupe enterprises entreprises systems technologies software insurance assurance assurances realty immobilier properties homes automotive garage
+transport transports transportation logistics trucking moving storage printing imprimerie photography photo events catering traiteur restaurant bakery boulangerie pharmacy
+pharmacie optometry veterinary animal fitness gym yoga academy academie institute institut foundation fondation association society societe partners associates associes
+management gestion financial finance investments tax taxes bookkeeping payroll staffing recruitment security securite alarm glass windows flooring kitchen cabinets
+furniture hardware supply supplies equipment rentals sales motors marine farm ferme foods aliments energy solar hvac heating chauffage climatisation ventilation mechanical
+mecanique welding manufacturing fabrication industries engineering ingenierie architects architecture surveying environmental environnement laboratory research care homecare
+daycare garderie ministries gallery music musique theatre productions sports magazine market boutique vision international""".split())
+
+
+def generic_name_not_this_org(name, website):
+    """a buyer named by one trade word alone (see _TRADE_WORD), on a site whose own domain spells something else or more"""
+    toks = _fold_nos(re.sub(r"\s*\([^()]*\)\s*$", "", name or "")).split()
+    while toks and _LEGAL_WORD.match(toks[-1]):
+        toks = toks[:-1]
+    spelled = {"".join(toks), re.sub(r"[^a-z0-9]", "", _fold_nos(name).replace(" ", "")),  # the whole name, with and without its legal form,
+               re.sub(r"[^a-z0-9]", "", _fold_nos((name or "").replace("&", " and ")).replace(" ", ""))}  # and with its & written out (Care & Co: careandco.ca)
+    while toks and toks[0] in ("the", "le", "la", "les"):
+        toks = toks[1:]
+    if len(toks) != 1 or toks[0] not in _TRADE_WORD:
+        return False
+    lab = re.sub(r"[^a-z0-9]", "", _fold_nos(((registrable(host_of(website) or "") or "") if website else "").split(".")[0]).replace(" ", ""))
+    return lab != toks[0] and lab not in spelled
+
+
 def _premises(a):
     """(civic number, first word of the street) and postal code of a printed address"""
     m = re.search(r"(?<![\w#-])(\d{2,6})[ ,]+(?:(?:rue|boul\S*|av\S*|ch\S*|route|rang)\s+)?([A-Za-zÀ-ÿ'\-]{4,})", a or "", re.I)
@@ -6368,6 +6399,11 @@ for _ri, x in enumerate(rows):
         x["buyer"] = _b = _pw; n9["buyer name: cut out of a page's title or text (social links, a date, a trademark line, a policy's title, a slogan after the name)"] += 1
     if place_name_not_this_org(_b, x.get("buyer_website") or ""):
         x["buyer"] = _b = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by a town's bare name on a site that names more: its domain name instead"] += 1
+    if generic_name_not_this_org(_b, x.get("buyer_website") or ""):
+        if x.get("buyer_website") and not SHARED_GOV.match(registrable(host_of(x["buyer_website"]) or "") or ""):
+            x["buyer"] = _b = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by one trade word alone (Accounting, Avocats …) on a site that names more: its domain name instead"] += 1
+        else:
+            x["buyer_name_fault"] = "the name is one word of a trade (“%s”), not the organisation's name" % _b[:80]; n9["buyer named by one trade word alone, no site of its own: not ready"] += 1
     if _JUNK_NAME.match(_b) and x.get("buyer_website"):
         x["buyer"] = registrable(host_of(x["buyer_website"]) or "") or _b; n9["buyer named by a menu word (About, Home …): its domain name instead"] += 1
     else:
