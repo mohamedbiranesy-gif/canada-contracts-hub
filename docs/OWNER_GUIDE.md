@@ -1,6 +1,6 @@
 # Owner's guide to the table (plain language)
 
-*Kept current by lane `claude`. Last refreshed: 2026-11-14 00:34Z, from the table built at 2026-11-13 22:10Z.*
+*Kept current by lane `claude`. Last refreshed: 2026-11-14 04:10Z — the final corrected copy of the table built at 2026-11-13 22:10Z.*
 
 ## What it is
 One row per organisation (the **buyer**) that a **Canadian biller** (the **vendor**) bills **on invoice**, payable **by bank transfer or cheque**,
@@ -40,6 +40,27 @@ referee. Every value says where it was read, and every estimate says that it is 
 ## What is never in it
 A named person's mailbox; a guessed address; a card-on-file bill (owner's rule, 11 Nov); a company abroad that a Canadian company owns (except the
 electric utilities of rule 18); households; anything behind a login or a bot check.
+
+## The final corrected copy (2026-11-14) — use this one
+- **On your Mac:** `Desktop/canada-contracts-hub-final/ranked_buyers_CORRECTED_2026-11-14.csv.gz` — the table of 22:10Z with every correction applied
+  row by row (GitHub could not rebuild it). Beside it: `corrections.csv.gz` (every changed cell, before and after), `counts.json` (every correction
+  counted), `folded_rows.csv` and `duplicate_buyers_dropped.csv` (second rows of one organisation taken out), and `HANDOFF_ROWS.md` — the full handoff
+  for whoever picks this up: every column, every kind of relationship, where each fact comes from, amounts, payment, identifiers, limits. The original
+  of 22:10Z is there too. The file was checked on your Mac after the copy (same fingerprint as here, and it opens).
+- **The counts:** 362,833 rows; **298,247 ready** (was 301,184); $5,000 or more a bill: 2,895 ready rows (2,152 published, 743 estimated). Every main
+  invoice field on 221,557 ready rows; an amount and a billing period on 265,143.
+- **What changed, in plain words:** 4,466 organisation names cleaned (page-title words, addresses, phone numbers, slogans taken out); 920 wrong legal
+  names of billers cleared; 923 addresses that were not the organisation's taken out (Google's, Shopify's head office printed on store pages, a
+  template's "123 Main Street"); 2,944 rows taken out of the ready set — 2,131 domains that only sit on Web Hosting Canada's parking servers (no
+  hosting is billed there, in WHC's own words), 382 billers that are U.S. companies (336 of them Marketplace Events' show exhibitors), about 290
+  rows whose mailbox or site belonged to another country's office or to a namesake (Deloitte & Touche of Virginia with Deloitte Belgium's mailbox;
+  the U.S. Treasury with the Australian Treasury's), the stores "located" at Shopify's Ottawa office, five mailboxes of named people; 19 rows became
+  ready with mailboxes checked before Actions stopped.
+- **What is still not perfect (handoff section 13):** rows by location (69% of the ready rows) do not name the account holder and mostly carry a small
+  office's estimate; a few hundred names are a page's words rather than a name; contract values are as the source publishes them; the Marketplace
+  Events exhibitors come back if you count that company as Canadian.
+- **Everything is stopped:** no workflow runs or restarts by itself (`coord/ACTIONS_PAUSED`); the ChatGPT automation on your Mac was already paused
+  and Gemini had no schedule. To restart anything: revert that one commit, and bring the crawlers back far slower.
 
 ## Right now: GitHub has switched Actions off on your account (since 2026-11-13 23:39Z)
 - Nothing builds, crawls, checks or publishes until GitHub turns it back on. Only GitHub Support can do that (a ticket from your account).

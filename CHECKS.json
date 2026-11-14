@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-13 17:24Z",
+ "as_of": "2026-11-14T04:10Z",
  "checks": [
   {
    "deliverable": "ranked table (ready rows, $5k+ marks, kinds)",
@@ -192,6 +192,18 @@
    "method": "ship_ready_missing contains 'U.S. legal entity'; expected on the next table ~380 ready rows out (336 Marketplace Events exhibitors/sponsors, ~44 public contracts, 2 export sales); Liberty Utilities rows still ready; PAL Aerospace, Legrand, LJ Welding Automation still ready",
    "cmd": "python3 -c \"import gzip,csv,collections;csv.field_size_limit(10**9);c=collections.Counter((x['vendor'][:30],x['ship_ready'][:3]) for x in csv.DictReader(gzip.open('ranked_buyers.csv.gz','rt')) if 'U.S. legal entity' in x['ship_ready_missing'] or x['vendor'].startswith(('Liberty Utilities','PAL Aerospace','Legrand','LJ WELDING')));print(c.most_common(20))\"",
    "status": "pending (pushed 2026-11-14 ~01:30Z; waits for a build)"
+  },
+  {
+   "deliverable": "final corrected copy of the 22:10Z table: one row per buyer, every correction written after the last build applied, every changed cell logged",
+   "method": "contrib/claude/final_correction/correct_table.py correct → tools/priority_sort.py → correct_table.py fold, then correct_table.py patch (late rules); docs/HANDOFF_ROWS.md generated from the result by handoff.py",
+   "cmd": "python3 contrib/claude/final_correction/handoff.py OUT docs/HANDOFF_ROWS.md  # prints 'ready N of M'",
+   "status": "done 2026-11-14: 362,833 rows, 298,247 ready; copied to the owner's Mac and checked there (SHA-256 2d101d44090941e9fd0f4ba4b63f1588d6aacef9b6aae5f3cba9cb9c943d8717, gzip -t OK)"
+  },
+  {
+   "deliverable": "the corrected copy carries no web platform's address as a buyer's address, no named person's mailbox, no ready row on WHC's parking nameservers, no ready row whose vendor's printed address is in the U.S. read as Canada",
+   "method": "scratchpad scans re-run on the final table (plat_scan, scan2, the late rules measured with correct_table.late_rules): remaining platform addresses are the platforms' own rows (Stripe, Salesforce) and two organisations whose head office shares the building (Audubon, Vir Biotechnology)",
+   "cmd": "python3 -c \"import gzip,csv,re;csv.field_size_limit(10**9);print(sum(1 for x in csv.DictReader(gzip.open('ranked_buyers_CORRECTED_2026-11-14.csv.gz','rt')) if x['ship_ready'].startswith('yes') and re.search(r'parking[12]\\\\.whc\\\\.ca',x['contract_title'])))\"  # expect 0",
+   "status": "done 2026-11-14"
   }
  ]
 }

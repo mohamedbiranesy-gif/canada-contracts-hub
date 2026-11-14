@@ -279,6 +279,68 @@ def site_faults(x):
     return out, fault, what
 
 
+_CA_PROV = {"AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"}
+_US_ST = {"AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE",
+          "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"}
+_US_ZIP_ADDR = re.compile(r"\b(?:" + "|".join(sorted(_US_ST)) + r")\s+\d{5}(?:-\d{4})?\b")
+
+
+_CA_SOURCE = re.compile(r"(?i)canad|qu[ée]bec|ontario|alberta|british columbia|saskatchewan|sasktenders|manitoba|nova scotia|new brunswick|newfoundland|"
+                        r"\bNL public procurement|prince edward|northwest territories|yukon|nunavut|bids&tenders|merx|seao")
+_AMBIGUOUS = {"NL": ("NL", r"(?i)netherlands|tenderned|nederland|\bTED\b"), "SK": ("SK", r"(?i)slovak|slovensk|\bTED\b"),
+              "PE": ("PE", r"(?i)per[uú]\b"), "CA": ("US", r"(?i)california")}
+
+
+def juris_country(j, source=""):
+    """the country of a row's jurisdiction code; a code that is both a province and a country (NL, SK, PE) or a state (CA) is read with the source"""
+    j = (j or "").strip().upper()
+    if j in _AMBIGUOUS:
+        foreign, rx = _AMBIGUOUS[j]
+        if re.search(rx, source or ""):
+            return foreign
+        return "CA" if _CA_SOURCE.search(source or "") else ""
+    if j in ("US", "USA") or (j.startswith("US-") and len(j) == 5):
+        return "US"
+    if j in ("CAN", "FED") or j in _CA_PROV:
+        return "CA"
+    if j in ("GB", "UK"):
+        return "GB"
+    return j if j in ("AU", "NZ", "FR", "DE", "IT", "ES", "NL", "BE", "CH", "AT", "IE", "SE", "DK", "NO", "FI") else ""
+
+
+def late_rules(x, kind):
+    """two errors found by reading the corrected copy (2026-11-14): (fault or '', what or '')
+    - a vendor whose own printed address is in the United States, where the record's country "Canada" was read from the state code CA (California):
+      "O'Reilly Media, Inc., 141 Stony Circle, Santa Rosa, CA 95401" for HM Land Registry;
+    - a public contract whose buyer is one government's (its record's jurisdiction) while the site, the mailbox and the address on the row are another
+      country's: the U.S. Department of the Treasury (USAspending) given the Australian Treasury's site, address and mailbox — a namesake matched by name"""
+    if kind == "service seen on the buyer's side" and re.search(r"(?i)\bparking[12]\.whc\.ca\b", (x.get("contract_title") or "") + " " + (x.get("relationship_fact_basis") or "")):
+        # Web Hosting Canada's own help page lists its parking nameservers as serving "All domain names without hosting" and "Standard DNS": the domain is
+        # registered with it and nothing is hosted — the DNS comes free with the registration, and a registration is what a registrar bills (owner's rule
+        # of 2026-11-11, as for namespro.ca in tools/data/free_dns_providers.json): no row. Its ns1-3, cloud1-2, web-dns1 and wpdns servers are hosting.
+        return ("relationship: the organisation's domain is on Web Hosting Canada's parking nameservers, which serve “All domain names without hosting” "
+                "(https://help.whc.ca/en/articles/618444-what-are-your-dns-or-nameservers, read 2026-11-14) — no hosting is billed; the domain's registration "
+                "is what a registrar bills (owner's rule of 2026-11-11: no row)"), "a domain on Web Hosting Canada's parking nameservers (no hosting): no relationship"
+    va = x.get("vendor_address") or ""
+    if "CONFLICT" in (x.get("vendor_country_basis") or "") and _US_ZIP_ADDR.search(va) and not re.search(r"\b[ABCEGHJ-NPRSTVXY]\d[A-Z]\s?\d[A-Z]\d\b", va, re.I):
+        return ("relationship: the vendor's printed address is in the United States (“%s”) — the record's country “Canada” was read from the state code "
+                "CA (California): not a Canadian vendor" % va[:90]), "vendor's address in the United States read as Canada: no relationship"
+    if kind == "public contract":
+        jc = juris_country(x.get("jurisdiction"), x.get("source") or "")
+        sh = AC.host(x.get("buyer_website") or "") if x.get("buyer_website") else ""
+        md = (x.get("email") or "").split("@")[-1].lower() if "@" in (x.get("email") or "") else ""
+        scc, mcc = AC.cc_of(sh, x.get("buyer") or ""), AC.cc_of(md, x.get("buyer") or "")
+        ac = None
+        for q in AC.split_parts(x.get("buyer_address") or ""):
+            ac = ac or AC.country_of_address(AC.body_of(q))
+        seen = {c for c in (scc, mcc, ac) if c}
+        if jc and seen and jc not in seen and len(seen) == 1 and not ({jc} | seen) == {"CA", "US"}:
+            other = seen.pop()
+            return ("site: the record's buyer is %s's (its jurisdiction), but the site, the mailbox and the address on the row are %s's (%s) — a namesake "
+                    "matched by name" % (jc, other, md or sh)), "record's buyer of one country, site and mailbox of another: held (a namesake's)"
+    return "", ""
+
+
 def weak_legal_page_name(x):
     """a vendor legal name read on a legal page by a shared word alone: no legal form, and not the vendor's own name (rank.py, 2026-11-14)"""
     m = re.match(r"^(.*?) \(stated on the vendor's legal page", x.get("vendor_legal_name") or "")
@@ -406,6 +468,11 @@ def correct(src, outdir):
             n[awhat] += 1
         if afault:
             x["row_fault"] = " ;; ".join(f_ for f_ in ((x.get("row_fault") or ""), afault) if f_)
+        lfault, lwhat = late_rules(x, RR.kind_of(x))
+        if lwhat:
+            n[lwhat] += 1
+        if lfault:
+            x["row_fault"] = " ;; ".join(f_ for f_ in ((x.get("row_fault") or ""), lfault) if f_)
         if fault:
             x["buyer_name_fault"] = fault
             n["buyer name: not a name and no site of its own (the row is not ready)"] += 1
@@ -507,6 +574,48 @@ def correct(src, outdir):
         print(v, k)
 
 
+def patch(outdir):
+    """the late rules alone, on a corrected copy (OUTDIR/ranked_buyers.csv.gz): what a full run gives, without its 15 minutes; the changed cells are
+    appended to corrections.csv.gz and the counts to counts.json"""
+    path = os.path.join(outdir, "ranked_buyers.csv.gz")
+    tmp = path + ".patch"
+    n = collections.Counter()
+    with gzip.open(path, "rt", encoding="utf-8", newline="") as f, gzip.open(tmp, "wt", encoding="utf-8", newline="", compresslevel=6) as fo, \
+            gzip.open(os.path.join(outdir, "corrections.csv.gz"), "at", encoding="utf-8", newline="") as fl:
+        rd = csv.DictReader(f)
+        wr = csv.DictWriter(fo, fieldnames=rd.fieldnames)
+        wr.writeheader()
+        wl = csv.writer(fl)
+        for x in rd:
+            lfault, lwhat = late_rules(x, RR.kind_of(x))
+            if lfault and lfault[:80] in (x.get("ship_ready_missing") or ""):
+                lfault = ""  # applied already (by the full run or an earlier patch)
+            if lfault:
+                before = {c: x.get(c) or "" for c in LOGGED}
+                old_ready = before["ship_ready"].startswith("yes")
+                x["row_fault"] = lfault
+                RR.owner_test(x)
+                x.pop("row_fault", None)
+                n[lwhat] += 1
+                if old_ready and not (x.get("ship_ready") or "").startswith("yes"):
+                    n["ready -> not ready"] += 1
+                    n["ready -> not ready: " + re.sub(r"\s*\(.*", "", lfault)[:90]] += 1
+                key = next((k for k in (x.get("keys") or "").split("|") if k), "")
+                for c in LOGGED:
+                    if (x.get(c) or "") != before[c]:
+                        wl.writerow([key, (x.get("buyer") or "")[:120], c, before[c][:300], (x.get(c) or "")[:300]])
+                        n["cells changed: " + c] += 1
+            wr.writerow(x)
+    os.replace(tmp, path)
+    cp = os.path.join(outdir, "counts.json")
+    rep = json.load(open(cp, encoding="utf-8"))
+    for k, v in n.items():
+        rep["counts"][k] = rep["counts"].get(k, 0) + v
+    rep["counts"]["ready after"] = rep["counts"].get("ready after", 0) - n["ready -> not ready"]
+    json.dump(rep, open(cp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("late rules:", dict(n))
+
+
 def fold(outdir):
     """one row per website and name (rank.py, 2026-11-14), on the table in its order of priority: the first row of an organisation stands for it"""
     path = os.path.join(outdir, "ranked_buyers.csv.gz")
@@ -551,5 +660,7 @@ if __name__ == "__main__":
         correct(a[1], a[2])
     elif a[:1] == ["fold"] and len(a) == 2:
         fold(a[1])
+    elif a[:1] == ["patch"] and len(a) == 2:
+        patch(a[1])
     else:
         print(__doc__)

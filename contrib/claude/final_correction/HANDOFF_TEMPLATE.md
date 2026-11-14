@@ -17,9 +17,9 @@ transfer or cheque, with the organisation's own role mailbox. Two copies exist:
 | copy | where | what it is |
 |---|---|---|
 | original | release `ranked-latest` on GitHub (`ranked_buyers.csv.gz`, build 2026-11-13 22:10Z), and on the owner's Mac: `~/Desktop/canada-contracts-hub-final/ranked_buyers_ORIGINAL_2026-11-13_2210Z.csv.gz` | the last table a build made |
-| **corrected (use this one)** | the owner's Mac: `~/Desktop/canada-contracts-hub-final/ranked_buyers_CORRECTED_2026-11-14.csv.gz`, with `corrections.csv.gz` (every changed cell, before → after) and `folded_rows.csv` / `duplicate_buyers_dropped.csv` (rows taken out as a second row of one buyer) | the original with every correction written after the last build applied, row by row (section 12) |
+| **corrected (use this one)** | the owner's Mac: `~/Desktop/canada-contracts-hub-final/ranked_buyers_CORRECTED_2026-11-14.csv.gz`, with `corrections.csv.gz` (every changed cell, before → after) and `folded_rows.csv` / `duplicate_buyers_dropped.csv` (rows taken out as a second row of one buyer), `counts.json` (every correction counted) and this handoff as `HANDOFF_ROWS.md` | the original with every correction written after the last build applied, row by row (section 12) |
 
-Regenerate the corrected copy from the original at any time (about 15 minutes, 7 GB of memory is enough):
+Regenerate the corrected copy from the original at any time (about 25 minutes on two cores; 7 GB of memory is enough):
 
 ```
 python3 contrib/claude/final_correction/correct_table.py correct ranked_buyers.csv.gz OUT
@@ -306,6 +306,16 @@ packages (`P01…P15`) and JSON-lines copy (the release still holds the 22:10Z o
    are listed in section 13.
 5. Never: a person's mailbox, a guessed address, webmail, a CAPTCHA or login worked around, the CRA GST/HST registry automated, an estimate in a
    published cell, a company abroad as a Canadian vendor (except rule 18's utilities), a buyer twice.
+6. After any new build, run the final correction over its table (the three commands of section 0) — until its rules are moved into the build:
+   the name rules (`title_names.py`), the address checks (`address_checks.py`), the site checks, the mailbox lists (`REVIEWED_OUT`,
+   `PERSON_MAILBOX`, `WRONG_SITE`, `TYPE_OVERRIDE`) and the EPA export fix of `correct_table.py`. Two of its rules already are in rank.py (legal-page
+   names, separators at a name's ends). Its lists are by address, not by row: a new build keeps them right.
+7. What would add most, in order: (a) read the billing pages of the billers still "by the kind" (section 13 lists the largest — Gowling WLG,
+   Central Hudson, Tucson Electric Power, the City of Vancouver, Green Mountain Power, Sun Life …): one page fills thousands of rows' payment and
+   delivery fields in the biller's own words; (b) re-read by the referee the mailboxes found after Actions stopped
+   (`data/incoming/claude/claude_buyer_ap_results_c5k*.csv` whose rows have no `verified` outcome); (c) the $5,000+ rows held for no mailbox
+   (`contrib/claude/c5k_sites.py`, `c5k_mailboxes.py --sites`); (d) the organisations abroad tied to a Canadian biller by a record (the second half
+   of the route to a million, `docs/ROUTE_TO_1M.md`).
 
 ---
 

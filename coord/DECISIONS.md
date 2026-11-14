@@ -2213,3 +2213,43 @@ another, tools/dispatch_overdue.sh starts nothing, while coord/ACTIONS_PAUSED ex
 is one click (rank-buyers) if GitHub turns Actions back on. To restart anything: revert that commit, with the owner's word, and bring the crawlers back
 far slower.
 
+## 2026-11-14 04:00Z — lane claude: the final corrected copy of the table, and the rules it applies
+The owner's last instruction (2026-11-13 21:06–21:08 EST): "perfect every single row … verify, fix everything … max out the handoff". The last build
+(22:10Z) could not be rebuilt (Actions disabled), so every correction written after it is applied to its table row by row by
+`contrib/claude/final_correction/correct_table.py` (correct → tools/priority_sort.py → fold), every changed cell logged in `corrections.csv.gz`.
+The copy is on the owner's Mac (`~/Desktop/canada-contracts-hub-final/`), with the handoff `docs/HANDOFF_ROWS.md` generated from it.
+Decisions taken while reading the rows (each rule run over all rows and its changes read before it was kept):
+- **Names from page titles** (`title_names.py`): an address, a mailbox, a social handle or a telephone number written as the name, "Home page",
+  "Official site", "Welcome", "under construction", a breadcrumb, a slogan after a brand, a copyright line, a town and province after the name,
+  what follows a legal form after a comma, UTF-8 read as Latin-1 — each removed, the organisation's own domain the guard ("Home Hardware",
+  "Welcome Jobs", "Homepage Property Management", "China Made in England" keep their words); "Drivers On Call", "Phoenix Contact" and the Québec
+  ministry's full name are not cut. A person-name test was tried and left out ("Tim Hortons", "Paul Davis" are companies).
+- **Legal names read on a vendor's legal page** keep their place when the vendor's own domain begins or ends them (8 letters or more) or their
+  initials are the domain ("Réseau Québec maritime" for rqm.quebec), and "and"/"&" and small words are set aside ("Food and Beverage Atlantic");
+  a sentence of the page ("SIMAALI or SIMAALI s licensors") never.
+- **Addresses** (`address_checks.py`): 31 web platforms' own addresses named on privacy and legal pages (Google, Cloudflare, Meta, YouTube, Shopify's
+  151 O'Connor Street …) and template sample addresses are taken out of `buyer_address`; a row by location that stood on one has no relationship.
+  An address of another country than the organisation's own site and mailbox, read on that site, is another office's (taken out); a mailbox on
+  another country's domain than both its site and its address is an affiliate's or a namesake's (held); a register's address with a site and a
+  mailbox of another country is a namesake's site (held). Embassies keep their government's domain; a company's legal form decides which of its
+  mailbox and its address is its own (a GmbH's .de mailbox stays, its U.S. office's address goes).
+- **One body does not bill itself**: same name or same site for buyer and vendor → no relationship (a chapter named by its parent, a utility at its
+  own address); a vendor's site that is the buyer's own (a municipality's list of merchants) is removed with what was read on it.
+- **Mailboxes**: five named persons' mailboxes taken off (§2.5); one mailbox of another municipality on a shared page (Saint-André-de-Restigouche);
+  Durham University's AP mailbox kept under its true role ("Do not send invoices to this address"); EPCOR's Indigenous procurement mailbox and a
+  campus front desk not added. ISP-hosted mailboxes stay (decision of 2026-11-04).
+- **U.S. EPA export notices**: the vendor is the Canadian receiving facility (FINAL ADDRESS); the shipper's address had been put in its place.
+- **Two errors found by reading the corrected copy** (`late_rules`, also applied alone by `correct_table.py patch`): a vendor whose printed address is in
+  the United States while the record's country "Canada" was read from the state code CA (O'Reilly Media, Santa Rosa, for HM Land Registry): no
+  relationship; a public contract whose buyer is one government's while the site, the mailbox and the address on the row are another country's (the
+  U.S. Department of the Treasury given the Australian Treasury's; Utilities Kingston, Ontario, given the Royal Borough of Kingston's mailbox): held.
+  A jurisdiction code that is both a province and a country (NL, SK, PE) or a state (CA) is read with the row's source.
+- **A domain on Web Hosting Canada's parking nameservers is no hosting relationship**: WHC's own help page lists parking1 / parking2.whc.ca as
+  serving "All domain names without hosting" (https://help.whc.ca/en/articles/618444-what-are-your-dns-or-nameservers, read 2026-11-14): the DNS comes
+  free with a registration, and a registration is what a registrar bills (owner's rule of 2026-11-11, as for namespro.ca) — about 2,130 ready rows held.
+  Its ns1-3 (hosting Starter / Go, Email Pro, and a "Legacy Domain Manager"), cloud1-2, web-dns1 and wpdns servers stay hosting rows; other providers'
+  domain-only servers (doteasy's free plan among them) were not re-examined.
+- **amount_mark** prints the record's currency after a contract's figure when it is not the dollar; the class is still read on the record's own
+  figure (the ready rows in weaker currencies are far above the line: SEK 1.8 M and 1.6 M, DKK 80 M, RWF 726 M).
+Left as they are, said in the handoff: a contract value as the source publishes it (a group purchase under one member), a few hundred names that are
+a page's words, the account holder of rows by location.

@@ -316,10 +316,13 @@ LIMITS = """- **Rows by location are the bulk** (<!--LOC--> of the ready rows): 
   follows it in `amount_mark` when it is not the dollar).
 - **Mailboxes at an internet provider**: <!--ISP--> ready rows carry the organisation's own mailbox at videotron.ca, bell.net, sympatico.ca, shaw.ca,
   cogeco … — printed by the organisation as its address, kept (decision of 2026-11-04); the webmail rule names the free webmail services.
-- **Broken characters**: <!--FFFD--> ready rows carry a replacement character (�) in a name, an address or a title, where a page was read in the
+- **Broken characters**: <!--FFFD--> ready rows carry a replacement character (U+FFFD) in a name, an address or a title, where a page was read in the
   wrong encoding; it cannot be read back without the page (the buyer's name in such a row was replaced by its domain name).
 - **Names**: the corrected copy cleaned thousands of names (section 12), but a few hundred ready rows still carry a page's words rather than the
   organisation's name (a service and a town: "Dentist in Bracebridge", a slogan) — the row's website and mailbox identify it.
+- **Service rows**: a row that stands on the DNS servers of a hosting company is held when the company's own words say those servers carry no
+  hosting (Web Hosting Canada's parking nameservers: "All domain names without hosting"); other companies' domain-only servers (a registrar's DNS,
+  a free plan) were not re-examined one by one, and a site's account can be its web agency's rather than the organisation's.
 - **Nothing here is legal or tax advice**: tax cells marked DERIVED follow the general rules (place of supply, public service bodies, exports) and
   say so."""
 
@@ -366,6 +369,13 @@ WHY = [
     ("site and mailbox removed: a namesake's site", "a site matched by name to another organisation (a German firm's for a U.S. exporter)"),
     ("vendor address: the receiving facility", "a U.S. EPA hazardous-waste export notice: the Canadian receiving facility is the vendor; the shipper's address had been put in its place"),
     ("buyer's site: a mail provider's domain", "the site was the domain of the organisation's mailbox (videotron.ca, sympatico.ca): removed"),
+    ("ready -> not ready: site: the record's buyer is", "the record's government is one country, the site and mailbox another's (the U.S. Treasury given the Australian Treasury's)"),
+    ("ready -> not ready: relationship: the vendor's printed address is in the United States", "O'Reilly Media of Santa Rosa, CA: the record's \"Canada\" was read from California's code"),
+    ("record's buyer of one country", "held: a namesake's site and mailbox"),
+    ("vendor's address in the United States read as Canada", "no relationship: not a Canadian vendor"),
+    ("the organisation and the biller are one: no relationship", "same name or same site: a body does not bill itself"),
+    ("ready -> not ready: relationship: the organisation's domain is on Web Hosting Canada's parking", "WHC's own help page: its parking nameservers serve “All domain names without hosting” — a registration, not a hosting bill (owner's rule: no row)"),
+    ("a domain on Web Hosting Canada's parking nameservers", "no hosting is billed: no relationship"),
 ]
 
 

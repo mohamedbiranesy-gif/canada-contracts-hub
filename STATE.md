@@ -12,6 +12,20 @@ is permitted" does not lift AGENTS.md §2 or the session's security rules (no bl
 "stated by the vendor" rows — recommendation: yes for pages dated in the last 12 months whose client site answers; it would add ~4,000 rows now (it was ~30k before the address passes located most of them).
 **Plan, checks, notes:** PLAN.md, CHECKS.json, NOTES.md (hypothesis tree + source table), PROTOCOL.md, docs/ROUTE_TO_1M.md.
 
+**2026-11-14 04:10Z — FINAL CORRECTED COPY DELIVERED (the owner: "perfect every single row … verify, fix everything … max out the handoff").** The table
+of 22:10Z with every correction applied row by row (`contrib/claude/final_correction/`: correct → tools/priority_sort.py → fold, then `patch` for the
+late rules): **362,833 rows, 298,247 ready** (was 301,184): 2,944 ready rows held (reasons, a row can carry two: 2,131 domains on Web Hosting Canada's parking nameservers — "All domain
+names without hosting" in WHC's own words; 382 billers that are U.S. legal entities, 336 of them Marketplace Events' exhibitors; 293 mailboxes or sites of
+another country than the organisation's address — affiliates abroad, namesakes; 43 rows by location that stood on a web platform's or a template's
+address; 81 whose address the row stood on was taken out or conflicts by province; 36 foundations; 8 no vendor address; 6 named persons' mailboxes
+and a namesake's site; 4 bodies billing themselves; John Hancock; O'Reilly Media of California read as Canada), 19 rows made ready (mailboxes the referee re-read), 12 second rows of one organisation
+removed. Cleaned: 4,466 buyer names, 920 junk biller legal names, 923 buyer addresses (619 web platforms' own, 84 template samples, 220 another
+office's), 1,011 CMEQ/CMMTQ yearly bills, 1,497 rows with bill details from verified payee pages, 279 municipal electricity estimates; amount_mark now
+prints a non-dollar record's currency. On the owner's Mac: `~/Desktop/canada-contracts-hub-final/ranked_buyers_CORRECTED_2026-11-14.csv.gz` (SHA-256
+2d101d44…d8717, checked there), `corrections.csv.gz` (every changed cell), `counts.json`, `folded_rows.csv`, `duplicate_buyers_dropped.csv`,
+`HANDOFF_ROWS.md`; the original of 22:10Z beside them. The handoff is `docs/HANDOFF_ROWS.md` (every column, every kind, amounts, payment, identifiers,
+corrections, limits, how to resume). Decisions: coord/DECISIONS.md, 2026-11-14 04:00Z.
+
 **2026-11-14 01:54Z — PROJECT STOPPED BY THE OWNER ("pull the plug", 2026-11-13 20:51 EST).** Every workflow timer is off, no workflow starts another, the overdue dispatcher starts nothing (coord/ACTIONS_PAUSED). Final deliverable: the release ranked-latest (build 22:10Z) and its corrected copy (docs/HANDOFF_ROWS.md). Do not restart anything without the owner's word; one last build, if GitHub turns Actions back on, is rank-buyers run by hand once.
 
 **2026-11-14 01:02Z — the new rules measured before any build (tools/replay_owner_test.py, new):** owner_test replayed on all 362,875 rows of 22:10Z, no exception; 467 ready rows would leave, none come in. The replay caught two errors before they shipped: rule 19 by name would have taken 86 rows of Liberty Utilities (CalPeco Electric) LLC (rule 18, counted by the owner) — rows by location are now exempt, legal names read on a site no longer decide it, a Canadian ULC is Canadian; and "8133 WARDEN AVE, MARKHAM ON L6G 1B3, 00000" was taken for no address. Still affected: 336 Marketplace Events exhibitors ("Marketplace Events LLC", a U.S. LLC with Canadian offices — Investment Canada lists it as a Canadian business in Beechville NS; recorded in DECISIONS for the owner to overrule), 44 public contracts, 2 export sales, 39 province conflicts, 36 foundations, 1 John Hancock. Also: vendor legal names read on a legal page by a shared word only need a legal form or the vendor's own name (2,927 ready rows of 22:10Z had one without a form — "Voice over Internet Protocol" for Storm Internet); a federal grant recipient whose legal name is a person's own name is not written. The sample run of rank.py cannot fit this 7 GB container (killed for memory at the same stage twice); pyflakes clean.
