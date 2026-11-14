@@ -168,6 +168,12 @@
    "method": "SUMMARY.md 'municipalities outside Ontario'; expected ~240 location rows estimated, ~60 rows $5,000+ (19 location + ~40 give-way); 5 rows' arithmetic checked (population × kWh a resident ÷ 12 × ¢)",
    "cmd": "grep 'municipalities outside Ontario' coord/results/ranked/SUMMARY.md",
    "status": "pending (pushed 2026-11-13 ~21:30Z)"
+  },
+  {
+   "deliverable": "licences issued by the CMEQ and the CMMTQ carry the corporation's own yearly dues and the fee to keep the licence (not only the Régie's table); the CMEQ's yearly notice is an invoice with its own number",
+   "method": "in the next table, the ready rows of the two vendors: bill_amount_indicative starts '837.94 $ a year in dues' (CMEQ) / '881 $ a year in dues' (CMMTQ), bill_amount_calculated gives the sum, CMEQ rows carry the avis de cotisation sentence in bill_delivery_as_published; payment stays 'by the kind of relationship' (no card-only sentence taken); counts before (22:10Z): CMEQ 524 ready, CMMTQ 465 ready",
+   "cmd": "python3 -c \"import gzip,csv,collections;csv.field_size_limit(10**9);c=collections.Counter((x['vendor'][:40],x['bill_amount_indicative'][:30],x['ship_ready'][:3]) for x in csv.DictReader(gzip.open('ranked_buyers.csv.gz','rt')) if 'maîtres' in x['vendor']);print(c.most_common(8))\"",
+   "status": "pending (pushed 2026-11-14 ~00:25Z; waits for a build — GitHub Actions disabled for the account since 2026-11-13 23:39Z)"
   }
  ]
 }
