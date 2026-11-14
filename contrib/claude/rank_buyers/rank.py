@@ -2897,7 +2897,32 @@ for x in rows:                      # row without a jurisdiction was quadratic �
         seen_any.setdefault(k, x)
     merged.append(x)
 rows = merged
-_free(globals(), "seen", "seen_any", "merged")  # they hold every row: a row written at the end could not be released (2026-11-10: +0.9 GB during the last pass)
+# 2026-11-14 (the table of 22:10Z): one organisation on two rows of different origins — "Township of Howick" (its own energy report) and "Howick" (where
+# it is), both at howick.ca; "Municipalité de Hébertville" (a contract) and "Hébertville" (where it is) at hebertville.qc.ca; the Nuclear Waste Management
+# Organization twice at nwmo.ca. Rows of one website whose names come to the same words once a municipality's words, a legal form and a closing
+# parenthesis are set aside are one buyer (owner 2026-11-11 20:36 EST: "no buyer twice is hard rule"): the best-ranked row stands for it and carries all
+# its keys. A site several bodies share (a government's, a web platform's) is left to the keys above.
+_DUP_TYPE = {"city", "town", "township", "village", "municipality", "municipalite", "municipal", "ville", "paroisse", "canton", "cantons", "corporation", "the", "of",
+             "de", "du", "des", "la", "le", "les", "d", "l", "county", "regional", "region", "district", "rural", "rm", "inc", "ltd", "llc", "corp", "co", "limited", "ltee"}
+_DUP_PLATFORM = re.compile(r"(?:^|\.)(?:wixsite\.com|squarespace\.com|wordpress\.com|business\.site|blogspot\.com|weebly\.com|godaddysites\.com|myshopify\.com|"
+                           r"facebook\.com|sites\.google\.com|linktr\.ee|municipalites-du-quebec\.com)$")
+_by_site, merged, n_dup = {}, [], 0
+for x in rows:
+    _h = host_of(x.get("buyer_website") or "") if x.get("buyer_website") else ""
+    _c = " ".join(w for w in norm(re.sub(r"\s*\([^()]*\)?\s*$", "", x.get("buyer") or "")).split() if w not in _DUP_TYPE)
+    if _h and len(_c) >= 3 and not _DUP_PLATFORM.search(_h) and not SHARED_GOV.match(registrable(_h) or _h):
+        hit = _by_site.get((_h, _c))
+        if hit is not None:
+            allk = sorted(set((hit.get("keys") or "").split("|")) | set((x.get("keys") or "").split("|")) - {""})
+            hit["keys"], hit["buyer_keys"] = "|".join(allk), len(allk)
+            n_dup += 1
+            continue
+        _by_site[(_h, _c)] = x
+    merged.append(x)
+rows = merged
+print("one row per buyer: rows of one website whose names are the same once a municipality's words, a legal form and a closing parenthesis are set aside, "
+      "folded into the best-ranked row: %d" % n_dup)
+_free(globals(), "seen", "seen_any", "merged", "_by_site")  # they hold every row: a row written at the end could not be released (2026-11-10: +0.9 GB during the last pass)
 # owner 2026-11-04 ("each row as populated as possible"): what the lanes read on the SAME page as the verified mailbox —
 # AP phone, invoice mailing address, invoicing requirements / payment terms, invoice portal (an extra channel, never the contact)
 EXTRA = {}

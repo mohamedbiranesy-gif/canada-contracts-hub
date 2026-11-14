@@ -180,6 +180,12 @@
    "method": "SUMMARY.md counter 'buyer named by one trade word alone'; measured on 22:10Z: 104 ready rows (125 in all), 60 sampled hits read, all genuine; guards tested: The Studio / thestudio.ca, Moving Co / movingco.ca, Care & Co / careandco.ca, LA AUTOMOTIVE LTD. / laautomotive.ca, Centre A, Spa La La keep their names",
    "cmd": "grep -i 'one trade word' coord/results/ranked/SUMMARY.md",
    "status": "pending (pushed 2026-11-14 ~01:20Z; waits for a build)"
+  },
+  {
+   "deliverable": "no buyer twice: rows of one website whose names are the same once a municipality's words, a legal form and a closing parenthesis are set aside are folded into the best-ranked row (Township of Howick / Howick, Zorra Township / Township of Zorra, NWMO twice)",
+   "method": "rank.log line 'one row per buyer: rows of one website …'; measured on 22:10Z: 22 groups, 22 rows folded (3 of them ready), all 22 read and genuine; web platforms (wixsite, squarespace …) and government-wide domains left out",
+   "cmd": "grep 'one row per buyer: rows of one website' rank.log",
+   "status": "pending (pushed 2026-11-14 ~00:45Z; waits for a build)"
   }
  ]
 }
