@@ -508,28 +508,33 @@ def contract_bill(x):
 
 
 def amount_mark(x):
-    """the class of the row's amount (see FLOOR), with the figure it rests on"""
+    """the class of the row's amount (see FLOOR), with the figure it rests on. The figure of a contract is followed by its currency when the record's
+    is not the Canadian dollar (2026-11-14: "725,825,429.28" for Rwanda's development board is in Rwandan francs). The class is still read on the
+    record's own figure, not converted: of the ready rows of 2026-11-14 in a currency weaker than the dollar, none is near the line (SEK 1,830,855 and
+    1,600,000; DKK 80,000,000; RWF 725,825,429), and a rate of exchange would be a figure of no record."""
     amt, col = published_amount(x)
     est = estimated_amount(x)
+    _cm = re.match(r"\s*([A-Z]{3})\b", str(x.get("currency") or ""))
+    cur = (" " + _cm.group(1)) if (_cm and _cm.group(1) != "CAD" and col == "contract_value") else ""
     if col == "contract_value" and is_ceiling(x):
-        return ("5 no amount (the published value, %s, is the ceiling of a framework, a multiple-award vehicle or a roster the buyer may order under; "
-                "what this vendor bills under it is not published)" % format(amt, ",.0f"))
+        return ("5 no amount (the published value, %s%s, is the ceiling of a framework, a multiple-award vehicle or a roster the buyer may order under; "
+                "what this vendor bills under it is not published)" % (format(amt, ",.0f"), cur))
     if col == "contract_value":
         bill, how, words = contract_bill(x)
         n0 = lambda v: format(v, ",.0f")
         if how == "calculated":
-            return ("%s published, %s a bill (the contract's value %s: %s over its term, calculated)"
-                    % ("1" if bill >= FLOOR else "3", "$5,000 or more" if bill >= FLOOR else "under $5,000", n0(amt), words))
+            return ("%s published, %s a bill (the contract's value %s%s: %s over its term, calculated)"
+                    % ("1" if bill >= FLOOR else "3", "$5,000 or more" if bill >= FLOOR else "under $5,000", n0(amt), cur, words))
         if how == "estimated":
-            return ("%s estimated, %s a bill (the contract's value %s: %s if it runs the buyer's average term — see bill_amount_calculated)"
-                    % ("2" if bill >= FLOOR else "4", "$5,000 or more" if bill >= FLOOR else "under $5,000", n0(amt), words))
+            return ("%s estimated, %s a bill (the contract's value %s%s: %s if it runs the buyer's average term — see bill_amount_calculated)"
+                    % ("2" if bill >= FLOOR else "4", "$5,000 or more" if bill >= FLOOR else "under $5,000", n0(amt), cur, words))
     n = lambda v: format(v, ",.2f").rstrip("0").rstrip(".")
     if amt is not None and amt >= FLOOR:
-        return "1 published, $5,000 or more (%s: %s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt))
+        return "1 published, $5,000 or more (%s: %s%s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt), cur)
     if est is not None and est >= FLOOR:
         return "2 estimated, $5,000 or more (%s, calculated — see bill_amount_calculated%s)" % (n(est), ("; published: %s" % n(amt)) if amt is not None else "")
     if amt is not None:
-        return "3 published, under $5,000 (%s: %s%s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt), ("; estimated %s" % n(est)) if est is not None else "")
+        return "3 published, under $5,000 (%s: %s%s%s)" % ("the contract's value" if col == "contract_value" else "the biller's published amount", n(amt), cur, ("; estimated %s" % n(est)) if est is not None else "")
     if est is not None:
         return "4 estimated, under $5,000 (%s, calculated — see bill_amount_calculated)" % n(est)
     return "5 no amount"
@@ -838,6 +843,8 @@ def owner_test(x):
         out.append("relationship: the vendor is a company abroad that a Canadian company owns, not a Canadian vendor (AGENTS.md rule 19)")
     if _has(x, "buyer_name_fault"):
         out.append("buyer not named: " + x["buyer_name_fault"][:120])  # AGENTS.md §2.2 (rank.py: an image's file name as the name, and no site of its own)
+    if _has(x, "row_fault"):  # faults a later step found on the row, " ;; " between two (contrib/claude/final_correction/correct_table.py, 2026-11-14)
+        out += [f[:320] for f in x["row_fault"].split(" ;; ") if f.strip()]
     if _has(x, "vendor_registry_warning"):
         out.append("flag: vendor registry warning")
     # 2026-11-12 (rule 13: a field nothing published fills is named on the row and no longer takes it out): the purchase-order number a buyer

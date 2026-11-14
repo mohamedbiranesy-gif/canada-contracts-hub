@@ -3456,6 +3456,25 @@ _WE_AFTER = re.compile(r"\s*[.,]?\s*\((?:hereinafter\s+|ci-apr[èe]s\s+)?[\"“�
 _LEGAL_PERSON = re.compile(r"\b(?:inc|incorporated|incorpor[ée]e|ltd|limited|lt[ée]e|limit[ée]e|llc|llp|l\.?p|corp|corporation|s\.?\s?a|s\.?a\.?r\.?l|s\.?e\.?n\.?c(?:\.?r\.?l)?|enr|ulc|plc|gmbh|"
                            r"society|soci[ée]t[ée]|association|foundation|fondation|coop[ée]rative|co-operative|organization|organisation|university|universit[ée]|college|coll[èe]ge|"
                            r"council|conseil|authority|commission|institute|institut|centre|center|church|[ée]glise|club|federation|f[ée]d[ée]ration|trust|board|bureau|office)\b\.?", re.I)
+_LINK_WORDS = re.compile(r"(?i)&|\b(?:and|et|the|of|de|du|des|la|le|les|l)\b")
+_SQUASH = lambda t: re.sub(r"[^a-z0-9]", "", unicodedata.normalize("NFKD", _LINK_WORDS.sub(" ", t or "")).encode("ascii", "ignore").decode().lower())
+_LEGAL_JUNK = re.compile(r"(?i)\b(?:or its|or their|its (?:licensors|partners|affiliates|suppliers)|licensors|affiliates|copyright|trademarks?|protected by|all rights|"
+                         r"were referred|referred to us)\b")
+def weak_legal_page_name(cand, vendor, site=""):
+    """2026-11-14: a name read on a legal page that carries no legal form and is not the vendor's own name — one does not contain the other, letters and
+    digits only, "and" / "&" and the small words left out ("Chambre de commerce Kamouraska-L’Islet" / "CHAMBRE DE COMMERCE KAMOURASKA-L ISLET" are one
+    name, and "Food and Beverage Atlantic" / "Food & Beverage Atlantic"; "Voice over Internet Protocol" is not Storm Internet's, "Town of Field" not FIELD
+    LLP's, "Italian Trade Agency" not the Italian Chamber of Commerce of Ontario's). The vendor's own site also names it: its domain begins or ends the name
+    (8 letters or more: "TechWyse Internet Marketing" for techwyse.com, "Regroupement Naissances Respectées" for naissancesrespectees.org), or the name's
+    initials are the domain ("Réseau Québec maritime" for rqm.quebec). A sentence of the page ("SIMAALI or SIMAALI s licensors") never is."""
+    if _LEGAL_JUNK.search(cand or ""):
+        return True
+    sc, sv = _SQUASH(cand), _SQUASH(re.sub(r"\s*\(.*$", "", vendor or ""))
+    if len(sc) < 3 or _LEGAL_PERSON.search(cand or "") or (sv and (sv in sc or sc in sv)):
+        return False
+    lab = re.sub(r"[^a-z0-9]", "", ((registrable(host_of(site) or "") or "").split(".")[0] if site else "").lower())
+    ini = "".join(w[0] for w in re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", _LINK_WORDS.sub(" ", cand)).encode("ascii", "ignore").decode().lower()))
+    return not ((len(lab) >= 8 and (sc.startswith(lab) or sc.endswith(lab))) or (len(lab) >= 3 and ini == lab))
 _PLATFORM_CO = re.compile(r"\b(?:odoo|shopify|wix|squarespace|godaddy|weebly|webflow|lightspeed|bigcommerce|automattic|wordpress|jimdo|duda|square|stripe|paypal|google|meta platforms|facebook|"
                           r"mailchimp|intuit|hubspot|cloudflare|amazon|microsoft|apple|ecwid|wordfence|mindbody|vagaro|jane software|growthzone|chambermaster|wild apricot|personify|"
                           r"civicplus|granicus|esolutions|blackbaud|eventbrite|ticketmaster|vimeo|youtube|linkedin|instagram|tiktok|twitter|yelp|tripadvisor|opentable|doordash|uber)\b", re.I)
@@ -3708,7 +3727,7 @@ for x in rows:
                 # the vendor is not its name — "Voice over Internet Protocol" for Storm Internet, "Town of Bonnyville" for the Bonnyville and District Chamber,
                 # "MEMBERSHIP The Masonry Institute": by a shared word alone, such a name is taken only with a legal form or when it is the vendor's very name
                 # (nor as the site's operator: "Dealer Login Community" for Notus Electronics)
-                _weak = bool(cand) and k == "legal_name_stated" and not _LEGAL_PERSON.search(cand) and norm(cand) != norm(re.sub(r"\s*\(.*$", "", x.get("vendor") or ""))
+                _weak = bool(cand) and k == "legal_name_stated" and weak_legal_page_name(cand, x.get("vendor") or "", x.get("vendor_website") or "")
                 if _weak:
                     n_ox["vendor legal name from a legal page, by a shared word only, left: no legal form and not the vendor's own name"] += 1
                 if cand and not _weak and name_overlap(cand, x.get("vendor") or "", x.get("vendor_website") or ""):
@@ -5874,7 +5893,7 @@ def name_from_page_words(name, website):
                 head = " ".join(toks[:k_ + 1])
                 if re.fullmatch(r"[A-Z0-9&]{2,6}", head.strip(" -:")) and len(rest.split()) >= 3:
                     break  # an acronym before its words ("INL - International Iberian Nanotechnology Laboratory"): the name stays whole
-                if _SEO_MARK.search(rest) and not _LEGAL_TAIL.search(rest):
+                if _SEO_MARK.search(rest) and not _LEGAL_TAIL.search(rest) and not _ORG_HEAD.search(rest.lstrip(" -–—:|,~")):
                     if k_ + 1 < len(toks) and _LEGAL_WORD.match(toks[k_ + 1]):
                         head += " " + toks[k_ + 1]  # "Miralda Ltd. Professional Accounting …": the legal form stays with the name
                     n2 = head.strip(" ~|:–—,-_")
@@ -6460,6 +6479,9 @@ for _ri, x in enumerate(rows):
     _b = (x.get("buyer") or "").strip()
     if _b.endswith("/") and _DOMAIN_NAME.fullmatch(_b.rstrip("/").lower()):
         x["buyer"] = _b = _b.rstrip("/"); n9["buyer name: the slash after its domain name removed"] += 1
+    _b4 = re.sub(r"^[\s,;:>|/·•»«~\-–—]+|[\s,;:>|/·•»«~\-–—]+$", "", _b)  # 2026-11-14: "Luxe Bistro > Home" left "Luxe Bistro >"; "McNeil Designs, Home"
+    if _b4 != _b and len(_b4) >= 3:
+        x["buyer"] = _b = _b4; n9["buyer name: a separator a cut title left at either end removed (> , - |)"] += 1
     if (" | " in _b or "|" in _b) and x.get("buyer_website"):
         _b3 = name_from_title(_b, x["buyer_website"]) or _b.split("|")[0].strip(" -–—:")
         if 3 <= len(_b3) < len(_b):
