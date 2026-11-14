@@ -183,7 +183,7 @@ def main():
             if reasons:
                 flags.append({"file": BF.member(f)[:-4], "row": i, "package": pkg, "buyer": bn, "email": e, "reasons": "; ".join(reasons)})
     # header check
-    hs = set(headers.values())
+    hs = {h for h in headers.values() if h}  # 2026-11-14: an empty part file (no header, no row) is not a second header ("widths [0, 253]")
     if len(hs) != 1 or len(next(iter(hs))) < 92:
         hit("1 header: identical columns in every file (106 since 2026-11-06)", "hard", "files", "%d distinct headers; widths %s" % (len(hs), sorted({len(h) for h in hs})))
     for nk, lst in by_name.items():
