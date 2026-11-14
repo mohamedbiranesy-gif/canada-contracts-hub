@@ -4680,6 +4680,19 @@ if os.path.exists(ROOT + "/data/incoming/claude/claude_gc_recipients.csv"):
             continue  # an individual ("Surname, Given"): never an organisation's BN or legal name
         GCR[_r["kind"]][_r["key"] if _r["kind"] == "buyer" else norm(_r["key"])] = _r
 n_gcr = collections.Counter()
+try:
+    from buyer_pages import FIRST_NAMES as _GCR_FIRST
+    _GCR_FIRST = set(_GCR_FIRST)
+except Exception:
+    _GCR_FIRST = set()
+_GCR_ORGWORD = re.compile(r"\b(?:inc|ltd|limited|corp|company|co|society|association|club|church|centre|center|school|university|college|city|town|village|county|council|"
+                          r"services?|group|farms?|ferme|enterprises?|holdings|foundation|fondation|trust|institute|clinic|studio|shop|nation|band|cooperative|coop|lt[ée]e|"
+                          r"s\.?e\.?n\.?c|enr|llp|llc|lp|partnership)\b|&|\d", re.I)
+def _GCR_PERSON(n):
+    """a recipient whose legal name is a person's own name (a first name, a middle initial or none, a surname): a sole proprietor, never written"""
+    t = re.findall(r"[A-Za-zÀ-ÿ'.-]+", n or "")
+    return (2 <= len(t) <= 3 and t[0].lower() in _GCR_FIRST and not _GCR_ORGWORD.search(n or "")
+            and (len(t) == 2 or re.fullmatch(r"[A-Z]\.?", t[1]) is not None))
 for x in rows:
     k = next((_k for _k in (x.get("keys") or "").split("|") if _k in GCR["buyer"]), (x.get("keys") or "").split("|")[0])
     g = GCR["buyer"].get(k) if k else None
@@ -4691,7 +4704,9 @@ for x in rows:
         x["buyer_bn_as_published"] = "%s (recipient_business_number in the federal grants & contributions disclosure, %s agreement(s), last %s; %s)" % (g["bn_as_published"], g.get("agreements") or "?", g.get("last_agreement_date") or "n/a", g["source_url"]); n_gcr["buyer_bn"] += 1
         if not x.get("buyer_gst_hst_derived"):
             x["buyer_gst_hst_derived"] = g["bn9"] + "RT0001 (derived: BN9 + RT0001; GST/HST registration not confirmed)"
-    if g and g.get("matched_name") and g["bn9"] in (x.get("buyer_bn_as_published") or "") and register_name_takes(x.get("buyer_legal_name_as_published") or "", g["matched_name"]):
+    if g and g.get("matched_name") and _GCR_PERSON(g["matched_name"]):
+        n_gcr["buyer legal name not written: the recipient is a natural person (a sole proprietor's own name)"] += 1  # 2026-11-14: "Karen P Warzonek" for a shop
+    elif g and g.get("matched_name") and g["bn9"] in (x.get("buyer_bn_as_published") or "") and register_name_takes(x.get("buyer_legal_name_as_published") or "", g["matched_name"]):
         # 2026-11-10: the recipient's legal name goes with its number — also on a row that had the number from another source and no name (until
         # this day the name was written only together with the number), and in the place of the same name read off a page
         x["buyer_legal_name_as_published"] = "%s (recipient legal name in the federal grants & contributions disclosure)" % g["matched_name"]; n_gcr["buyer_legal_name"] += 1
