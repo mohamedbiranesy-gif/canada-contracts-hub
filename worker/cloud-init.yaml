@@ -16,7 +16,7 @@ write_files:
       # one pass: take the latest code from GitHub, then run the worker in it
       set -uo pipefail
       cd /home/cch/repo || exit 1
-      timeout 300 git fetch -q origin main && git reset -q --hard origin/main
+      timeout 600 git fetch -q --depth 1 origin main && git reset -q --hard FETCH_HEAD
       exec bash worker/run.sh
   - path: /usr/local/bin/cch-loop
     permissions: "0755"
@@ -46,10 +46,12 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 package_update: true
-packages: [git, python3, python3-venv, python3-pip, jq, sqlite3, unzip, poppler-utils, ca-certificates]
+packages: [git, python3, python3-venv, python3-pip, jq, sqlite3, unzip, poppler-utils, ca-certificates, rsync]
 runcmd:
   - [bash, -c, "id cch >/dev/null 2>&1 || useradd -m -s /bin/bash cch"]
   - [bash, -c, "chown -R cch:cch /etc/cch && chmod 700 /etc/cch"]
-  - [bash, -c, "sudo -u cch git clone -q https://github.com/mohamedbiranesy-gif/canada-contracts-hub.git /home/cch/repo"]
+  # the code only: the repository's history and data (about 17 GB) stay on GitHub; worker/sparse.txt says which folders are checked out
+  - [bash, -c, "sudo -u cch git clone -q --depth 1 --filter=blob:none --sparse https://github.com/mohamedbiranesy-gif/canada-contracts-hub.git /home/cch/repo"]
+  - [bash, -c, "cd /home/cch/repo && sudo -u cch git sparse-checkout set worker tools scripts docs contrib/claude"]
   - [bash, -c, "sudo -u cch mkdir -p /home/cch/data"]
   - [bash, -c, "systemctl daemon-reload && systemctl enable --now cch-worker.service"]

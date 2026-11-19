@@ -1,0 +1,6 @@
+# folders of the repository checked out on the machine (one per line)
+worker
+tools
+scripts
+docs
+contrib/claude

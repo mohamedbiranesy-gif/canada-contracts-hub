@@ -6,6 +6,10 @@ REPO=$(pwd)
 DATA=/home/cch/data
 mkdir -p "$DATA"
 echo "== pass $(date -u +%FT%TZ) at $(git rev-parse --short HEAD)"
+# only the folders the jobs need are checked out (the data folders of the repository are several GB)
+if [ "$(git config core.sparseCheckout)" != "true" ] || ! cmp -s worker/sparse.txt "$DATA/.sparse"; then
+  git sparse-checkout set $(grep -v '^#' worker/sparse.txt) && cp worker/sparse.txt "$DATA/.sparse"
+fi
 REQ=$(sha256sum worker/requirements.txt | cut -c1-12)
 if [ ! -f "$DATA/venv/.req-$REQ" ]; then
   python3 -m venv "$DATA/venv" \
