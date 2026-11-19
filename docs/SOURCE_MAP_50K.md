@@ -61,5 +61,5 @@ with a Canadian address, and every hit is written to `worker-results/discovery/`
 
 ## Honest ceiling (estimate, 2026-11-19)
 
-Contracts only (A–C, D1–D2): about **9,000–14,000** different buyers, the 3,139 of today included. With D3–D5, if they count, the pools
+Contracts only (A–C, D1–D2): about **9,000–13,000** different buyers, the 3,139 of today included (the sum of the estimates above). With D3–D5, if they count, the pools
 are large enough for 50,000 to be in reach; without them, 50,000 is not reachable from any source named here.
