@@ -1,6 +1,23 @@
 {
  "max_parallel": 3,
  "jobs": [
-  {"name": "hello", "cmd": ["{py}", "worker/jobs/hello.py"], "every_hours": 6, "timeout_minutes": 10}
+  {
+   "name": "hello",
+   "cmd": [
+    "{py}",
+    "worker/jobs/hello.py"
+   ],
+   "every_hours": 6,
+   "timeout_minutes": 10
+  },
+  {
+   "name": "usaspending_ca",
+   "cmd": [
+    "{py}",
+    "worker/jobs/usaspending_ca.py"
+   ],
+   "every_hours": 24,
+   "timeout_minutes": 240
+  }
  ]
 }
