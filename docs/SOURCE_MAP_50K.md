@@ -49,9 +49,9 @@ from those counts. Status: **have** (in the dataset), **job** (a worker job exis
 |---|---|---|---|---|---|
 | D1 | Customs import declarations that name both sides: Colombia (DIAN), then Peru, Ecuador, Chile, Paraguay, Uruguay, Central America where published | importers buying from Canadian exporters (FOB value per declaration) | exporter country = Canada on the declaration | 500–2,000 | check (Colombia had 47 rows from one month) |
 | D2 | Canadian companies' announced contracts (press releases, SEDAR+, EDGAR material contracts) | named customers | the announcing company | 200–500 | have (part) |
-| D3 | Industry partners of Canadian university and college research (NSERC Alliance and other partnership programs, Mitacs, OCI, Alberta Innovates): the partner pays its cash contribution to the institution under a research agreement | companies, municipalities, NGOs, foreign firms | the institution | thousands | **ask** + check |
-| D4 | Exhibitors of Canadian trade shows (the organiser's exhibitor list; the booth priced from its published rate card) | companies worldwide | the organiser | thousands | **ask** + check |
-| D5 | Yearly fees over C$3,000 to a Canadian body: TSX/TSXV/CSE listed issuers, Health Canada drug and device establishment licences, CNSC licences | issuers and licence holders, many abroad | the exchange / regulator | 4,000–6,000 | **ask** |
+| D3 | Industry partners of Canadian university and college research (NSERC Alliance and other partnership programs, Mitacs, OCI, Alberta Innovates): the partner pays its cash contribution to the institution under a research agreement | companies, municipalities, NGOs, foreign firms | the institution | thousands | counts (owner 2026-11-19) — check which programs publish their partners |
+| D4 | Exhibitors of Canadian trade shows (the organiser's exhibitor list; the booth priced from its published rate card) | companies worldwide | the organiser | thousands | counts (owner 2026-11-19) — build: list of shows with exhibitor list + rate card |
+| D5 | Yearly fees over C$3,000 to a Canadian body: TSX/TSXV/CSE listed issuers (2,623 counted 2026-11-19, fee C$5,000+ calculated), Health Canada drug and device fees and establishment licences, CNSC licences | issuers and licence holders, many abroad | the exchange / regulator | 4,000–6,000 | counts (owner 2026-11-19) — **jobs `exchange_issuers`, `hc_registers`** |
 
 ## E. Sources nobody has named yet
 
@@ -61,5 +61,5 @@ with a Canadian address, and every hit is written to `worker-results/discovery/`
 
 ## Honest ceiling (estimate, 2026-11-19)
 
-Contracts only (A–C, D1–D2): about **9,000–13,000** different buyers, the 3,139 of today included (the sum of the estimates above). With D3–D5, if they count, the pools
-are large enough for 50,000 to be in reach; without them, 50,000 is not reachable from any source named here.
+Contracts only (A–C, D1–D2): about **9,000–13,000** different buyers, the 3,139 of today included (the sum of the estimates above). D3–D5 count
+(owner, 2026-11-19 08:17 EST); 50,000 is in reach only if the trade-show exhibitors (D4) and the research partners (D3) turn out as large as they look.

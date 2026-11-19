@@ -18,6 +18,36 @@
    ],
    "every_hours": 24,
    "timeout_minutes": 240
+  },
+  {
+   "name": "exchange_issuers",
+   "cmd": [
+    "{py}",
+    "worker/jobs/tool_steps.py",
+    "--step",
+    "{py} tools/exchange_issuers.py pull --work {work}/xc",
+    "--step",
+    "{py} tools/exchange_issuers.py build --work {work}/xc",
+    "--copy",
+    "data/incoming/claude/exchange/issuers.csv.gz"
+   ],
+   "every_hours": 168,
+   "timeout_minutes": 60
+  },
+  {
+   "name": "hc_registers",
+   "cmd": [
+    "{py}",
+    "worker/jobs/tool_steps.py",
+    "--step",
+    "{py} tools/hc_registers.py pull --work {work}/hc",
+    "--step",
+    "{py} tools/hc_registers.py build --work {work}/hc",
+    "--copy",
+    "data/incoming/claude/hc/hc_companies.csv.gz"
+   ],
+   "every_hours": 168,
+   "timeout_minutes": 120
   }
  ]
 }

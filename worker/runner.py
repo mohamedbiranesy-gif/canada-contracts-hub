@@ -80,10 +80,9 @@ for job in CONF["jobs"]:
     if running >= int(CONF.get("max_parallel", 3)):
         break
     # the job runs in its own copy of the code, so the reset of the checkout every 10 minutes never touches a running job, and
-    # files a tool writes inside its copy (progress, caches) stay there from one run to the next (rsync deletes nothing)
+    # files a tool writes inside its copy (progress, caches) stay there from one run to the next (the copy deletes nothing)
     code = os.path.join(DATA, "work", name, "code")
-    os.makedirs(code, exist_ok=True)
-    subprocess.run(["rsync", "-a", "--exclude", ".git", REPO + "/", code + "/"], check=False)
+    shutil.copytree(REPO, code, dirs_exist_ok=True, symlinks=True, ignore=shutil.ignore_patterns(".git"))
     env = dict(os.environ, CCH_OUT=os.path.join(DATA, "out", name), CCH_WORK=os.path.join(DATA, "work", name),
                CCH_CACHE=os.path.join(DATA, "cache"), CCH_REPO=code, PYTHONUNBUFFERED="1")
     os.makedirs(env["CCH_OUT"], exist_ok=True)

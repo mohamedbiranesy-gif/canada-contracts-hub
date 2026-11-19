@@ -2269,3 +2269,11 @@ his computer, and he offered a second GitHub account.
 - **Buyers are counted as organisations**, not as offices of one: a US federal department's sub-agency, a state agency, a city, a
   ministry, a school board count once each; a contracting office or a UN country office does not make a second buyer of its parent.
 
+## 2026-11-19 13:30Z — lane claude: three larger pools count (owner 08:17 EST: "yes they count")
+Asked whether, besides contracts, these count: exhibitors of Canadian trade shows (booth priced from the organiser's rate card), industry
+partners of Canadian university research (cash under a research agreement), yearly fees over C$3,000 billed by a Canadian body. He said yes.
+Without them the source map's ceiling is about 9,000–13,000 buyers (docs/SOURCE_MAP_50K.md). First worker jobs for the fees:
+`exchange_issuers` (tools/exchange_issuers.py: counted here today, 2,623 TSX/TSXV/CSE issuers with a yearly fee of C$5,000 or more,
+calculated from the exchanges' published fee schedules) and `hc_registers` (tools/hc_registers.py: Health Canada's drug and device
+right-to-sell fees and establishment licences). Each buyer still needs its own mailbox before it is a row.
+

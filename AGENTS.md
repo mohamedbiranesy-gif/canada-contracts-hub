@@ -12,6 +12,10 @@ basically LARPed all electricity ones".
 - **The relationship is a contract, purchase order or award of more than C$3,000** (or the equivalent), awarded or started on or after
   **2023-11-19**, billed on invoice and paid by bank transfer or cheque, with the buyer's own mailbox. Utility bills found by location,
   hosting plans and anything paid by card make no row.
+- **Also counted** (owner, 2026-11-19 08:17 EST: "yes they count"): exhibitors of Canadian trade shows (the booth contract, its price from
+  the organiser's published rate card — an estimate, labelled); industry partners of Canadian university and college research (their cash
+  contribution under a research agreement); yearly fees over C$3,000 billed by a Canadian body (stock exchange listing fees, Health Canada's
+  drug and device fees and establishment licences, CNSC licences and the like).
 - **Target: 50,000 different buyers.** Counted 2026-11-19 on the contract dataset: 3,139 (2,436 in Canada, 703 abroad).
 - **The work runs on one Oracle Cloud machine** (`worker/README.md`), steered by editing this repository. GitHub Actions stays off.
 
