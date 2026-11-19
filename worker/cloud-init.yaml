@@ -1,0 +1,55 @@
+#cloud-config
+# canada-contracts-hub worker for one Oracle Cloud "Always Free" machine (Ubuntu 24.04, VM.Standard.A1.Flex).
+# The only thing to change: put your GitHub token on the line under "content:" below, in place of
+# PASTE_YOUR_GITHUB_TOKEN_HERE. Then paste this whole file into "Initialization script" when you create the machine.
+# The token stays on the machine. The machine takes its code from the repository every 10 minutes and pushes what
+# it finds to the branch worker-results; nothing else is installed and nothing listens for connections.
+write_files:
+  - path: /etc/cch/token
+    permissions: "0600"
+    content: |
+      PASTE_YOUR_GITHUB_TOKEN_HERE
+  - path: /usr/local/bin/cch-pass
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      # one pass: take the latest code from GitHub, then run the worker in it
+      set -uo pipefail
+      cd /home/cch/repo || exit 1
+      timeout 300 git fetch -q origin main && git reset -q --hard origin/main
+      exec bash worker/run.sh
+  - path: /usr/local/bin/cch-loop
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      # a pass every 10 minutes, for as long as the machine runs
+      mkdir -p /home/cch/data
+      while true; do
+        /usr/local/bin/cch-pass >> /home/cch/data/pass.log 2>&1
+        tail -c 2000000 /home/cch/data/pass.log > /home/cch/data/pass.log.tmp && mv /home/cch/data/pass.log.tmp /home/cch/data/pass.log
+        sleep 600
+      done
+  - path: /etc/systemd/system/cch-worker.service
+    content: |
+      [Unit]
+      Description=canada-contracts-hub worker (a pass every 10 minutes)
+      Wants=network-online.target
+      After=network-online.target
+      [Service]
+      Type=simple
+      User=cch
+      Group=cch
+      ExecStart=/usr/local/bin/cch-loop
+      Restart=always
+      RestartSec=60
+      Nice=5
+      [Install]
+      WantedBy=multi-user.target
+package_update: true
+packages: [git, python3, python3-venv, python3-pip, jq, sqlite3, unzip, poppler-utils, ca-certificates]
+runcmd:
+  - [bash, -c, "id cch >/dev/null 2>&1 || useradd -m -s /bin/bash cch"]
+  - [bash, -c, "chown -R cch:cch /etc/cch && chmod 700 /etc/cch"]
+  - [bash, -c, "sudo -u cch git clone -q https://github.com/mohamedbiranesy-gif/canada-contracts-hub.git /home/cch/repo"]
+  - [bash, -c, "sudo -u cch mkdir -p /home/cch/data"]
+  - [bash, -c, "systemctl daemon-reload && systemctl enable --now cch-worker.service"]

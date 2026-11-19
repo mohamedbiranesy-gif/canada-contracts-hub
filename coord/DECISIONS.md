@@ -2253,3 +2253,19 @@ Decisions taken while reading the rows (each rule run over all rows and its chan
   figure (the ready rows in weaker currencies are far above the line: SEK 1.8 M and 1.6 M, DKK 80 M, RWF 726 M).
 Left as they are, said in the handoff: a contract value as the source publishes it (a group purchase under one member), a few hundred names that are
 a page's words, the account holder of rows by location.
+
+## 2026-11-19 13:05Z — lane claude: the project restarts under the owner's new goal
+Owner, 2026-11-19 07:24–07:52 EST: 50,000 different buyers anywhere, each with a contract of more than C$3,000 with a Canadian vendor,
+started in the last 3 years, one row per buyer; the electricity rows were not invoice relationships and are out; the work must run off
+his computer, and he offered a second GitHub account.
+- **Counted this morning** (contract dataset on release dataset-latest, 817,598 contracts with a Canada-located vendor; amounts converted
+  to CAD at fixed rates): contracts of C$3,000+ awarded or started since 2023-11-19: 182,440, from **3,139 different buyers**
+  (2,436 in Canada, 703 abroad; 1,434 of them from Québec's SEAO). At C$5,000+: 3,124 buyers. The old table (298,226 rows in the pure
+  file of 2026-11-15) keeps, without its 208,753 electricity rows, 3,795 rows with an amount over C$3,000 (2,804 published).
+- **Where it runs:** not a second free GitHub account (GitHub's terms: one free account per person; Actions was switched off on the
+  first account on 2026-11-13 for the crawling, and its terms bar that use). One Oracle Cloud Always Free machine instead (2 OCPU,
+  12 GB, 200 GB, 10 TB out a month), created by the owner with `worker/cloud-init.yaml`; it resets to origin/main every 10 minutes,
+  runs the due jobs of `worker/jobs.json`, and force-pushes their output to the branch `worker-results`. coord/ACTIONS_PAUSED stays.
+- **Buyers are counted as organisations**, not as offices of one: a US federal department's sub-agency, a state agency, a city, a
+  ministry, a school board count once each; a contracting office or a UN country office does not make a second buyer of its parent.
+

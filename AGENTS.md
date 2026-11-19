@@ -3,6 +3,18 @@
 Read this whole file before doing anything. It applies to Codex, Jules, Gemini CLI, Claude, and any other agent.
 
 ## 1. Mission
+**Owner goal (2026-11-19, binding; where the rules below differ, this wins).** His words (07:24–07:52 EST): "the goal is purely over
+5000 contracts … anywhere on earth … Canadian vendor", "only one buyer … it all needs to be different buyers … 50,000 different buyers
+internationally", "above like 3,000, that's like the real cutoff", "let's do started in the last 3 years"; of the electricity rows: "you
+basically LARPed all electricity ones".
+- **One row per buyer**, any organisation anywhere on earth. The vendor is Canadian: its own address in the source is in Canada, or its
+  Canadian business registration proves it (labelled as such).
+- **The relationship is a contract, purchase order or award of more than C$3,000** (or the equivalent), awarded or started on or after
+  **2023-11-19**, billed on invoice and paid by bank transfer or cheque, with the buyer's own mailbox. Utility bills found by location,
+  hosting plans and anything paid by card make no row.
+- **Target: 50,000 different buyers.** Counted 2026-11-19 on the contract dataset: 3,139 (2,436 in Canada, 703 abroad).
+- **The work runs on one Oracle Cloud machine** (`worker/README.md`), steered by editing this repository. GitHub Actions stays off.
+
 Build the most complete, verified dataset of **ongoing contracts whose vendor is located in Canada**, with every
 public fact about each contract, buyer and vendor:
 - **Contract:** identifiers / PO / reference, dates, value, link.

@@ -1,0 +1,6 @@
+{
+ "max_parallel": 3,
+ "jobs": [
+  {"name": "hello", "cmd": ["{py}", "worker/jobs/hello.py"], "every_hours": 6, "timeout_minutes": 10}
+ ]
+}
